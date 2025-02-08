@@ -14,16 +14,18 @@ bun dev
 
 ## Memos
 DB: Firebase
-shadcn-ui: utiliser les commandes pour ajouter des components
+shadcn-ui: utiliser les commandes pour ajouter des ui components
   -> ex pour form: npx shadcn-ui@latest add form
 
-
 ## TODO
-Refacto show page into components
-Automatically sort shows by date
-Add edit/delete form (admin)
+[x] create/edit/delete shows (admin)
+[] Automatically sort shows by date (backend + front lors edit)
+job that deletes the shows after the date is passed
+faire une db de dev et une de prod
 Add auth
 Lyrics upload
 Form Contact
 Musique: spotify player
 Home: youtube videos (updatable)
+
+date added to state after add: "2025-02-21T23:00:00.000Z"

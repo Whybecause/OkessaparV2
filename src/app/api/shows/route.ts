@@ -9,20 +9,33 @@ export type Shows = {
   date: Date;
   venue: string;
   ticketLink?: string;
-  createdAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export async function GET() {
-  const shows = await db.collection("shows").get();
-  const data = shows.docs.map((doc) => {
-    const { date, ...rest } = doc.data();
-    return {
-      id: doc.id,
-      date: date ? date.toDate() : null,
-      ...rest,
-    }
-  });
-  return NextResponse.json(data);
+  try {
+    const shows = await db.collection("shows").get();
+    const data = shows.docs.map((doc) => {
+      const { date, ...rest } = doc.data();
+      return {
+        id: doc.id,
+        date: date ? date.toDate() : null,
+        ...rest,
+      }
+    });
+
+    data.sort((a, b) => (a.date && b.date ? a.date - b.date : 0));
+
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Failed to get shows:', error);
+
+    return NextResponse.json(
+      { error },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(
@@ -31,13 +44,12 @@ export async function POST(
   try {
     const body = await req.json();
     const { city, country, date, venue, ticketLink } = body;
-console.log('DAte =', typeof date);
+
     if (!country || !city || !date || !venue) {
-      return NextResponse.json({
-        error: "Tous les champs sont requis"
-      }, {
-        status: 400
-      })
+      return NextResponse.json(
+        { error: "Tous les champs sont requis" },
+        { status: 400 }
+      );
     }
 
     const newShow: Shows = {
@@ -52,18 +64,21 @@ console.log('DAte =', typeof date);
     const docRef = await db.collection("shows").add({
       ...newShow,
       date: Timestamp.fromDate(newShow.date),
-      createdAt: Timestamp.fromDate(newShow.createdAt)
+      createdAt: Timestamp.fromDate(newShow.createdAt!)
     })
+
     const createdShow = { id: docRef.id, ...newShow }
-    return NextResponse.json(createdShow,
-      {
-        status: 201
-      });
+
+    return NextResponse.json(
+      createdShow,
+      { status: 201 }
+    );
   } catch (error) {
-    return NextResponse.json({
-      error
-    }, {
-      status: 500
-    });
+    console.error('Failed to create show', error);
+
+    return NextResponse.json(
+      { error },
+      { status: 500 }
+    );
   }
 }
