@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { Shows } from "@/app/api/shows/route";
 import { useConfirm } from "@/hooks/use-confirm";
 import { Button } from "@/components/ui/button";
-import { handleError } from "@/lib/utils";
+import { handleErrorClient } from "@/lib/handleErrorClient";
 
 interface DeleteShowFormProps {
   id: string;
@@ -34,7 +34,7 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({ id, setShows }) => {
       toast.success("Concert supprimé");
       //eslint-disable-next-line
     } catch (error) {
-      handleError(error);
+      handleErrorClient(error);
     } finally {
       setIsDeleting(false);
     }

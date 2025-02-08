@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import Container from "./ui/container";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
@@ -17,27 +16,26 @@ const Navbar = () => {
     { href: "/contact", label: "Contact" },
   ];
   return (
-    <Container>
-        <div className="border-b">
-        <nav className="h-16 flex">
-          <ul className="flex space-x-10 items-center justify-center w-full">
-            {NAV_ROUTES.map((route) => (
-              <li key={route.href}>
-                <Link
-                  href={route.href}
-                  className={cn(
-                    "text-xl font-medium transition-colors hover:text-emerald-300",
-                    pathname === route.href ? "text-emerald-300" : "text-neutral-100"
-                  )}
-                >
-                  {route.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <div className="mx-auto max-w-7xl w-full">
+      <div className="h-16 items-center border-b justify-center flex w-full">
+        <nav className="space-x-4 sm:space-x-16 md:space-x-24 lg:space-x-32">
+          {NAV_ROUTES.map((route) => (
+            <Link
+              href={route.href}
+              key={route.href}
+              className={cn(
+                "text-lg md:text-xl font-medium transition-colors hover:text-emerald-300",
+                pathname === route.href
+                  ? "text-emerald-300"
+                  : "text-neutral-100"
+              )}
+            >
+              {route.label}
+            </Link>
+          ))}
         </nav>
+      </div>
     </div>
-      </Container>
   );
 };
 

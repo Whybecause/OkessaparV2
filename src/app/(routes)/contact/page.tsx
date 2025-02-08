@@ -1,11 +1,13 @@
-import Container from "@/components/ui/container"
+import Container from "@/components/ui/container";
 
 const ContactPage = () => {
   return (
     <Container>
-      <h1>Contact</h1>
+      <div className="p-8">
+        <h1>Contact</h1>
+      </div>
     </Container>
-  )
-}
+  );
+};
 
 export default ContactPage;

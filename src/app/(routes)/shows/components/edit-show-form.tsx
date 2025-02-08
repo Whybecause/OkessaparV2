@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
-import { handleError } from "@/lib/utils";
 import { Shows } from "@/app/api/shows/route";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import toast from "react-hot-toast";
+import { handleErrorClient } from "@/lib/handleErrorClient";
 
 interface EditShowFormProps {
   id: string;
@@ -57,7 +57,7 @@ const EditShowForm: React.FC<EditShowFormProps> = ({ id, data, setShows }) => {
       setIsOpen(false);
       toast.success("Concert modifié");
     } catch (error) {
-      handleError(error);
+      handleErrorClient(error);
     } finally {
       setIsLoading(false);
     }

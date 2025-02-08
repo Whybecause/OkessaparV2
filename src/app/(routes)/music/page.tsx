@@ -1,11 +1,13 @@
-import Container from "@/components/ui/container"
+import Container from "@/components/ui/container";
 
 const MusicPage = () => {
   return (
     <Container>
-      <h1>Musique</h1>
+      <div className="p-8">
+        <h1>Musique</h1>
+      </div>
     </Container>
-  )
-}
+  );
+};
 
 export default MusicPage;

@@ -9,7 +9,8 @@ import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Shows } from "@/app/api/shows/route";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { handleError } from "@/lib/utils";
+import Container from "@/components/ui/container";
+import { handleErrorClient } from "@/lib/handleErrorClient";
 
 const initialData = {
   country: "France",
@@ -41,20 +42,18 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
       toast.success("Date ajoutée");
       form.reset(initialData);
     } catch (error) {
-      handleError(error);
+      handleErrorClient(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="flex justify-end mb-4">
+    <Container>
         <Button onClick={() => setIsOpen(true)} variant="outline">
           <Plus />
           Ajouter un concert
         </Button>
-      </div>
 
       <Modal
         title="Ajouter un concert"
@@ -64,7 +63,7 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
       >
         <ShowForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
       </Modal>
-    </>
+    </Container>
   );
 };
 
