@@ -44,7 +44,7 @@ const ShowsPage = () => {
           <Spinner />
         ) : (
           <>
-            {shows.length === 0 && <div><p className="text-lg font-semibold text-center">Pas de concerts pour l'instant, ça bosse... </p></div>}
+            {shows.length === 0 && <div><p className="text-lg font-semibold text-center">Pas de concerts pour l&apos;instant, ça bosse... </p></div>}
             <Table>
               <TableBody>
                 {shows.map((show) => (

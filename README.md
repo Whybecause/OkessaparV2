@@ -19,13 +19,15 @@ shadcn-ui: utiliser les commandes pour ajouter des ui components
 
 ## TODO
 [x] create/edit/delete shows (admin)
-[] Automatically sort shows by date (backend + front lors edit)
-job that deletes the shows after the date is passed
-faire une db de dev et une de prod
-Add auth
-Lyrics upload
-Form Contact
-Musique: spotify player
-Home: youtube videos (updatable)
+[x] Automatically sort shows by date (backend + front lors edit)
+[x] faire une db de dev et une de prod (penser ajoute NODE_ENV=production sur vercel)
+[] cron job that deletes the shows after the date is passed (node-cron + github action)
+[] Lyrics upload
+[] Add auth
+[] Form Contact
+[] Musique: spotify player
+[] Home: youtube videos (updatable)
+[] update gist with .env.local et les json de firebase
+[] optimiser SEO
 
 date added to state after add: "2025-02-21T23:00:00.000Z"
