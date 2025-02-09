@@ -5,7 +5,8 @@ import BackButton from "@/components/back-button";
 import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/lib/handleErrorServer";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
+import EditLyrics from "../components/edit-lyrics";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
@@ -25,10 +26,8 @@ const LyricPage = async ({ params }: { params: { songName: string } }) => {
           <div className="flex justify-between">
             <BackButton />
             <div className="space-x-2">
-              <Button variant="secondary">
-                <Pencil />
-              </Button>
-              <Button variant="destructive">
+              <EditLyrics songName={lyric.songName} content={lyric.content} />
+              <Button variant="destructive" size="icon">
                 <Trash />
               </Button>
             </div>
@@ -49,7 +48,7 @@ const LyricPage = async ({ params }: { params: { songName: string } }) => {
       </>
     );
   } catch (error: unknown) {
-    handleErrorServer(error, "Failed to get lyrics");
+    return handleErrorServer(error, "Failed to get lyrics");
   }
 };
 

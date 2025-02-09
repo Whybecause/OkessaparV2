@@ -37,6 +37,7 @@ const Editor = ({
     submitRef.current = onSubmit;
     placeholderRef.current = placeholder;
     disabledRef.current = disabled;
+    defaultValueRef.current = defaultValue;
   });
 
   useEffect(() => {
