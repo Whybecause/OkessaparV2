@@ -1,4 +1,6 @@
+"use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,10 +16,10 @@ import { handleErrorClient } from "@/lib/handleErrorClient";
 interface EditShowFormProps {
   id: string;
   data: Shows;
-  setShows: React.Dispatch<React.SetStateAction<Shows[]>>;
 }
 
-const EditShowForm: React.FC<EditShowFormProps> = ({ id, data, setShows }) => {
+const EditShowForm: React.FC<EditShowFormProps> = ({ id, data }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,30 +34,10 @@ const EditShowForm: React.FC<EditShowFormProps> = ({ id, data, setShows }) => {
   const handleEdit = async (data: ShowsFormValue) => {
     try {
       setIsLoading(true);
-      const response = await axios.patch<Shows>(`/api/shows/${id}`, data);
-
-      setShows((prev) => {
-        const updatedShows = prev.map((show) =>
-          show.id === id
-            ? {
-                ...show,
-                ...response.data,
-              }
-            : show
-        );
-
-        updatedShows.sort((a, b) => {
-          // Convertir les dates en objets Date et les comparer avec getTime()
-          const dateA = a.date instanceof Date ? a.date.getTime() : new Date(a.date).getTime();
-          const dateB = b.date instanceof Date ? b.date.getTime() : new Date(b.date).getTime();
-
-          return dateA - dateB;
-        });
-
-        return updatedShows;
-        });
+      await axios.patch<Shows>(`/api/shows/${id}`, data);
       setIsOpen(false);
       toast.success("Concert modifié");
+      router.refresh();
     } catch (error) {
       handleErrorClient(error);
     } finally {

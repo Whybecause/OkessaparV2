@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -19,11 +22,8 @@ const initialData = {
   ticketLink: "",
 };
 
-interface AddShowFormProps {
-  setShows: React.Dispatch<React.SetStateAction<Shows[]>>;
-}
-
-const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
+const AddShowForm = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,11 +35,11 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
   const onSubmit = async (data: ShowsFormValue) => {
     try {
       setIsLoading(true);
-      const response = await axios.post<Shows>("/api/shows", data);
-      setShows((prevShows) => [...prevShows, response.data]);
+      await axios.post<Shows>("/api/shows", data);
       setIsOpen(false);
       toast.success("Date ajoutée");
       form.reset(initialData);
+      router.refresh();
     } catch (error) {
       handleErrorClient(error);
     } finally {
