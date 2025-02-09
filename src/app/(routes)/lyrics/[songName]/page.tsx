@@ -2,7 +2,6 @@ import axios from "axios";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 import BackButton from "@/components/back-button";
-import Container from "@/components/ui/container";
 import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/lib/handleErrorServer";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,7 @@ const LyricPage = async ({ params }: { params: { songName: string } }) => {
     }
 
     return (
-      <Container>
+      <>
         <div className="p-8">
           <div className="flex justify-between">
             <BackButton />
@@ -47,7 +46,7 @@ const LyricPage = async ({ params }: { params: { songName: string } }) => {
             ).convert(),
           }}
         />
-      </Container>
+      </>
     );
   } catch (error: unknown) {
     handleErrorServer(error, "Failed to get lyrics");

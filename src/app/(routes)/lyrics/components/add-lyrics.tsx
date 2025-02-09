@@ -7,7 +7,6 @@ import "quill/dist/quill.snow.css";
 import { Plus } from "lucide-react";
 import Quill from "quill";
 
-import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import Editor from "./editor";
@@ -57,7 +56,7 @@ const AddLyrics = () => {
   };
 
   return (
-    <Container>
+    <>
       <Button onClick={() => setIsOpen(true)} variant="outline">
         <Plus />
         Ajouter des lyrics
@@ -84,7 +83,7 @@ const AddLyrics = () => {
           innerRef={editorRef}
         />
       </Modal>
-    </Container>
+    </>
   );
 };
 

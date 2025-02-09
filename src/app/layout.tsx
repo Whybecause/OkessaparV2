@@ -38,7 +38,9 @@ export default function RootLayout({
           <main className="container mx-auto max-w-screen-xl px-4 w-full">
             {children}
           </main>
-          <Footer />
+          <div className="max-w-screen-xl mx-auto w-full">
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

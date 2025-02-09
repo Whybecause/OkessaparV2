@@ -9,7 +9,6 @@ import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Shows } from "@/app/api/shows/route";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import Container from "@/components/ui/container";
 import { handleErrorClient } from "@/lib/handleErrorClient";
 
 const initialData = {
@@ -49,7 +48,7 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
   };
 
   return (
-    <Container>
+    <>
         <Button onClick={() => setIsOpen(true)} variant="outline">
           <Plus />
           Ajouter un concert
@@ -63,7 +62,7 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
       >
         <ShowForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
       </Modal>
-    </Container>
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ const Navbar = () => {
               href={route.href}
               key={route.href}
               className={cn(
-                "text-lg md:text-xl font-medium transition-colors hover:text-emerald-300",
+                "text-lg md:text-xl font-semibold transition-colors hover:text-emerald-300",
                 pathname === route.href
                   ? "text-emerald-300"
                   : "text-neutral-100"
