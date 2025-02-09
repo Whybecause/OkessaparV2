@@ -6,6 +6,7 @@ export type Lyrics = {
   id?: string;
   songName: string;
   content: Delta;
+  order: number;
 }
 
 // Get all songName
@@ -19,10 +20,13 @@ export async function GET() {
       return {
         id: doc.id,
         songName: docData.songName,
+        order: docData.order,
       }
     });
 
-    return NextResponse.json(data);
+    const sortedData = data.sort((a, b) => a.order - b.order);
+
+    return NextResponse.json(sortedData);
   } catch (error) {
     console.error('Failed to get song names:', error);
 
@@ -33,6 +37,33 @@ export async function GET() {
   }
 }
 
+// Update lyrics when reordered with drag and drop
+export async function PATCH(
+  req: Request
+) {
+  try {
+    const body = await req.json();
+
+    const batch = db.batch();
+
+    body.forEach((lyric: Lyrics) => {
+      const docRef = db.collection("lyrics").doc(lyric.id!);
+      batch.update(docRef, { order: lyric.order });
+    });
+
+    await batch.commit();
+    return NextResponse.json({ status: 201 });
+  }
+   catch (error) {
+    console.error('Erreur lors de la modification des lyrics', error);
+    return NextResponse.json(
+      { error },
+      { status: 500 }
+    );
+   }
+}
+
+// Add new lyric
 export async function POST(
   req: Request
 ) {
@@ -57,9 +88,21 @@ export async function POST(
       )
     }
 
+    // Handle counter so we can display lyrics and rearrange them with dnd based on their order
+    const counterRef = await db.collection("lyricsOrderCounter").get();
+    let newOrder = 1;
+
+    if (counterRef.empty) {
+      await db.collection("lyricsOrderCounter").doc('count').set({ count: 1 });
+    } else {
+      newOrder = counterRef.docs[0].get('count') + 1;
+      await db.collection("lyricsOrderCounter").doc('count').set({ count: newOrder});
+    }
+
     const newLyric: Lyrics = {
       songName,
       content,
+      order: newOrder,
     };
 
     const docRef = await db.collection("lyrics").add(newLyric);

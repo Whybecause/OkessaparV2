@@ -1,7 +1,10 @@
 import { db } from "@/firebase/db";
 import { NextResponse } from "next/server";
-import { Lyrics } from "../../route";
 
+type LyricUpdate = {
+  songName: string;
+  content: string;
+}
 
 export async function PATCH(
   req: Request,
@@ -18,6 +21,7 @@ export async function PATCH(
     }
 
     const body = await req.json();
+
     const { songName: updatedSongName, content } = body;
 
     if (!updatedSongName || !content) {
@@ -27,7 +31,7 @@ export async function PATCH(
       )
     }
 
-    const updatedLyric: Lyrics = {
+    const updatedLyric: LyricUpdate = {
       songName: updatedSongName,
       content
     }
@@ -54,7 +58,6 @@ export async function DELETE(
 ) {
   try {
     const { lyricId } = await context.params;
-    console.log('ID =', lyricId);
 
     if (!lyricId) {
       return NextResponse.json(
@@ -73,7 +76,40 @@ export async function DELETE(
       );
     }
 
-    await lyricRef.delete();
+    const lyricOrder = lyricDoc.data()?.order;
+
+    const batch = db.batch();
+  
+    const lyricsQuery = db.collection("lyrics")
+      .where("order", ">", lyricOrder)
+      .orderBy("order");
+
+    const lyricsSnapshot = await lyricsQuery.get();
+
+    if (!lyricsSnapshot.empty) {
+      // Update order in lyrics
+      lyricsSnapshot.forEach(doc => {
+        const lyricData = doc.data();
+        const updatedOrder = lyricData.order - 1;
+        const lyricRefToUpdate = db.collection("lyrics").doc(doc.id);
+
+        batch.update(lyricRefToUpdate, { order: updatedOrder })
+      });
+    }
+
+    // Delete the lyric
+    batch.delete(lyricRef);
+
+    const counterRef = await db.collection("lyricsOrderCounter").doc('count');
+    const counterDoc = await counterRef.get();
+    const currentCount = counterDoc.data()?.count;
+
+    // Update the order counter
+    batch.update(counterRef, { count: currentCount - 1 });
+
+    // Perform all operations safely
+    await batch.commit();
+
     return NextResponse.json(lyricRef);
   } catch (error) {
     console.error('Failed to delete lyrics:', error);

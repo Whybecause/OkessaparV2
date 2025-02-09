@@ -1,8 +1,7 @@
 import axios from "axios";
-import Link from "next/link";
 
-import { Lyrics } from "@/app/api/lyrics/route";
 import AddLyrics from "./components/add-lyrics";
+import LyricsList from "./components/lyrics-list";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
@@ -20,14 +19,13 @@ const LyricsPage = async () => {
         </div>
       </div>
 
-      {!data.length && <p className="text-center text-xl font-semibold">Aucun lyrics pour l&apos;instant</p>}
-      <div className="md:p-4 text-center text-2xl underline decoration-emerald-300">
-        {data.map((lyric: Lyrics) => (
-          <div key={lyric.id}>
-            <Link href={`/lyrics/${lyric.songName}`}>{lyric.songName}</Link>
-          </div>
-        ))}
-      </div>
+      {!data.length && (
+        <p className="text-center text-xl font-semibold">
+          Aucun lyrics pour l&apos;instant
+        </p>
+      )}
+
+      <LyricsList data={data} />
     </>
   );
 };
