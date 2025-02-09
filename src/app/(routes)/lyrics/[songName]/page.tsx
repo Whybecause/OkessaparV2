@@ -4,9 +4,8 @@ import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import BackButton from "@/components/back-button";
 import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/lib/handleErrorServer";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
 import EditLyrics from "../components/edit-lyrics";
+import DeleteLyrics from "../components/delete-lyrics";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
@@ -26,10 +25,12 @@ const LyricPage = async ({ params }: { params: { songName: string } }) => {
           <div className="flex justify-between">
             <BackButton />
             <div className="space-x-2">
-              <EditLyrics songName={lyric.songName} content={lyric.content} />
-              <Button variant="destructive" size="icon">
-                <Trash />
-              </Button>
+              <EditLyrics
+                id={lyric.id}
+                currentSongName={songName}
+                content={lyric.content}
+              />
+              <DeleteLyrics id={lyric.id} />
             </div>
           </div>
           <h2 className="absolute left-1/2 transform -translate-x-1/2">

@@ -20,6 +20,7 @@ const LyricsPage = async () => {
         </div>
       </div>
 
+      {!data.length && <p className="text-center text-xl font-semibold">Aucun lyrics pour l&apos;instant</p>}
       <div className="md:p-4 text-center text-2xl underline decoration-emerald-300">
         {data.map((lyric: Lyrics) => (
           <div key={lyric.id}>

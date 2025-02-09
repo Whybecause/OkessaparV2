@@ -47,6 +47,16 @@ export async function POST(
       );
     }
 
+    const querySnapshot = await db.collection("lyrics")
+      .where("songName", "==", songName).get();
+
+    if (!querySnapshot.empty) {
+      return NextResponse.json(
+        { error: "Ce titre de chanson existe déjà" },
+        { status: 409 }
+      )
+    }
+
     const newLyric: Lyrics = {
       songName,
       content,

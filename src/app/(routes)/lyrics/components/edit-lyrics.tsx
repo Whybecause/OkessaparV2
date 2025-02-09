@@ -17,11 +17,17 @@ type EditLyricsValues = {
   content: string;
 };
 
-const EditLyrics = ({ songName, content }: EditLyricsValues) => {
+type EditLyricsProps = {
+  id: string;
+  currentSongName: string;
+  content: string;
+};
+
+const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [updatedSongName, setUpdatedSongName] = useState(songName);
+  const [updatedSongName, setUpdatedSongName] = useState(currentSongName);
   const editorRef = useRef<Quill | null>(null);
   const [editorKey, setEditorKey] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,18 +42,17 @@ const EditLyrics = ({ songName, content }: EditLyricsValues) => {
       };
 
       const hasNoSongName =
-        songName.replace(/<(.|\n)*?>/g, "").trim().length === 0;
+        updatedSongName.replace(/<(.|\n)*?>/g, "").trim().length === 0;
       if (hasNoSongName) {
         toast.error("TIIIIITRE");
         return;
       }
 
-      await axios.patch(`/api/lyrics/${songName}`, data);
+      await axios.patch(`/api/lyrics/id/${id}`, data);
       toast.success("Lyrics modifiés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
-
-      if (songName !== updatedSongName) {
+      if (currentSongName !== updatedSongName) {
         router.replace(`/lyrics/${updatedSongName}`);
       } else {
         router.refresh();
@@ -57,7 +62,7 @@ const EditLyrics = ({ songName, content }: EditLyricsValues) => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -73,7 +78,7 @@ const EditLyrics = ({ songName, content }: EditLyricsValues) => {
       >
         <Input
           type="text"
-          defaultValue={songName}
+          defaultValue={currentSongName}
           onChange={(e) => setUpdatedSongName(e.target.value)}
         />
 
