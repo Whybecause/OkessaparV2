@@ -45,6 +45,7 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({ id, setShows }) => {
       <ConfirmDialog />
       <Button
         variant="destructive"
+        size="icon"
         onClick={handleDelete}
         disabled={isDeleting}
       >

@@ -22,7 +22,7 @@ shadcn-ui: utiliser les commandes pour ajouter des ui components
 [x] Automatically sort shows by date (backend + front lors edit)
 [x] faire une db de dev et une de prod (penser ajoute NODE_ENV=production sur vercel)
 [x] Lyrics ajout
-[] responsive
+[x] responsive
 [] server side for fetch concerts + next/navigation refresh
 [] Lyrics: rearranger order
 [] Lyrics update + delete

@@ -9,15 +9,17 @@ import { formatDate } from "@/lib/utils";
 import { Shows } from "@/app/api/shows/route";
 import EditShowForm from "./components/edit-show-form";
 import DeleteShowForm from "./components/delete-show-form";
-import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Spinner from "@/components/ui/spinner";
 import { handleErrorClient } from "@/lib/handleErrorClient";
 
 const ShowsPage = () => {
   const [shows, setShows] = useState<Shows[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [columns, setColumns] = useState(1);
+
+  // TODO: proper auth
+  const isAdmin = true;
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -34,6 +36,10 @@ const ShowsPage = () => {
     fetchShows();
   }, []);
 
+  useEffect(() => {
+    setColumns(isAdmin ? 4 : 3);
+  }, [isAdmin]);
+
   return (
     <>
       <div className="py-8 relative flex flex-col md:flex-row items-center">
@@ -45,26 +51,7 @@ const ShowsPage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row">
-        <div>
-          <div>04 Avr.</div>
-
-          <div>
-            <p>IBoat</p>
-            <p>Bordeaux, France</p>
-          </div>
-
-          <div>
-            <p>Billets</p>
-          </div>
-          <div>
-            <p>Edit</p>
-            <p>Delete</p>
-            </div>
-        </div>
-      </div>
-
-      <div className="md:p-4">
+      <div className="">
         {isLoading ? (
           <Spinner />
         ) : (
@@ -77,39 +64,53 @@ const ShowsPage = () => {
               </div>
             )}
 
-            <Table>
-              <TableBody>
-                {shows.map((show) => (
-                  <TableRow key={show.id}>
-                    <TableCell>{formatDate(show.date)}</TableCell>
-                    <TableCell>{show.venue}</TableCell>
-                    <TableCell>
-                      {show.city}, {show.country}
-                    </TableCell>
-                    <TableCell>
+            <div className="space-y-10">
+              <div className="border-b" />
+
+              {shows.map((show) => (
+                <>
+                  <div
+                    key={show.id}
+                    className={`flex flex-col gap-2 space-y-4 md:space-y-0 items-center md:grid md:grid-cols-${columns}`}
+                  >
+                    <div className="text-4xl md:text-xl font-bold md:w-auto md:justify-self-start">
+                      {formatDate(show.date)}
+                    </div>
+
+                    <div className="flex space-x-2 md:w-full md:justify-self-center">
+                      <p className="text-xl font-semibold">{show.venue}</p>
+                      <p className="text-xl">
+                        {show.city}, {show.country}
+                      </p>
+                    </div>
+
+                    <div className="md:w-auto md:justify-self-end">
                       {show.ticketLink && (
                         <Link
                           href={show.ticketLink}
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <Button>Billets</Button>
+                          <Button variant="outline">Billets</Button>
                         </Link>
                       )}
-                    </TableCell>
+                    </div>
 
-                    <TableCell className="flex justify-around">
-                      <EditShowForm
-                        id={show.id!}
-                        data={show}
-                        setShows={setShows}
-                      />
-                      <DeleteShowForm id={show.id!} setShows={setShows} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    {isAdmin && (
+                      <div className="flex space-x-2 md:justify-self-end">
+                        <EditShowForm
+                          id={show.id!}
+                          data={show}
+                          setShows={setShows}
+                        />
+                        <DeleteShowForm id={show.id!} setShows={setShows} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-b" />
+                </>
+              ))}
+            </div>
           </>
         )}
       </div>

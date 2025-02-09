@@ -53,7 +53,7 @@ const EditShowForm: React.FC<EditShowFormProps> = ({ id, data, setShows }) => {
         });
 
         return updatedShows;
-      });
+        });
       setIsOpen(false);
       toast.success("Concert modifié");
     } catch (error) {
@@ -65,7 +65,7 @@ const EditShowForm: React.FC<EditShowFormProps> = ({ id, data, setShows }) => {
 
   return (
     <>
-      <Button variant="secondary" onClick={() => setIsOpen(true)}>
+      <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
         <Pencil />
       </Button>
       <Modal
