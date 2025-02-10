@@ -8,7 +8,7 @@ type LyricUpdate = {
 
 export async function PATCH(
   req: Request,
-  context: { params: { lyricId: string } }
+  context: { params: Promise<{ lyricId: string }> }
 ) {
   try {
     const { lyricId } = await context.params;
@@ -54,7 +54,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  context: { params: { lyricId: string } }
+  context: { params: Promise<{ lyricId: string }> }
 ) {
   try {
     const { lyricId } = await context.params;
@@ -79,7 +79,7 @@ export async function DELETE(
     const lyricOrder = lyricDoc.data()?.order;
 
     const batch = db.batch();
-  
+
     const lyricsQuery = db.collection("lyrics")
       .where("order", ">", lyricOrder)
       .orderBy("order");

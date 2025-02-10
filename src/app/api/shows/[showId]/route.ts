@@ -4,7 +4,7 @@ import { Shows } from "../route";
 
 export async function PATCH(
   req: Request,
-  context: { params: { showId: string } }
+  context: { params: Promise<{ showId: string }> }
 ) {
   try {
     const { showId } = await context.params;
@@ -61,7 +61,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  context: { params: { showId: string } }
+  context: { params: Promise<{ showId: string }> }
 ) {
   try {
     const { showId } = await context.params;

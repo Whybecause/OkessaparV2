@@ -9,8 +9,10 @@ import DeleteLyrics from "../components/delete-lyrics";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
-const LyricPage = async ({ params }: { params: { songName: string } }) => {
-  const { songName } = params;
+type tParams = Promise<{ songName: string }>;
+
+const LyricPage = async ({ params }: { params: tParams }) => {
+  const { songName } = await params;
 
   try {
     const { data: lyric } = await axios.get(`${URL}/${songName}`);

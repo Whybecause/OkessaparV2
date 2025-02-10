@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // Get lyrics for a song
 export async function GET(
   req: Request,
-  context: { params: { songName: string } }
+  context: { params: Promise<{ songName: string }> }
 ) {
   try {
     const { songName } = await context.params;
