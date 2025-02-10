@@ -15,23 +15,27 @@ shadcn-ui: utiliser les commandes pour ajouter des ui components
 
 ## TODO
 [x] create/edit/delete shows (admin)
-[x] Automatically sort shows by date (backend + front lors edit)
+[x] Automatically sort shows by date
+[x] Add auth (only for us) and display features conditionally
+[x] lyrics: create/update/delete (admin)
+[x] Lyrics: drag and drop lyric order
+[x] Lyrics: update lyric.order in db when ordering lyrics
+[x] Lyrics: update order counter when deleting lyric
+[x] Lyrics: update lyrics order when deleting lyric
 [x] faire une db de dev et une de prod (penser ajoute NODE_ENV=production sur vercel ainsi que l'url de l'api, ansi que les cred de co pour la db client de prod)
 [x] responsive
-[x] create/update/delete lyrics (admin)
-[x] server side for fetch concerts
-[x] Lyrics: drag and drop lyric order
-[x] update lyric.order in db when ordering lyrics
-[x] update order counter when deleting lyric
-[x] update lyrics order when deleting lyric
-[x] update gist with .env.local et les json de firebase
-[x] Add auth
-[x] ouvrir social link dans nouvel onglet
-[x] display features if auth
-[] Form Contact
+[x] server side rendering
 [] Musique: spotify player
-[] Home: youtube videos (updatable)
-
+[] Youtube API to select and display videos
+[] Form Contact
 [] cron job that deletes the shows after the date is passed (node-cron + github action)
 [] optimiser SEO
 [] deploy CI/CD
+
+## Deploy
+1.Make sure to have env variables
+2. For firebase admin: creds are in a json, can not use on vercel, so store json in env variable FIREBASE_ADMIN_DEV or FIREBASE_ADMIN_PROD with:
+cat firebase-admin-dev.json | jq -c
+cat firebase-admin-prod.json | jq -c
+
+
