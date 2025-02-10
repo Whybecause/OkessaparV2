@@ -1,4 +1,5 @@
 export default function handler(req, res) {
+  console.log('CRON');
   res.status(200).end('Hello Cron!');
 }
 // Planifier la suppression des shows passés

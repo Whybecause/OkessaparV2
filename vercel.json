@@ -1,0 +1,6 @@
+{
+  "crons": [{
+    "path": "/api/cron/delete-past-shows",
+    "schedule": "*/1 * * * *"
+  }]
+}
