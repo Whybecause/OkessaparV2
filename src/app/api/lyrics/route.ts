@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/firebase/db";
 import { Delta } from "quill";
+import { checkAuth } from "@/utils/check-auth-server";
+import { errorServer } from "@/utils/error-server";
 
 export type Lyrics = {
   id?: string;
@@ -42,6 +44,8 @@ export async function PATCH(
   req: Request
 ) {
   try {
+    await checkAuth();
+
     const body = await req.json();
 
     const batch = db.batch();
@@ -54,13 +58,9 @@ export async function PATCH(
     await batch.commit();
     return NextResponse.json({ status: 201 });
   }
-   catch (error) {
-    console.error('Erreur lors de la modification des lyrics', error);
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
-   }
+  catch (error) {
+    return errorServer('Erreur lors de la modification des lyrics', error, 500);
+  }
 }
 
 // Add new lyric
@@ -68,6 +68,8 @@ export async function POST(
   req: Request
 ) {
   try {
+    await checkAuth();
+
     const body = await req.json();
     const { songName, content } = body;
 
@@ -96,7 +98,7 @@ export async function POST(
       await db.collection("lyricsOrderCounter").doc('count').set({ count: 1 });
     } else {
       newOrder = counterRef.docs[0].get('count') + 1;
-      await db.collection("lyricsOrderCounter").doc('count').set({ count: newOrder});
+      await db.collection("lyricsOrderCounter").doc('count').set({ count: newOrder });
     }
 
     const newLyric: Lyrics = {
@@ -114,11 +116,6 @@ export async function POST(
       { status: 201 }
     );
   } catch (error) {
-    console.error('Failed to create lyric', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Failed to create lyrics', error, 500);
   }
 }

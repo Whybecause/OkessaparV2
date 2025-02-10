@@ -1,12 +1,16 @@
 import { db } from "@/firebase/db";
 import { NextResponse } from "next/server";
 import { Shows } from "../route";
+import { checkAuth } from "@/utils/check-auth-server";
+import { errorServer } from "@/utils/error-server";
 
 export async function PATCH(
   req: Request,
   context: { params: Promise<{ showId: string }> }
 ) {
   try {
+    await checkAuth();
+
     const { showId } = await context.params;
 
     if (!showId) {
@@ -51,11 +55,7 @@ export async function PATCH(
       { status: 200 }
     );
   } catch (error) {
-    console.error('Erreur lors de la modification du show', error);
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Erreur lors de la modification du show:', error, 500);
   }
 }
 
@@ -64,6 +64,8 @@ export async function DELETE(
   context: { params: Promise<{ showId: string }> }
 ) {
   try {
+    await checkAuth();
+
     const { showId } = await context.params;
 
     if (!showId) {
@@ -86,11 +88,7 @@ export async function DELETE(
     await showRef.delete();
     return NextResponse.json(showRef);
   } catch (error) {
-    console.error('Erreur lors de la suppression du show:', error);
+    return errorServer('Erreur lors de la suppression du show:', error, 500);
 
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
   }
 }

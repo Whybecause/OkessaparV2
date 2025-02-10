@@ -1,4 +1,6 @@
 import { db } from "@/firebase/db";
+import { checkAuth } from "@/utils/check-auth-server";
+import { errorServer } from "@/utils/error-server";
 import { NextResponse } from "next/server";
 
 type LyricUpdate = {
@@ -11,6 +13,8 @@ export async function PATCH(
   context: { params: Promise<{ lyricId: string }> }
 ) {
   try {
+    await checkAuth();
+
     const { lyricId } = await context.params;
 
     if (!lyricId) {
@@ -44,11 +48,7 @@ export async function PATCH(
       { status: 200 }
     );
   } catch (error) {
-    console.error('Erreur lors de la modification du show', error);
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Erreur lors de la modification du show', error, 500);
   }
 }
 
@@ -57,6 +57,8 @@ export async function DELETE(
   context: { params: Promise<{ lyricId: string }> }
 ) {
   try {
+    await checkAuth();
+
     const { lyricId } = await context.params;
 
     if (!lyricId) {
@@ -112,11 +114,6 @@ export async function DELETE(
 
     return NextResponse.json(lyricRef);
   } catch (error) {
-    console.error('Failed to delete lyrics:', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Failed to delete lyrics', error, 500);
   }
 }

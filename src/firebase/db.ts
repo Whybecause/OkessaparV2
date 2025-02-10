@@ -13,7 +13,6 @@ if (!serviceAccountJson) {
 const tempFilePath = path.join("/tmp", "firebase-admin.json");
 fs.writeFileSync(tempFilePath, serviceAccountJson);
 
-
 let app;
 if (!getApps().length) {
   app = initializeApp({

@@ -49,6 +49,7 @@ const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
       }
 
       await axios.patch(`/api/lyrics/id/${id}`, data);
+
       toast.success("Lyrics modifiés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);

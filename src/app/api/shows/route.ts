@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/firebase/db";
 import { Timestamp } from "firebase-admin/firestore";
+import { checkAuth } from "@/utils/check-auth-server";
+import { errorServer } from "@/utils/error-server";
 
 export type Shows = {
   id?: string;
@@ -42,6 +44,8 @@ export async function POST(
   req: Request
 ) {
   try {
+    await checkAuth();
+
     const body = await req.json();
     const { city, country, date, venue, ticketLink } = body;
 
@@ -74,11 +78,6 @@ export async function POST(
       { status: 201 }
     );
   } catch (error) {
-    console.error('Failed to create show', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Failed to create show', error, 500);
   }
 }
