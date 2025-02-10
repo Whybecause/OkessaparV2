@@ -1,21 +1,27 @@
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import admin from "firebase-admin";
 import { getAuth } from "firebase-admin/auth";
-
-import serviceAccountDev from "./firebase-admin-dev.json";
-import serviceAccountProd from "./firebase-admin-prod.json";
+import fs from "fs";
+import path from "path";
 
 const isProd = process.env.NODE_ENV === "production";
+
+const serviceAccountJson = isProd
+  ? process.env.FIREBASE_ADMIN_PROD
+  : process.env.FIREBASE_ADMIN_DEV
+
+if (!serviceAccountJson) {
+  throw new Error("Firebase service account credentials are missing!");
+}
+
+const tempFilePath = path.join("/tmp", "firebase-admin.json");
+fs.writeFileSync(tempFilePath, serviceAccountJson);
+
 
 let app;
 if (!getApps().length) {
   app = initializeApp({
-    credential: cert(
-      isProd
-        ? serviceAccountProd as admin.ServiceAccount
-        : serviceAccountDev as admin.ServiceAccount
-    )
+    credential: cert(tempFilePath)
   });
 } else {
   app = getApps()[0];
