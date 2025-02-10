@@ -4,11 +4,7 @@ import { getAuth } from "firebase-admin/auth";
 import fs from "fs";
 import path from "path";
 
-const isProd = process.env.NODE_ENV === "production";
-
-const serviceAccountJson = isProd
-  ? process.env.FIREBASE_ADMIN_PROD
-  : process.env.FIREBASE_ADMIN_DEV
+const serviceAccountJson = process.env.FIREBASE_ADMIN
 
 if (!serviceAccountJson) {
   throw new Error("Firebase service account credentials are missing!");
