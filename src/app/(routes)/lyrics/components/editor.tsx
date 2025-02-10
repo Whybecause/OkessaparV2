@@ -3,7 +3,7 @@ import Quill, { Delta, Op, QuillOptions } from "quill";
 import "quill/dist/quill.snow.css";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 
 type EditorValue = {
   content: string;

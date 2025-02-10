@@ -10,7 +10,7 @@ import Quill from "quill";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import Editor from "./editor";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 

@@ -12,7 +12,7 @@ import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Shows } from "@/app/api/shows/route";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 
 const initialData = {
   country: "France",

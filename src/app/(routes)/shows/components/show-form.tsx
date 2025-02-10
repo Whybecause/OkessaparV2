@@ -4,7 +4,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { UseFormReturn } from "react-hook-form";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import {
   Form,
   FormControl,

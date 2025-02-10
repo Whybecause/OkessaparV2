@@ -8,7 +8,7 @@ import { useConfirm } from "@/hooks/use-confirm";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 
 const DeleteLyrics = ({ id }: { id: string }) => {
   const router = useRouter();

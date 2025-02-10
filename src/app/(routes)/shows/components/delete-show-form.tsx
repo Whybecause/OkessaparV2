@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import { useConfirm } from "@/hooks/use-confirm";
 import { Button } from "@/components/ui/button";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 
 interface DeleteShowFormProps {
   id: string;

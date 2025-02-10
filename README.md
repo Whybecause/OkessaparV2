@@ -24,11 +24,14 @@ shadcn-ui: utiliser les commandes pour ajouter des ui components
 [x] update lyric.order in db when ordering lyrics
 [x] update order counter when deleting lyric
 [x] update lyrics order when deleting lyric
+[x] update gist with .env.local et les json de firebase
 [x] Add auth
-[] cron job that deletes the shows after the date is passed (node-cron + github action)
+[x] ouvrir social link dans nouvel onglet
+[x] display features if auth
 [] Form Contact
 [] Musique: spotify player
 [] Home: youtube videos (updatable)
-[] optimiser SEO
-[] update gist with .env.local et les json de firebase
 
+[] cron job that deletes the shows after the date is passed (node-cron + github action)
+[] optimiser SEO
+[] deploy CI/CD

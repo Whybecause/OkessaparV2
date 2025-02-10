@@ -3,7 +3,7 @@ import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 import BackButton from "@/components/back-button";
 import Error from "@/components/ui/error";
-import { handleErrorServer } from "@/lib/handleErrorServer";
+import { handleErrorServer } from "@/utils/handleErrorServer";
 import EditLyrics from "../components/edit-lyrics";
 import DeleteLyrics from "../components/delete-lyrics";
 

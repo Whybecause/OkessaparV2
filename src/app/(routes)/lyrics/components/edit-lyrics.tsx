@@ -10,7 +10,7 @@ import Quill from "quill";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 
 type EditLyricsValues = {
   songName: string;

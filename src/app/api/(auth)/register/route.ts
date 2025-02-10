@@ -1,9 +1,15 @@
 import { auth } from "@/firebase/db";
 import { NextResponse } from "next/server";
 
-// Register user
+// Register user: calling this route only create the admin account
 export async function POST() {
   try {
+    const existingUser = await auth.getUserByEmail(process.env.ADMIN_EMAIL!);
+
+    if (existingUser) {
+      return NextResponse.json({ status: 200 })
+    }
+
     const userRecord = await auth.createUser({
       email: process.env.ADMIN_EMAIL,
       password: process.env.ADMIN_PASSWORD

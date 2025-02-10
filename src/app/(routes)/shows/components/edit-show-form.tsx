@@ -11,7 +11,7 @@ import { Shows } from "@/app/api/shows/route";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import toast from "react-hot-toast";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 
 interface EditShowFormProps {
   id: string;

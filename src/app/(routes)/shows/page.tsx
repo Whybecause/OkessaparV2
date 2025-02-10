@@ -1,20 +1,20 @@
 import Link from "next/link";
 import axios from "axios";
 
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/utils/utils";
 import { Shows } from "@/app/api/shows/route";
 import AddShowForm from "./components/add-show-form";
 import EditShowForm from "./components/edit-show-form";
 import DeleteShowForm from "./components/delete-show-form";
 import { Button } from "@/components/ui/button";
+import { getSessionCookie } from "@/utils/get-session-cookie";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/shows`;
 
 const ShowsPage = async () => {
   const { data } = await axios.get(URL);
 
-  // TODO: proper auth
-  const isAdmin = true;
+  const isAdmin = await getSessionCookie();
 
   return (
     <>
@@ -22,9 +22,11 @@ const ShowsPage = async () => {
         <h1 className="md:absolute md:left-1/2 transform md:-translate-x-1/2">
           Concerts
         </h1>
-        <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">
-          <AddShowForm />
-        </div>
+        {isAdmin && (
+          <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">
+            <AddShowForm />
+          </div>
+        )}
       </div>
 
       <>
@@ -35,7 +37,7 @@ const ShowsPage = async () => {
             </p>
           </div>
         ) : (
-          <div className="space-y-10">
+          <div className="space-y-10 mt-8">
             <div className="border-b" />
 
             {data.map((show: Shows) => (

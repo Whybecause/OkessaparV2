@@ -2,11 +2,13 @@ import axios from "axios";
 
 import AddLyrics from "./components/add-lyrics";
 import LyricsList from "./components/lyrics-list";
+import { getSessionCookie } from "@/utils/get-session-cookie";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
 const LyricsPage = async () => {
   const { data } = await axios.get(URL);
+  const isAdmin = await getSessionCookie();
 
   return (
     <>
@@ -14,9 +16,11 @@ const LyricsPage = async () => {
         <h1 className="md:absolute md:left-1/2 transform md:-translate-x-1/2">
           Lyrics
         </h1>
-        <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">
-          <AddLyrics />
-        </div>
+        {isAdmin && (
+          <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">
+            <AddLyrics />
+          </div>
+        )}
       </div>
 
       {!data.length && (

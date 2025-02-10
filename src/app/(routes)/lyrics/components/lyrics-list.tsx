@@ -7,13 +7,15 @@ import {
   useDraggable,
   DragOverEvent,
 } from "@dnd-kit/core";
-import { Lyrics } from "@/app/api/lyrics/route";
 import Link from "next/link";
 import { GripVertical } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { handleErrorClient } from "@/lib/handleErrorClient";
+
+import { Lyrics } from "@/app/api/lyrics/route";
+import { Button } from "@/components/ui/button";
+import { handleErrorClient } from "@/utils/handleErrorClient";
+import { useUser } from "@/hooks/use-user";
 
 function DraggableHandle({ id }: { id: string }) {
   const { attributes, listeners, setNodeRef } = useDraggable({ id });
@@ -57,6 +59,7 @@ function Droppable({
 }
 
 const LyricsList = ({ data }: { data: Lyrics[] }) => {
+  const { user } = useUser();
   const [lyrics, setLyrics] = useState(data);
   const [style, setStyle] = useState({});
   const [isSelf, setIsSelf] = useState(false);
@@ -143,8 +146,8 @@ const LyricsList = ({ data }: { data: Lyrics[] }) => {
     });
   };
 
-  // TODO: proper auth
-  const isAdmin = true;
+  const isAdmin = !!user;
+
   return (
     <DndContext onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
       {lyrics.map((lyric) => (
