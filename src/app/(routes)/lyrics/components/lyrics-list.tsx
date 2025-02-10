@@ -73,11 +73,13 @@ const LyricsList = ({ data }: { data: Lyrics[] }) => {
   useEffect(() => {
     const updateLyrics = async () => {
       const areArraysEqual = JSON.stringify(data) === JSON.stringify(lyrics);
-      if (areArraysEqual) return;
+      const isCreatingLyric = data.length !== lyrics.length;
+
+      if (areArraysEqual || isCreatingLyric) return;
 
       try {
         await axios.patch("/api/lyrics", lyrics);
-        toast.success('Placement modifié');
+        toast.success("Placement modifié");
       } catch (error) {
         handleErrorClient(error);
       }

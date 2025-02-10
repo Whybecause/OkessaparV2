@@ -56,7 +56,7 @@ const Login = () => {
       const idToken = await user.getIdToken();
 
       await axios.post("/api/login", JSON.stringify({ token: idToken }));
-      router.push("/");
+      window.location.reload();
     } catch (error) {
       handleErrorClient(error);
     } finally {

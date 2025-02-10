@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { LogOut } from "lucide-react";
@@ -11,14 +10,13 @@ import { Button } from "./ui/button";
 
 const Footer = () => {
   const { user } = useUser();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
     try {
       setIsLoading(true);
       await axios.post("/api/logout");
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       handleErrorClient(error);
     } finally {

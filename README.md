@@ -37,9 +37,11 @@ cat firebase-admin-prod.json | jq -c
 [x] faire une db de dev et une de prod (penser ajoute NODE_ENV=production sur vercel ainsi que l'url de l'api, ansi que les cred de co pour la db client de prod)
 [x] responsive
 [x] server side rendering
+[x] deploy CI/CD
 [] cron job that deletes the shows after the date is passed (cron with vercel)
 [] Musique: spotify player
 [] Youtube API to select and display videos
 [] Form Contact
 [] optimiser SEO
-[] deploy CI/CD
+
+
