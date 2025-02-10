@@ -1,23 +1,39 @@
 import { auth } from "@/firebase/db";
 import { NextResponse } from "next/server";
 
+type FirebaseAuthError = {
+  code: string;
+  message: string;
+};
+
 // Register user: calling this route only create the admin account
 export async function POST() {
   try {
-    const existingUser = await auth.getUserByEmail(process.env.ADMIN_EMAIL!);
+    let existingUser;
+
+    // Check if account already exists
+    try {
+      existingUser = await auth.getUserByEmail(process.env.ADMIN_EMAIL!);
+    } catch (error: unknown) {
+      const err = error as FirebaseAuthError;
+      if (err.code === 'auth/user-not-found') {
+        existingUser = null;
+      } else {
+        throw error;
+      }
+    }
 
     if (existingUser) {
       return NextResponse.json({ status: 200 })
     }
 
-    const userRecord = await auth.createUser({
+    // Otherwise create account
+    await auth.createUser({
       email: process.env.ADMIN_EMAIL,
       password: process.env.ADMIN_PASSWORD
     });
 
-    const token = await auth.createCustomToken(userRecord.uid);
-
-    return NextResponse.json({ token }, { status: 201 });
+    return NextResponse.json({ status: 201 });
   } catch (error) {
     console.error('Error creating new user:', error);
     return NextResponse.json(
