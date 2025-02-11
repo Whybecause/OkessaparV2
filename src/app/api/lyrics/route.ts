@@ -9,6 +9,7 @@ export type Lyrics = {
   songName: string;
   content: Delta;
   order: number;
+  slug?: string;
 }
 
 // Get all songName
@@ -23,6 +24,7 @@ export async function GET() {
         id: doc.id,
         songName: docData.songName,
         order: docData.order,
+        slug: docData.slug,
       }
     });
 
@@ -39,7 +41,7 @@ export async function GET() {
   }
 }
 
-// Update lyrics when reordered with drag and drop
+// Update lyric.order when reordered with drag and drop
 export async function PATCH(
   req: Request
 ) {
@@ -80,8 +82,10 @@ export async function POST(
       );
     }
 
+    const slug = songName.trim().toLowerCase().replace(/\s+/g, "-");
+
     const querySnapshot = await db.collection("lyrics")
-      .where("songName", "==", songName).get();
+      .where("slug", "==", slug).get();
 
     if (!querySnapshot.empty) {
       return NextResponse.json(
@@ -105,6 +109,7 @@ export async function POST(
       songName,
       content,
       order: newOrder,
+      slug
     };
 
     const docRef = await db.collection("lyrics").add(newLyric);

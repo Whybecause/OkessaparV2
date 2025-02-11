@@ -161,7 +161,7 @@ const LyricsList = ({ data }: { data: Lyrics[] }) => {
         >
           <div className="py-4 relative flex flex-row items-center">
             <Link
-              href={`/lyrics/${lyric.songName}`}
+              href={`/lyrics/${lyric.slug}`}
               className="text-2xl underline decoration-emerald-300 transform absolute left-1/2 -translate-x-1/2"
             >
               {lyric.songName}

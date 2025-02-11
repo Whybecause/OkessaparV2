@@ -1,16 +1,20 @@
 import { db } from "@/firebase/db";
 import { NextResponse } from "next/server";
 
+
 // Get lyrics for a song
 export async function GET(
   req: Request,
-  context: { params: Promise<{ songName: string }> }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { songName } = await context.params;
+    const { slug } = await context.params;
+
+    // Si on entre manuellement le slug dans l'url, format it to remove spaces and add "-"
+    const formattedSlug = slug.trim().toLowerCase().replace(/\s+/g, "-");
 
     const lyricsSnapshot = await db.collection("lyrics")
-    .where("songName", "==", songName)
+    .where("slug", "==", formattedSlug)
     .limit(1)
     .get();
 

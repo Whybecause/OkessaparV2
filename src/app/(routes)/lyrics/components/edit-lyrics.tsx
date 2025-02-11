@@ -18,16 +18,20 @@ type EditLyricsValues = {
 };
 
 type EditLyricsProps = {
-  id: string;
-  currentSongName: string;
-  content: string;
+  data: {
+    id: string;
+    songName: string;
+    content: string;
+    slug: string;
+  }
 };
 
-const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
+
+const EditLyrics = ({ data }: EditLyricsProps) => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [updatedSongName, setUpdatedSongName] = useState(currentSongName);
+  const [updatedSongName, setUpdatedSongName] = useState(data.songName);
   const editorRef = useRef<Quill | null>(null);
   const [editorKey, setEditorKey] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +40,8 @@ const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
     try {
       setIsLoading(true);
       editorRef?.current?.enable(false);
-      const data: EditLyricsValues = {
+
+      const updatedData: EditLyricsValues = {
         content,
         songName: updatedSongName,
       };
@@ -48,13 +53,14 @@ const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
         return;
       }
 
-      await axios.patch(`/api/lyrics/id/${id}`, data);
+      const response = await axios.patch(`/api/lyrics/id/${data.id}`, updatedData);
 
       toast.success("Lyrics modifiés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
-      if (currentSongName !== updatedSongName) {
-        router.replace(`/lyrics/${updatedSongName}`);
+
+      if (data.songName !== updatedSongName) {
+        router.replace(`/lyrics/${response.data.slug}`);
       } else {
         router.refresh();
       }
@@ -79,7 +85,7 @@ const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
       >
         <Input
           type="text"
-          defaultValue={currentSongName}
+          defaultValue={data.songName}
           onChange={(e) => setUpdatedSongName(e.target.value)}
         />
 
@@ -88,7 +94,7 @@ const EditLyrics = ({ id, currentSongName, content }: EditLyricsProps) => {
           onSubmit={handleSubmit}
           disabled={isLoading}
           innerRef={editorRef}
-          defaultValue={JSON.parse(content)}
+          defaultValue={JSON.parse(data.content)}
         />
       </Modal>
     </>

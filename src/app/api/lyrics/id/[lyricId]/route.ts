@@ -6,8 +6,10 @@ import { NextResponse } from "next/server";
 type LyricUpdate = {
   songName: string;
   content: string;
+  slug: string;
 }
 
+// Update a lyric
 export async function PATCH(
   req: Request,
   context: { params: Promise<{ lyricId: string }> }
@@ -26,9 +28,11 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { songName: updatedSongName, content } = body;
+    const { songName, content } = body;
 
-    if (!updatedSongName || !content) {
+    const updatedSlug = songName.trim().toLowerCase().replace(/\s+/g, "-");
+
+    if (!songName || !content) {
       return NextResponse.json(
         { error: "Tous les champs sont requis " },
         { status: 400 }
@@ -36,7 +40,8 @@ export async function PATCH(
     }
 
     const updatedLyric: LyricUpdate = {
-      songName: updatedSongName,
+      songName,
+      slug: updatedSlug,
       content
     }
 
