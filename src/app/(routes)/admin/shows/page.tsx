@@ -36,7 +36,7 @@ const ShowsDashboard = () => {
     <>
       <div className="border-b pt-6 pb-8 relative flex flex-col md:flex-row items-center">
         <h1 className="text-center md:absolute md:left-1/2 transform md:-translate-x-1/2">
-          Concerts Dashboard
+          Concerts
         </h1>
 
         <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">

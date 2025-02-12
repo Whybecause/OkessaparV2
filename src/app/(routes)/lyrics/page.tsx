@@ -3,11 +3,13 @@ import axios from "axios";
 import LyricsList from "./components/lyrics-list";
 import NoResults from "@/components/no-results";
 
+// Static with revalidation (ISR) -> 60sec
+export const revalidate = 60;
+
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
 const LyricsPage = async () => {
   const { data } = await axios.get(URL);
-  console.log('LYRICS DATA =', data);
 
   return (
     <>

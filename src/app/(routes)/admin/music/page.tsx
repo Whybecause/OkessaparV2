@@ -46,7 +46,7 @@ const MusicDashboard = () => {
   return (
     <>
       <div className="border-b pt-6 pb-8">
-        <h1 className="text-center">Musique Dashboard</h1>
+        <h1 className="text-center">Musique</h1>
       </div>
 
       <div className="my-6 flex space-x-4 text-black items-center justify-center">
