@@ -57,7 +57,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] domain add
 - [x] Spotify: get tracks from spotify and choose wich one to display
 - [x] Admin dashboard
-- [x] Form Contact
+- [x] Form Contact that sends us an email
 - [] Youtube API to select and display videos
 - [] optimiser SEO
 - [] fix cron

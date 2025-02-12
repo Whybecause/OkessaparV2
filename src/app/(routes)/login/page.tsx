@@ -39,10 +39,6 @@ const Login = () => {
     router.push("/");
   }, [user, router]);
 
-  const handleRegister = async () => {
-    await axios.post("/api/register");
-  };
-
   const handleLogin = async (data: LoginFormValues) => {
     try {
       setIsLoading(true);
@@ -76,10 +72,6 @@ const Login = () => {
   return (
     <>
       <h1 className="mt-4 text-center">Login</h1>
-
-      <div className="mt-2">
-        <Button onClick={handleRegister}>Register</Button>
-      </div>
 
       <div className="grid place-items-center min-h-[50vh]">
         <Form {...form}>
