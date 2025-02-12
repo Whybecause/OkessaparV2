@@ -19,7 +19,7 @@ export async function GET(
     .get();
 
     if (lyricsSnapshot.empty) {
-      return NextResponse.json({ error: "Aucun lyrics trouvés pour cette chanson" }, { status: 404 });
+      return NextResponse.json({ error: "Cette chanson n'existe pas" }, { status: 404 });
     }
 
     const doc = lyricsSnapshot.docs[0];

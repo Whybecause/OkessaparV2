@@ -1,16 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Pencil } from "lucide-react";
-import Editor from "./editor";
 import Quill from "quill";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { handleErrorClient } from "@/utils/handleErrorClient";
+import Editor from "@/app/(routes)/lyrics/components/editor";
+import { LyricProps } from "@/app/api/lyrics/route";
 
 type EditLyricsValues = {
   songName: string;
@@ -23,11 +24,11 @@ type EditLyricsProps = {
     songName: string;
     content: string;
     slug: string;
-  }
+  };
+  setLyric: React.Dispatch<React.SetStateAction<LyricProps>>;
 };
 
-
-const EditLyrics = ({ data }: EditLyricsProps) => {
+const EditLyric = ({ data, setLyric }: EditLyricsProps) => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -53,17 +54,24 @@ const EditLyrics = ({ data }: EditLyricsProps) => {
         return;
       }
 
-      const response = await axios.patch(`/api/lyrics/id/${data.id}`, updatedData);
+      const response = await axios.patch(
+        `/api/lyrics/id/${data.id}`,
+        updatedData
+      );
 
+      setLyric((prevItems) => ({
+        ...prevItems,
+        songName: response.data.songName,
+        slug: response.data.slug,
+        content: response.data.content,
+      }));
+
+      if (data.songName !== updatedSongName) {
+        router.replace(`/admin/lyrics/${response.data.slug}`)
+      }
       toast.success("Lyrics modifiés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
-
-      if (data.songName !== updatedSongName) {
-        router.replace(`/lyrics/${response.data.slug}`);
-      } else {
-        router.refresh();
-      }
     } catch (error) {
       handleErrorClient(error);
     } finally {
@@ -101,4 +109,4 @@ const EditLyrics = ({ data }: EditLyricsProps) => {
   );
 };
 
-export default EditLyrics;
+export default EditLyric;

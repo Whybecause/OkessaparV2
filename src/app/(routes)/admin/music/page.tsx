@@ -1,10 +1,11 @@
 "use client";
-
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { handleErrorClient } from "@/utils/handleErrorClient";
 import { SpotifyAlbumWithTracks } from "@/app/api/admin/music/spotify/route";
+import { SelectedSpotify } from "@/app/api/music/spotify/route";
+import { handleErrorClient } from "@/utils/handleErrorClient";
+import SpotifyTrackSelector from "./components/spotif-track-selector";
 import {
   Select,
   SelectContent,
@@ -12,11 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import SpotifyTrackSelector from "./components/spotif-track-selector";
-import { SelectedSpotify } from "@/app/api/music/spotify/route";
 
-// Admin page
-const EditMusic = () => {
+const MusicDashboard = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<
     "spotify" | "youtube"
   >("spotify");
@@ -35,7 +33,7 @@ const EditMusic = () => {
         ]);
 
         setSpotifyData(spotifyResponse.data);
-        setSelectedSpotify(savedTracksResponse.data)
+        setSelectedSpotify(savedTracksResponse.data);
       } catch (error) {
         handleErrorClient(error);
       } finally {
@@ -45,10 +43,12 @@ const EditMusic = () => {
 
     fetchData();
   }, []);
-
   return (
     <>
-      <h1 className="py-8">Edit Music</h1>
+      <div className="border-b pt-6 pb-8">
+        <h1 className="text-center">Musique Dashboard</h1>
+      </div>
+
       <div className="my-6 flex space-x-4 text-black items-center justify-center">
         <label className="text-white font-semibold">Select platform</label>
         <Select
@@ -82,4 +82,4 @@ const EditMusic = () => {
   );
 };
 
-export default EditMusic;
+export default MusicDashboard;

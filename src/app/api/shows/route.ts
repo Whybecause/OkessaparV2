@@ -4,16 +4,16 @@ import { Timestamp } from "firebase-admin/firestore";
 import { checkAuth } from "@/utils/check-auth-server";
 import { errorServer } from "@/utils/error-server";
 
-export type Shows = {
-  id?: string;
+export type GetShowProps = {
+  id: string;
   country: string;
   city: string;
   date: Date;
   venue: string;
-  ticketLink?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-};
+  ticketLink: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export async function GET() {
   try {
@@ -56,7 +56,7 @@ export async function POST(
       );
     }
 
-    const newShow: Shows = {
+    const newShow = {
       date: new Date(date),
       country,
       venue,

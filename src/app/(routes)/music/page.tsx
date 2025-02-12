@@ -1,11 +1,7 @@
 import axios from "axios";
 
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
-import { getSessionCookie } from "@/utils/get-session-cookie";
 import { handleErrorServer } from "@/utils/handleErrorServer";
-import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
-import Link from "next/link";
 
 // interface YouTubeVideo {
 //   id: {
@@ -28,7 +24,6 @@ import Link from "next/link";
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
 
 const MusicPage = async () => {
-  const isAdmin = await getSessionCookie();
   // const channelId = "UCjeEtfJO2NhwegNFxcvb7bw";
 
   // try {
@@ -48,26 +43,16 @@ const MusicPage = async () => {
 
     return (
       <div>
-        <h1 className="p-8">Musique</h1>
-        {isAdmin && (
-          <Link href="/music/edit">
-            <Button>
-              {" "}
-              <Pencil />
-              Edit{" "}
-            </Button>
-          </Link>
-        )}
+        <h1 className="py-8 text-center border-b border-gray-300">Musique</h1>
 
-        <div className="py-4 flex flex-col items-center justify-center gap-4">
+        <div className="py-8 flex flex-col items-center justify-center gap-4">
           {spotifyData.map((item) => (
-            <>
-              <p className="text-xl font-semibold">
+            <div key={item.id}>
+              <p className="text-xl font-semibold text-center mb-2">
                 {item.release_date.substring(0, 4)}
               </p>
               {item.type === "album" ? (
                 <iframe
-                  key={item.id}
                   src={`https://open.spotify.com/embed/album/${item.id}`}
                   width="300"
                   height="380"
@@ -75,14 +60,13 @@ const MusicPage = async () => {
                 ></iframe>
               ) : (
                 <iframe
-                  key={item.id}
                   src={`https://open.spotify.com/embed/track/${item.id}`}
                   width="300"
                   height="380"
                   allow="encrypted-media"
                 ></iframe>
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>

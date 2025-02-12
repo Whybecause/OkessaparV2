@@ -10,7 +10,7 @@ export const useUser = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get("/api/login");
-        setUser(response.data.user || null);
+        setUser(response.data || null);
       } catch (error) {
         console.error(error);
         setUser(null);

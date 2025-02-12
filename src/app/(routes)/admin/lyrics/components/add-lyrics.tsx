@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import "quill/dist/quill.snow.css";
 import { Plus } from "lucide-react";
@@ -9,18 +8,22 @@ import Quill from "quill";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import Editor from "./editor";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
+import Editor from "@/app/(routes)/lyrics/components/editor";
+import { LyricProps } from "@/app/api/lyrics/route";
 
 type CreateLyricsValues = {
   songName: string;
   content: string;
 };
 
-const AddLyrics = () => {
-  const router = useRouter();
+const AddLyrics = ({
+  setLyrics,
+}: {
+  setLyrics: React.Dispatch<React.SetStateAction<LyricProps[]>>;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const editorRef = useRef<Quill | null>(null);
   const [editorKey, setEditorKey] = useState(0);
@@ -43,11 +46,11 @@ const AddLyrics = () => {
         return;
       }
 
-      await axios.post("/api/lyrics", data);
+      const response = await axios.post("/api/lyrics", data);
+      setLyrics((prevItems) => [...prevItems, response.data]);
       toast.success("Lyrics ajoutés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
-      router.refresh();
     } catch (error) {
       handleErrorClient(error);
     } finally {

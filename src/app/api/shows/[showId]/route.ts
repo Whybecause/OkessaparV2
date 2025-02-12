@@ -1,6 +1,5 @@
 import { db } from "@/firebase/db";
 import { NextResponse } from "next/server";
-import { Shows } from "../route";
 import { checkAuth } from "@/utils/check-auth-server";
 import { errorServer } from "@/utils/error-server";
 
@@ -29,7 +28,7 @@ export async function PATCH(
       )
     }
 
-    const updatedShow: Shows = {
+    const updatedShow = {
       date: new Date(date),
       country,
       venue,
@@ -50,8 +49,10 @@ export async function PATCH(
 
     await showRef.update(updatedShow);
 
+    const data = { id: showRef.id, ...updatedShow }
+
     return NextResponse.json(
-      updatedShow,
+      data,
       { status: 200 }
     );
   } catch (error) {

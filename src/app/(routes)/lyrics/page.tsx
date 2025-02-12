@@ -1,32 +1,19 @@
 import axios from "axios";
 
-import AddLyrics from "./components/add-lyrics";
 import LyricsList from "./components/lyrics-list";
-import { getSessionCookie } from "@/utils/get-session-cookie";
+import NoResults from "@/components/no-results";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
 const LyricsPage = async () => {
   const { data } = await axios.get(URL);
-  const isAdmin = await getSessionCookie();
 
   return (
     <>
-      <div className="py-8 relative flex flex-col md:flex-row items-center">
-        <h1 className="md:absolute md:left-1/2 transform md:-translate-x-1/2">
-          Lyrics
-        </h1>
-        {isAdmin && (
-          <div className="md:ml-auto mt-8 md:mt-0 text-center md:text-right">
-            <AddLyrics />
-          </div>
-        )}
-      </div>
+      <h1 className="py-8 text-center border-b border-gray-300">Lyrics</h1>
 
-      {!data.length && (
-        <p className="text-center text-xl font-semibold">
-          Aucun lyrics pour l&apos;instant
-        </p>
+      {data.length === 0 && (
+        <NoResults message={"Aucun lyrics enregistrés"} />
       )}
 
       <LyricsList data={data} />

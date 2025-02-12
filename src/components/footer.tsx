@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import axios from "axios";
 import { LogOut } from "lucide-react";
 
@@ -25,12 +26,15 @@ const Footer = () => {
   };
 
   return (
-    <footer>
-      <div className="border-t p-4 text-center">
-        <p>© 2025 Okessapar</p>
+    <footer className="flex w-full border-t border-gray-500 p-4">
+      <div className="w-full flex justify-start">
+        <p className="text-gray-300">© 2025 Okessapar</p>
       </div>
       {user && (
-        <div className="text-center p-4">
+        <div className="w-full flex justify-end gap-x-4">
+          <Button>
+            <Link href="/admin">Admin</Link>
+          </Button>
           <Button onClick={handleLogout} disabled={isLoading}>
             <LogOut />
           </Button>

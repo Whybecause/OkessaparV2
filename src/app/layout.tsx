@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 import Navbar from "@/components/navbar";
@@ -34,15 +34,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToasterProvider />
-        <div className="grid min-h-screen grid-rows-[auto_1fr_auto] overflow-x-hidden">
+        <div className="max-w-screen-2xl mx-auto w-full grid min-h-screen grid-rows-[auto_1fr_auto] overflow-x-hidden">
           <Navbar />
-          <main className="container mx-auto max-w-screen-xl px-4 w-full">
+
+          <main>
             {children}
             <SpeedInsights />
           </main>
-          <div className="max-w-screen-xl mx-auto w-full">
-            <Footer />
-          </div>
+
+          <Footer />
         </div>
       </body>
     </html>

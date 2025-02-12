@@ -1,6 +1,7 @@
 import { auth } from "@/firebase/db";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { getSessionCookie } from "@/utils/get-session-cookie";
 
 // Login user
 export async function POST(
@@ -36,23 +37,8 @@ export async function POST(
   }
 }
 
-// Get current user
+// Check if auth or not
 export async function GET() {
-  try {
-    const cookieStore = await cookies();
-
-    const sessionCookie = cookieStore.get("session")?.value;
-
-    if (!sessionCookie) {
-      return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
-    }
-
-    const decodedToken = await auth.verifySessionCookie(sessionCookie, true);
-    const userRecord = await auth.getUser(decodedToken.uid);
-
-    return NextResponse.json({ user: userRecord }, { status: 200 });
-  } catch (error) {
-    console.error('Failed to get user', error);
-    return NextResponse.json({ error: "Session invalide" }, { status: 401 });
-  }
+  const session = await getSessionCookie();
+  return NextResponse.json(session);
 }

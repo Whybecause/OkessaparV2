@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 
-const DeleteLyrics = ({ id }: { id: string }) => {
+const DeleteLyric = ({ id }: { id: string }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [ConfirmDialog, confirm] = useConfirm(
@@ -29,7 +29,7 @@ const DeleteLyrics = ({ id }: { id: string }) => {
       setIsDeleting(true);
       await axios.delete(`/api/lyrics/id/${id}`);
       toast.success("Lyric supprimé");
-      router.push("/lyrics");
+      router.push("/admin/lyrics");
     } catch (error) {
       handleErrorClient(error);
     } finally {
@@ -52,4 +52,4 @@ const DeleteLyrics = ({ id }: { id: string }) => {
   );
 };
 
-export default DeleteLyrics;
+export default DeleteLyric;

@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
+
 import { db } from "@/firebase/db";
-import { Delta } from "quill";
 import { checkAuth } from "@/utils/check-auth-server";
 import { errorServer } from "@/utils/error-server";
 
-export type Lyrics = {
-  id?: string;
+export type LyricProps = {
+  id: string;
   songName: string;
-  content: Delta;
+  content: string;
   order: number;
-  slug?: string;
+  slug: string;
 }
 
 // Get all songName
@@ -47,7 +47,7 @@ export async function PATCH(
 
     const batch = db.batch();
 
-    body.forEach((lyric: Lyrics) => {
+    body.forEach((lyric: LyricProps) => {
       const docRef = db.collection("lyrics").doc(lyric.id!);
       batch.update(docRef, { order: lyric.order });
     });
@@ -100,7 +100,7 @@ export async function POST(
       await db.collection("lyricsOrderCounter").doc('count').set({ count: newOrder });
     }
 
-    const newLyric: Lyrics = {
+    const newLyric = {
       songName,
       content,
       order: newOrder,
@@ -109,7 +109,7 @@ export async function POST(
 
     const docRef = await db.collection("lyrics").add(newLyric);
 
-    const createdLyric = { id: docRef.id, ...newLyric }
+    const createdLyric: LyricProps = { id: docRef.id, ...newLyric }
 
     return NextResponse.json(
       createdLyric,

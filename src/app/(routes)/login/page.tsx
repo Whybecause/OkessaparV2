@@ -57,6 +57,7 @@ const Login = () => {
 
       await axios.post("/api/login", JSON.stringify({ token: idToken }));
       window.location.reload();
+      router.push("/admin");
     } catch (error) {
       handleErrorClient(error);
     } finally {
@@ -74,7 +75,7 @@ const Login = () => {
 
   return (
     <>
-      <h1 className="mt-4">Login</h1>
+      <h1 className="mt-4 text-center">Login</h1>
 
       <div className="mt-2">
         <Button onClick={handleRegister}>Register</Button>

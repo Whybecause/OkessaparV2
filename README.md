@@ -57,7 +57,10 @@ cat firebase-admin-prod.json | jq -c
 - [x] protect API routes if no auth (PATCH/POST/DELETE)
 - [x] domain add
 - [x] Spotify: get tracks from spotify and choose wich one to display
+- [x] Admin dashboard
+- [] tester page en client vs ssr pour voir le temps
 - [] Youtube API to select and display videos
 - [] Form Contact
 - [] optimiser SEO
 - [] fix cron
+
