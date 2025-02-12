@@ -17,9 +17,8 @@ bun dev
 With vercel.json + func in api/cron
 
 ### Packages
+- EmailJS pour l'envoi de mails
 - shadcn-ui: utiliser les commandes pour ajouter des ui components
-
-  -> ex pour form: npx shadcn-ui@latest add form
 
 ### 3rd party API
 - Spotifiy
@@ -58,9 +57,8 @@ cat firebase-admin-prod.json | jq -c
 - [x] domain add
 - [x] Spotify: get tracks from spotify and choose wich one to display
 - [x] Admin dashboard
-- [] tester page en client vs ssr pour voir le temps
+- [x] Form Contact
 - [] Youtube API to select and display videos
-- [] Form Contact
 - [] optimiser SEO
 - [] fix cron
 
