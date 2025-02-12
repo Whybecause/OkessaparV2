@@ -30,7 +30,6 @@ const DeleteLyrics = ({ id }: { id: string }) => {
       await axios.delete(`/api/lyrics/id/${id}`);
       toast.success("Lyric supprimé");
       router.push("/lyrics");
-      //eslint-disable-next-line
     } catch (error) {
       handleErrorClient(error);
     } finally {

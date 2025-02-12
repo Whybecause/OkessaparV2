@@ -7,23 +7,23 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 
-interface YouTubeVideo {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    publishedAt: string;
-    channelId: string;
-    title: string;
-    description: string;
-    thumbnails: {
-      default: { url: string; width: number; height: number };
-      medium: { url: string; width: number; height: number };
-      high: { url: string; width: number; height: number };
-    };
-    channelTitle: string;
-  };
-}
+// interface YouTubeVideo {
+//   id: {
+//     videoId: string;
+//   };
+//   snippet: {
+//     publishedAt: string;
+//     channelId: string;
+//     title: string;
+//     description: string;
+//     thumbnails: {
+//       default: { url: string; width: number; height: number };
+//       medium: { url: string; width: number; height: number };
+//       high: { url: string; width: number; height: number };
+//     };
+//     channelTitle: string;
+//   };
+// }
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
 
@@ -71,8 +71,6 @@ const MusicPage = async () => {
                   src={`https://open.spotify.com/embed/album/${item.id}`}
                   width="300"
                   height="380"
-                  frameBorder="0"
-                  allowtransparency="true"
                   allow="encrypted-media"
                 ></iframe>
               ) : (
@@ -81,8 +79,6 @@ const MusicPage = async () => {
                   src={`https://open.spotify.com/embed/track/${item.id}`}
                   width="300"
                   height="380"
-                  frameborder="0"
-                  allowtransparency="true"
                   allow="encrypted-media"
                 ></iframe>
               )}

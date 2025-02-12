@@ -33,7 +33,6 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({ id }) => {
       await axios.delete(`/api/shows/${id}`);
       toast.success("Concert supprimé");
       router.refresh();
-      //eslint-disable-next-line
     } catch (error) {
       handleErrorClient(error);
     } finally {

@@ -60,6 +60,3 @@ cat firebase-admin-prod.json | jq -c
 - [] Youtube API to select and display videos
 - [] Form Contact
 - [] optimiser SEO
-
-
-update env in ghist and vercel (spotify client id and secret)
