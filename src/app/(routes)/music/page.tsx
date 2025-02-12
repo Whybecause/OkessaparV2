@@ -1,5 +1,12 @@
 import axios from "axios";
 
+import { SelectedSpotify } from "@/app/api/music/spotify/route";
+import { getSessionCookie } from "@/utils/get-session-cookie";
+import { handleErrorServer } from "@/utils/handleErrorServer";
+import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
+
 interface YouTubeVideo {
   id: {
     videoId: string;
@@ -18,48 +25,75 @@ interface YouTubeVideo {
   };
 }
 
+const URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
+
 const MusicPage = async () => {
-  const channelId = "UCjeEtfJO2NhwegNFxcvb7bw";
+  const isAdmin = await getSessionCookie();
+  // const channelId = "UCjeEtfJO2NhwegNFxcvb7bw";
 
-  const response = await axios.get<{ items: YouTubeVideo[] }>(
-    `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&order=date&type=video&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`
-  );
+  // try {
+  //   const response = await axios.get<{ items: YouTubeVideo[] }>(
+  //     `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&order=date&type=video&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`
+  //   );
 
-  const videos = response.data.items;
+  //   console.log("RES =", response);
 
-  console.log(videos[0].snippet);
+  //   const videos = response.data.items;
+  // } catch (error) {
+  //   console.log("err =", error.response.data);
+  // }
+  try {
+    const response = await axios.get(`${URL}/spotify`);
+    const spotifyData: SelectedSpotify[] = response.data;
 
-  return (
-    <div className="p-8">
-      <h1>Musique</h1>
-
-      <div className="flex justify-center">
-        <iframe
-          src="https://open.spotify.com/embed/track/3emu0vCnO7ZZYEDiHzqz1D"
-          width="300"
-          height="80"
-          frameBorder="0"
-          allow="encrypted-media"
-        ></iframe>
-      </div>
-
+    return (
       <div>
-        {videos.map((video) => (
-          <div key={video.id.videoId}>
-            <p>{video.snippet.title}</p>
-            <iframe
-              width="300"
-              height="180"
-              src={`https://www.youtube.com/embed/${video.id.videoId}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        ))}
+        <h1 className="p-8">Musique</h1>
+        {isAdmin && (
+          <Link href="/music/edit">
+            <Button>
+              {" "}
+              <Pencil />
+              Edit{" "}
+            </Button>
+          </Link>
+        )}
+
+        <div className="py-4 flex flex-col items-center justify-center gap-4">
+          {spotifyData.map((item) => (
+            <>
+              <p className="text-xl font-semibold">
+                {item.release_date.substring(0, 4)}
+              </p>
+              {item.type === "album" ? (
+                <iframe
+                  key={item.id}
+                  src={`https://open.spotify.com/embed/album/${item.id}`}
+                  width="300"
+                  height="380"
+                  frameBorder="0"
+                  allowtransparency="true"
+                  allow="encrypted-media"
+                ></iframe>
+              ) : (
+                <iframe
+                  key={item.id}
+                  src={`https://open.spotify.com/embed/track/${item.id}`}
+                  width="300"
+                  height="380"
+                  frameborder="0"
+                  allowtransparency="true"
+                  allow="encrypted-media"
+                ></iframe>
+              )}
+            </>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    handleErrorServer(error, "Failed to get music");
+  }
 };
 
 export default MusicPage;

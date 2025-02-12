@@ -9,6 +9,9 @@ import DeleteShowForm from "./components/delete-show-form";
 import { Button } from "@/components/ui/button";
 import { getSessionCookie } from "@/utils/get-session-cookie";
 
+// Static with revalidation (ISR) -> 60sec
+export const revalidate = 60;
+
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/shows`;
 
 const ShowsPage = async () => {

@@ -32,12 +32,7 @@ export async function GET() {
 
     return NextResponse.json(sortedData);
   } catch (error) {
-    console.error('Failed to get song names:', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('Failed to get song names:', error, 500);
   }
 }
 

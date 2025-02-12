@@ -2,9 +2,13 @@ import { cookies } from "next/headers";
 
 import { auth } from "@/firebase/db";
 
+let cachedSession: true | null = null;
+
 // Check if user auth (for server side components)
 // (useUser hook for client side component)
 export const getSessionCookie = async () => {
+  if (cachedSession) return cachedSession; // Utilise la version en cache
+
   const cookieStore = await cookies();
 
   const sessionCookie = cookieStore.get("session")?.value;
@@ -15,9 +19,11 @@ export const getSessionCookie = async () => {
 
   try {
     await auth.verifySessionCookie(sessionCookie, true);
-    return true;
+    cachedSession = true;
+    return cachedSession;
   } catch (error) {
     console.error(error);
-    return null;
+    cachedSession = null;
+    return cachedSession;
   }
 }
