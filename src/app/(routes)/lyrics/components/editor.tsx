@@ -59,6 +59,7 @@ const Editor = ({
           ["bold", "italic", "strike"],
           ["link"],
           [{ list: "ordered" }, { list: "bullet" }],
+          ['clean']
         ],
       },
     };

@@ -29,7 +29,6 @@ const LyricDashboard = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`/api/lyrics/${slug}`);
-        console.log("res =", response.data);
         setLyric(response.data);
       } catch (error) {
         if (error instanceof AxiosError && error.response) {

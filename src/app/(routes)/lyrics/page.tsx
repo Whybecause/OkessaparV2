@@ -7,16 +7,17 @@ const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
 const LyricsPage = async () => {
   const { data } = await axios.get(URL);
+  console.log('LYRICS DATA =', data);
 
   return (
     <>
       <h1 className="py-8 text-center border-b border-gray-300">Lyrics</h1>
 
-      {data.length === 0 && (
+      {data?.length === 0 ? (
         <NoResults message={"Aucun lyrics enregistrés"} />
+      ) : (
+        <LyricsList data={data} />
       )}
-
-      <LyricsList data={data} />
     </>
   );
 };
