@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import AddShowForm from "../../shows/components/add-show-form";
+import AddShowForm from "../../../(routes)/shows/components/add-show-form";
 import axios from "axios";
-import ShowItem from "../../shows/components/show-item";
+import ShowItem from "../../../(routes)/shows/components/show-item";
 import { cn } from "@/utils/utils";
-import EditShowForm from "../../shows/components/edit-show-form";
-import DeleteShowForm from "../../shows/components/delete-show-form";
+import EditShowForm from "../../../(routes)/shows/components/edit-show-form";
+import DeleteShowForm from "../../../(routes)/shows/components/delete-show-form";
 import { GetShowProps } from "@/app/api/shows/route";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 import Spinner from "@/components/ui/spinner";

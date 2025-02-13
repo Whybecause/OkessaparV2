@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import { Calendar, LogOut, MicVocal, Music } from "lucide-react";
+import { Calendar, Home, LogOut, MicVocal, Music } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -16,6 +17,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSubItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 
@@ -42,12 +45,7 @@ const AppSidebar = () => {
   };
 
   return (
-    <Sidebar
-      side="left"
-      variant="sidebar"
-      collapsible="icon"
-      className="sticky"
-    >
+    <Sidebar side="left" variant="sidebar" collapsible="icon">
       <SidebarHeader className="bg-[rgb(9,12,20)] " />
       <SidebarContent className="bg-[rgb(9,12,20)] text-white">
         <SidebarGroup>
@@ -67,22 +65,38 @@ const AppSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <SidebarSeparator />
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  onClick={handleLogout}
-                  disabled={isLoading}
-                >
-                  <div className="cursor-pointer">
-                    <LogOut />
-                    <span>Log Out</span>
-                  </div>
+                <SidebarMenuButton asChild>
+                  <Link href={"/"}>
+                    <Home />
+                    <span>Retour au site</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarSeparator />
+
+      <SidebarFooter className="bg-[rgb(9,12,20)] text-white">
+        <SidebarMenu>
+          <SidebarMenuSubItem>
+            <SidebarMenuButton
+              asChild
+              onClick={handleLogout}
+              disabled={isLoading}
+            >
+              <div className="cursor-pointer">
+                <LogOut />
+                <span>Déconnexion</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuSubItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 };

@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Modal } from "@/components/ui/modal";
-import { Pencil } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import Quill from "quill";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { Pencil } from "lucide-react";
+
 import Editor from "@/app/(routes)/lyrics/components/editor";
+import { handleErrorClient } from "@/utils/handleErrorClient";
 import { LyricProps } from "@/app/api/lyrics/route";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Modal } from "@/components/ui/modal";
 
 type EditLyricsValues = {
   songName: string;
@@ -59,7 +61,7 @@ const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
         `/api/lyrics/id/${data.id}`,
         updatedData
       );
-      console.log('RES =', response.data);
+      console.log("RES =", response.data);
 
       setLyrics((prevItems) => {
         const index = prevItems.findIndex(
@@ -69,18 +71,20 @@ const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
         let updatedLyrics;
         if (index !== -1) {
           updatedLyrics = prevItems.map((lyric) =>
-            lyric.id === response.data.id ? { ...lyric, ...response.data } : lyric
-        );
-      } else {
-        updatedLyrics = [...prevItems, response.data];
-      }
-      return updatedLyrics;
-      })
+            lyric.id === response.data.id
+              ? { ...lyric, ...response.data }
+              : lyric
+          );
+        } else {
+          updatedLyrics = [...prevItems, response.data];
+        }
+        return updatedLyrics;
+      });
 
       const isSlugPage = /^\/admin\/lyrics\/[^/]+$/.test(pathname);
 
       if (isSlugPage && data.songName !== updatedSongName) {
-        router.replace(`/admin/lyrics/${response.data.slug}`)
+        router.replace(`/admin/lyrics/${response.data.slug}`);
       }
 
       toast.success("Lyrics modifiés");
@@ -101,24 +105,28 @@ const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
       </Button>
 
       <Modal
-        title="Edit Lyrics"
+        title="Modifier les paroles"
         description=""
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        <Input
-          type="text"
-          defaultValue={data.songName}
-          onChange={(e) => setUpdatedSongName(e.target.value)}
-        />
+        <div className="flex flex-col gap-2">
+          <Label className="text-lg font-medium">Titre</Label>
+          <Input
+            type="text"
+            defaultValue={data.songName}
+            onChange={(e) => setUpdatedSongName(e.target.value)}
+          />
 
-        <Editor
-          key={editorKey}
-          onSubmit={handleSubmit}
-          disabled={isLoading}
-          innerRef={editorRef}
-          defaultValue={JSON.parse(data.content)}
-        />
+          <Label className="text-lg font-medium">Paroles</Label>
+          <Editor
+            key={editorKey}
+            onSubmit={handleSubmit}
+            disabled={isLoading}
+            innerRef={editorRef}
+            defaultValue={JSON.parse(data.content)}
+          />
+        </div>
       </Modal>
     </>
   );

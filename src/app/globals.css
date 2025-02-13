@@ -52,3 +52,9 @@ h3 {
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+.ql-editor {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}

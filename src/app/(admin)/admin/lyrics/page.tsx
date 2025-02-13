@@ -168,7 +168,7 @@ const LyricsDashboard = () => {
 
                   <div className="flex items-center gap-2">
                     <EditLyric data={lyric} setLyrics={setLyrics} />
-                    <DeleteLyric id={lyric.id} setLyrics={setLyrics} />
+                    <DeleteLyric id={lyric.id} songName={lyric.songName} setLyrics={setLyrics} />
                   </div>
                 </li>
               </Droppable>

@@ -67,13 +67,13 @@ const LyricDashboard = () => {
 
           <div className="flex gap-4 mt-4 sm:mt-0 sm:ml-auto">
             <EditLyric data={lyrics[0]} setLyrics={setLyrics} />
-            <DeleteLyrics id={lyrics[0]?.id} />
+            <DeleteLyrics id={lyrics[0]?.id} songName={lyrics[0]?.songName} />
           </div>
         </div>
       </div>
 
       <div
-        className="p-4 text-md"
+        className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto "
         dangerouslySetInnerHTML={{
           __html: new QuillDeltaToHtmlConverter(
             JSON.parse(lyrics[0]?.content).ops,

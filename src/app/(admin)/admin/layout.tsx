@@ -14,13 +14,11 @@ async function AdminLayout({
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <div className="w-full flex ">
-        <AppSidebar />
+      <AppSidebar />
 
-        <main className="flex-1 px-4 overflow-y-hidden">
-          <SidebarTrigger className="mt-2" />
-          {children}
-        </main>
+      <div className="max-w-screen-2xl mx-auto flex flex-col w-full px-4">
+        <SidebarTrigger className="mt-2" />
+        {children}
       </div>
     </SidebarProvider>
   );

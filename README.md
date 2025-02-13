@@ -62,7 +62,8 @@ cat firebase-admin-prod.json | jq -c
 - [x] fix copy paste in text editor
 - [x] handle modal max width and height
 - [x] motion div
-- [] staging website
+
 - [] Youtube API to select and display videos
+- [] staging website
 - [] optimiser SEO
 - [] fix cron

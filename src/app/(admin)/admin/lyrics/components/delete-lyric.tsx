@@ -14,17 +14,19 @@ import { LyricProps } from "@/app/api/lyrics/route";
 const DeleteLyric = ({
   id,
   setLyrics,
+  songName
 }: {
   id: string;
   setLyrics?: React.Dispatch<React.SetStateAction<LyricProps[]>>;
+  songName: string;
 }) => {
   const router = useRouter();
   const pathname = usePathname();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [ConfirmDialog, confirm] = useConfirm(
-    "Supprimer ce lyric?",
-    "Le lyric va être supprimé. Cette action est irréversible."
+    `Supprimer ${songName} ?`,
+    "Les paroles vont être supprimées. Cette action est irréversible."
   );
 
   const handleDelete = async () => {

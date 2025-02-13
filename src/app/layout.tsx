@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
 import { ToasterProvider } from "@/providers/toast-provider";
 
 const geistSans = Geist({
@@ -34,15 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToasterProvider />
-        <div className="max-w-screen-2xl w-full mx-auto flex flex-col">
-          <Navbar />
-
-          <main className="min-h-[calc(100vh-64px)]">
-            {children}
-            <SpeedInsights />
-          </main>
-
-          <Footer />
+        <div>
+          {children}
+          <SpeedInsights />
         </div>
       </body>
     </html>

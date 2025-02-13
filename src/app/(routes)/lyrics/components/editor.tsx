@@ -60,6 +60,7 @@ const Editor = ({
           ["link"],
           [{ list: "ordered" }, { list: "bullet" }],
         ],
+        resize: true,
       },
     };
 

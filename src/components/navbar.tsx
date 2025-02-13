@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <div className="z-50 h-16 items-center border-b border-gray-500 justify-center flex w-full">
-      <nav className="space-x-4 sm:space-x-16 md:space-x-24 lg:space-x-32 hidden md:flex items-center">
+      <nav className="md:flex w-full items-center justify-between px-4 hidden">
         {/* Logo */}
         <Link
           href="/"
