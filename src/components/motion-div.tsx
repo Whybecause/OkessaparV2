@@ -5,9 +5,11 @@ import React from "react";
 
 const MotionDiv = ({
   className = "",
-  children,
+  duration = 0.6,
+  children
 }: {
   className?: string;
+  duration?: number;
   children: React.ReactNode;
 }) => {
   return (
@@ -15,7 +17,7 @@ const MotionDiv = ({
       className={className}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration }}
     >
       {children}
     </motion.div>

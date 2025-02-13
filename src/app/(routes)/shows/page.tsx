@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { GetShowProps } from "@/app/api/shows/route";
 import ShowItem from "./components/show-item";
-import NoResults from "../../../components/no-results";
 import { Calendar } from "lucide-react";
 import Title from "@/components/title";
 import MotionDiv from "@/components/motion-div";
+import Image from "next/image";
 
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
@@ -21,7 +21,22 @@ const ShowsPage = async () => {
 
       <div className="px-4">
         {data.length === 0 ? (
-          <NoResults message={"Pas de concerts pour l'instant, ça bosse..."} />
+          <MotionDiv className="flex justify-center items-center w-full relative">
+            <Image
+              src={"/submarine.webp"}
+              alt="Submarine"
+              layout="intrinsic"
+              width={700}
+              height={500}
+              priority
+              className="max-w-full sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%] object-contain"
+            />
+            <MotionDiv duration={0.9} className="absolute top-1/2 left-1/2">
+              <div className="bg-gradient-to-b w-full max-w-[400px] text-center bg-opacity-80 p-3 md:p-4 from-transparent to-gray-900/50  transform -translate-x-1/2 -translate-y-1/2 bg-gray-900/80 text-white rounded-lg shadow-md">
+                <p>Pas de concerts pour l&apos;instant, ça bosse...</p>
+              </div>
+            </MotionDiv>
+          </MotionDiv>
         ) : (
           <MotionDiv>
             {data.map((show: GetShowProps) => (
@@ -35,3 +50,6 @@ const ShowsPage = async () => {
 };
 
 export default ShowsPage;
+{
+  /* <InfoCard message={"Pas de concerts pour l'instant, ça bosse..."} /> */
+}

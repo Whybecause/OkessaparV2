@@ -61,7 +61,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] admin lyrics: also edit/delete on /admin/lyrics
 - [x] fix copy paste in text editor
 - [x] handle modal max width and height
-- [] motion div
+- [x] motion div
 - [] staging website
 - [] Youtube API to select and display videos
 - [] optimiser SEO

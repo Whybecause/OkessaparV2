@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import MotionDiv from "@/components/motion-div";
 
 const MusicDashboard = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<
@@ -69,12 +70,14 @@ const MusicDashboard = () => {
 
       {
         selectedPlatform === "spotify" ? (
-          <SpotifyTrackSelector
-            spotifyData={spotifyData}
-            selectedSpotify={selectedSpotify}
-            setSelectedSpotify={setSelectedSpotify}
-            isLoading={isLoading}
-          />
+          <MotionDiv>
+            <SpotifyTrackSelector
+              spotifyData={spotifyData}
+              selectedSpotify={selectedSpotify}
+              setSelectedSpotify={setSelectedSpotify}
+              isLoading={isLoading}
+            />
+          </MotionDiv>
         ) : null
         // <YouTubeTrackSelector />
       }

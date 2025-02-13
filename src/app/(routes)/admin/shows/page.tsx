@@ -9,7 +9,8 @@ import DeleteShowForm from "../../shows/components/delete-show-form";
 import { GetShowProps } from "@/app/api/shows/route";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 import Spinner from "@/components/ui/spinner";
-import NoResults from "../../../../components/no-results";
+import InfoCard from "../../../../components/info-card";
+import MotionDiv from "@/components/motion-div";
 
 const ShowsDashboard = () => {
   const [shows, setShows] = useState<GetShowProps[]>([]);
@@ -46,21 +47,29 @@ const ShowsDashboard = () => {
 
       {isLoading && <Spinner />}
 
-      {!isLoading && shows.length === 0 && <NoResults message={"Pas de concerts pour l'instant, ça bosse..."} />}
+      {!isLoading && shows.length === 0 && (
+        <InfoCard message={"Pas de concerts pour l'instant, ça bosse..."} />
+      )}
 
-      {shows.map((show) => (
-        <ShowItem data={show} key={show.id}>
-          <div
-            className={cn(
-              "flex items-center space-x-4 mt-4 md:mt-0 md:ml-4",
-              !show.ticketLink && "mt-0"
-            )}
-          >
-            <EditShowForm id={show.id} initialData={show} setShows={setShows} />
-            <DeleteShowForm id={show.id} setShows={setShows} />
-          </div>
-        </ShowItem>
-      ))}
+      <MotionDiv>
+        {shows.map((show) => (
+          <ShowItem data={show} key={show.id}>
+            <div
+              className={cn(
+                "flex items-center space-x-4 mt-4 md:mt-0 md:ml-4",
+                !show.ticketLink && "mt-0"
+              )}
+            >
+              <EditShowForm
+                id={show.id}
+                initialData={show}
+                setShows={setShows}
+              />
+              <DeleteShowForm id={show.id} setShows={setShows} />
+            </div>
+          </ShowItem>
+        ))}
+      </MotionDiv>
     </>
   );
 };

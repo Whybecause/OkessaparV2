@@ -4,6 +4,7 @@ import { Music } from "lucide-react";
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
 import { handleErrorServer } from "@/utils/handleErrorServer";
 import Title from "@/components/title";
+import MotionDiv from "@/components/motion-div";
 
 // interface YouTubeVideo {
 //   id: {
@@ -47,7 +48,7 @@ const MusicPage = async () => {
       <>
         <Title title={"Musique"} icon={<Music />} />
 
-        <div className="py-8 flex flex-col items-center justify-center gap-4">
+        <MotionDiv className="py-8 flex flex-col items-center justify-center gap-4">
           {spotifyData.map((item) => (
             <div key={item.id}>
               <p className="text-xl font-semibold text-center mb-2">
@@ -70,7 +71,7 @@ const MusicPage = async () => {
               )}
             </div>
           ))}
-        </div>
+        </MotionDiv>
       </>
     );
   } catch (error) {
