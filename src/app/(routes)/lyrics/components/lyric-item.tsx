@@ -10,15 +10,12 @@ type LyricItemProps = {
 };
 const LyricItem: React.FC<LyricItemProps> = ({ data, href, children }) => {
   return (
-    <div className="py-4 relative flex flex-row items-center">
-      <Link
-        href={`${href}/${data.slug}`}
-        className="text-2xl underline decoration-emerald-300 transform absolute left-1/2 -translate-x-1/2"
-      >
+    <li className="border-b border-emerald-300 hover:border-emerald-500 transition text-white/80 hover:text-white">
+      <Link href={`${href}/${data.slug}`} className="text-2xl">
         {data.songName}
       </Link>
       {children}
-    </div>
+    </li>
   );
 };
 

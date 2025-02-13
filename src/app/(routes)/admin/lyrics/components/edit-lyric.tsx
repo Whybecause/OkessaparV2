@@ -8,7 +8,7 @@ import { Pencil } from "lucide-react";
 import Quill from "quill";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 import Editor from "@/app/(routes)/lyrics/components/editor";
 import { LyricProps } from "@/app/api/lyrics/route";
@@ -25,11 +25,12 @@ type EditLyricsProps = {
     content: string;
     slug: string;
   };
-  setLyric: React.Dispatch<React.SetStateAction<LyricProps>>;
+  setLyrics: React.Dispatch<React.SetStateAction<LyricProps[]>>;
 };
 
-const EditLyric = ({ data, setLyric }: EditLyricsProps) => {
+const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
   const [updatedSongName, setUpdatedSongName] = useState(data.songName);
@@ -58,21 +59,35 @@ const EditLyric = ({ data, setLyric }: EditLyricsProps) => {
         `/api/lyrics/id/${data.id}`,
         updatedData
       );
+      console.log('RES =', response.data);
 
-      setLyric((prevItems) => ({
-        ...prevItems,
-        songName: response.data.songName,
-        slug: response.data.slug,
-        content: response.data.content,
-      }));
+      setLyrics((prevItems) => {
+        const index = prevItems.findIndex(
+          (lyric) => lyric.id === response.data.id
+        );
 
-      if (data.songName !== updatedSongName) {
+        let updatedLyrics;
+        if (index !== -1) {
+          updatedLyrics = prevItems.map((lyric) =>
+            lyric.id === response.data.id ? { ...lyric, ...response.data } : lyric
+        );
+      } else {
+        updatedLyrics = [...prevItems, response.data];
+      }
+      return updatedLyrics;
+      })
+
+      const isSlugPage = /^\/admin\/lyrics\/[^/]+$/.test(pathname);
+
+      if (isSlugPage && data.songName !== updatedSongName) {
         router.replace(`/admin/lyrics/${response.data.slug}`)
       }
+
       toast.success("Lyrics modifiés");
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
     } catch (error) {
+      console.error(error);
       handleErrorClient(error);
     } finally {
       setIsLoading(false);

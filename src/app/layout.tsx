@@ -34,10 +34,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToasterProvider />
-        <div className="max-w-screen-2xl mx-auto w-full grid min-h-screen grid-rows-[auto_1fr_auto] overflow-x-hidden">
+        <div className="max-w-screen-2xl w-full mx-auto flex flex-col">
           <Navbar />
 
-          <main>
+          <main className="min-h-[calc(100vh-64px)]">
             {children}
             <SpeedInsights />
           </main>

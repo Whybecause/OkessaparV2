@@ -1,9 +1,9 @@
 import axios from "axios";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
-import BackButton from "@/components/back-button";
 import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/utils/handleErrorServer";
+import HeaderBack from "@/components/header-back";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
 
@@ -21,16 +21,10 @@ const LyricPage = async ({ params }: { params: tParams }) => {
 
     return (
       <>
-        <div className="p-8">
-            <div className="flex justify-between">
-              <BackButton />
-            </div>
-          <h2 className="absolute left-1/2 transform -translate-x-1/2">
-            {lyric.songName}
-          </h2>
-        </div>
+        <HeaderBack title={lyric.songName} />
+
         <div
-          className="p-4 text-lg font-semibold"
+          className="p-4 text-lg"
           dangerouslySetInnerHTML={{
             __html: new QuillDeltaToHtmlConverter(
               JSON.parse(lyric.content).ops,

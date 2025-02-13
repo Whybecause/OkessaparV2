@@ -1,7 +1,9 @@
 import axios from "axios";
+import { Music } from "lucide-react";
 
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
 import { handleErrorServer } from "@/utils/handleErrorServer";
+import Title from "@/components/title";
 
 // interface YouTubeVideo {
 //   id: {
@@ -42,8 +44,8 @@ const MusicPage = async () => {
     const spotifyData: SelectedSpotify[] = response.data;
 
     return (
-      <div>
-        <h1 className="py-8 text-center border-b border-gray-300">Musique</h1>
+      <>
+        <Title title={"Musique"} icon={<Music />} />
 
         <div className="py-8 flex flex-col items-center justify-center gap-4">
           {spotifyData.map((item) => (
@@ -69,7 +71,7 @@ const MusicPage = async () => {
             </div>
           ))}
         </div>
-      </div>
+      </>
     );
   } catch (error) {
     handleErrorServer(error, "Failed to get music");

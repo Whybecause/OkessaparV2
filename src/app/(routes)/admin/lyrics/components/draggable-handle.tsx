@@ -3,7 +3,13 @@ import { GripVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const  DraggableHandle = ({ id }: { id: string }) => {
+const DraggableHandle = ({
+  id,
+  className = "",
+}: {
+  id: string;
+  className?: string;
+}) => {
   const { attributes, listeners, setNodeRef } = useDraggable({ id });
 
   return (
@@ -13,12 +19,12 @@ const  DraggableHandle = ({ id }: { id: string }) => {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      style={{ cursor: "grab" }}
+      className={`cursor-grab ${className}`}
       onClick={(e) => e.preventDefault()} // Évite de trigger un clic accidentel
     >
       <GripVertical />
     </Button>
   );
-}
+};
 
 export default DraggableHandle;

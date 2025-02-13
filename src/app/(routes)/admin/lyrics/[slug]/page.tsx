@@ -16,25 +16,19 @@ const LyricDashboard = () => {
   const { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [lyric, setLyric] = useState<LyricProps>({
-    id: "",
-    songName: "",
-    content: "",
-    order: 0,
-    slug: "",
-  });
+  const [lyrics, setLyrics] = useState<LyricProps[]>([]);
 
   useEffect(() => {
     const getLyric = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`/api/lyrics/${slug}`);
-        setLyric(response.data);
+        setLyrics([response.data]);
       } catch (error) {
         if (error instanceof AxiosError && error.response) {
           setError(error?.response?.data?.error);
         } else {
-          setError("Failed to get lyric")
+          setError("Failed to get lyric");
         }
       } finally {
         setIsLoading(false);
@@ -62,23 +56,27 @@ const LyricDashboard = () => {
   return (
     <>
       <div className="p-8">
-        <div className="flex justify-between">
-          <BackButton />
-          <div className="space-x-2">
-            <EditLyric data={lyric} setLyric={setLyric} />
-            <DeleteLyrics id={lyric.id} />
+        <div className="flex flex-col sm:flex-row items-center relative sm:gap-4">
+          <div className="flex-shrink-0">
+            <BackButton />
+          </div>
+
+          <h1 className="text-center sm:absolute sm:left-1/2 sm:transform sm:-translate-x-1/2 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl truncate">
+            {lyrics[0]?.songName}
+          </h1>
+
+          <div className="flex gap-4 mt-4 sm:mt-0 sm:ml-auto">
+            <EditLyric data={lyrics[0]} setLyrics={setLyrics} />
+            <DeleteLyrics id={lyrics[0]?.id} />
           </div>
         </div>
-        <h2 className="absolute left-1/2 transform -translate-x-1/2">
-          {lyric.songName}
-        </h2>
       </div>
 
       <div
-        className="p-4 text-lg font-semibold"
+        className="p-4 text-md"
         dangerouslySetInnerHTML={{
           __html: new QuillDeltaToHtmlConverter(
-            JSON.parse(lyric.content).ops,
+            JSON.parse(lyrics[0]?.content).ops,
             {}
           ).convert(),
         }}

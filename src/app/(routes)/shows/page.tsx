@@ -3,6 +3,9 @@ import axios from "axios";
 import { GetShowProps } from "@/app/api/shows/route";
 import ShowItem from "./components/show-item";
 import NoResults from "../../../components/no-results";
+import { Calendar } from "lucide-react";
+import Title from "@/components/title";
+import MotionDiv from "@/components/motion-div";
 
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
@@ -14,15 +17,17 @@ const ShowsPage = async () => {
 
   return (
     <>
-      <h1 className="py-8 text-center border-b border-gray-300">Concerts</h1>
+      <Title title={"Concerts"} icon={<Calendar />} />
 
       <div className="px-4">
         {data.length === 0 ? (
           <NoResults message={"Pas de concerts pour l'instant, ça bosse..."} />
         ) : (
-          data.map((show: GetShowProps) => (
-            <ShowItem key={show.id} data={show} />
-          ))
+          <MotionDiv>
+            {data.map((show: GetShowProps) => (
+              <ShowItem key={show.id} data={show} />
+            ))}
+          </MotionDiv>
         )}
       </div>
     </>

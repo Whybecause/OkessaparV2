@@ -17,14 +17,12 @@ export async function GET() {
   try {
     const lyrics = await db.collection("lyrics").get();
 
-    const data = lyrics.docs.map((doc) => {
-      const docData = doc.data();
+    const data: LyricProps[] = lyrics.docs.map((doc) => {
+      const docData = doc.data() as Omit<LyricProps, "id">;
 
       return {
         id: doc.id,
-        songName: docData.songName,
-        order: docData.order,
-        slug: docData.slug,
+        ...docData
       }
     });
 

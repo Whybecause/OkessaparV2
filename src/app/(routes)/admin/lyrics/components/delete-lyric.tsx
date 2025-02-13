@@ -7,11 +7,20 @@ import { Button } from "@/components/ui/button";
 import { useConfirm } from "@/hooks/use-confirm";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { handleErrorClient } from "@/utils/handleErrorClient";
+import { LyricProps } from "@/app/api/lyrics/route";
 
-const DeleteLyric = ({ id }: { id: string }) => {
+const DeleteLyric = ({
+  id,
+  setLyrics,
+}: {
+  id: string;
+  setLyrics?: React.Dispatch<React.SetStateAction<LyricProps[]>>;
+}) => {
   const router = useRouter();
+  const pathname = usePathname();
+
   const [isDeleting, setIsDeleting] = useState(false);
   const [ConfirmDialog, confirm] = useConfirm(
     "Supprimer ce lyric?",
@@ -29,7 +38,14 @@ const DeleteLyric = ({ id }: { id: string }) => {
       setIsDeleting(true);
       await axios.delete(`/api/lyrics/id/${id}`);
       toast.success("Lyric supprimé");
-      router.push("/admin/lyrics");
+
+      const isSlugPage = /^\/admin\/lyrics\/[^/]+$/.test(pathname);
+
+      if (isSlugPage) {
+        router.push("/admin/lyrics");
+      } else if (setLyrics) {
+        setLyrics((prevItems) => prevItems.filter((item) => item.id !== id));
+      }
     } catch (error) {
       handleErrorClient(error);
     } finally {

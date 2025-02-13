@@ -14,7 +14,7 @@ const ShowItem = ({
   return (
     <>
       <div className="py-8 flex flex-col items-center md:grid md:grid-cols-3">
-        <div className="font-bold text-4xl md:text-xl md:w-auto md:justify-self-start">
+        <div className="font-bold text-2xl md:text-xl md:w-auto md:justify-self-start">
           {formatDate(data.date)}
         </div>
 

@@ -7,7 +7,15 @@ const BackButton = () => {
   };
 
   return (
-    <ArrowLeftIcon className="hover:cursor-pointer" onClick={handleBack} />
+    <div
+      onClick={handleBack}
+      className="cursor-pointer group flex items-center justify-center w-10 h-10 rounded-full hover:bg-white transition"
+    >
+      <ArrowLeftIcon
+        className=" group-hover:text-black "
+        onClick={handleBack}
+      />
+    </div>
   );
 };
 

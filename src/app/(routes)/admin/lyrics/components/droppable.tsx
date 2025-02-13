@@ -3,21 +3,23 @@ import { useDroppable } from "@dnd-kit/core";
 const Droppable = ({
   children,
   id,
-  style,
+  styleOnDrag,
   isSelf,
+  className = "",
 }: {
   children: React.ReactNode;
   id: number;
-  style: object;
+  styleOnDrag: object;
   isSelf: boolean;
+  className?: string;
 }) => {
   const { isOver, setNodeRef } = useDroppable({
     id,
   });
-  const cond = isOver && !isSelf ? style : undefined;
+  const cond = isOver && !isSelf ? styleOnDrag : undefined;
 
   return (
-    <div ref={setNodeRef} style={cond}>
+    <div ref={setNodeRef} className={className} style={cond}>
       {children}
     </div>
   );

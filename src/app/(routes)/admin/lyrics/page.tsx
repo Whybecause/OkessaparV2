@@ -5,7 +5,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { DndContext, DragOverEvent } from "@dnd-kit/core";
 
-import LyricItem from "../../lyrics/components/lyric-item";
 import NoResults from "../../../../components/no-results";
 import Droppable from "./components/droppable";
 import DraggableHandle from "./components/draggable-handle";
@@ -13,6 +12,9 @@ import Spinner from "@/components/ui/spinner";
 import { handleErrorClient } from "@/utils/handleErrorClient";
 import { LyricProps } from "@/app/api/lyrics/route";
 import AddLyrics from "./components/add-lyrics";
+import Link from "next/link";
+import EditLyric from "./components/edit-lyric";
+import DeleteLyric from "./components/delete-lyric";
 
 const LyricsDashboard = () => {
   const [lyrics, setLyrics] = useState<LyricProps[]>([]);
@@ -71,9 +73,13 @@ const LyricsDashboard = () => {
     setIsSelf(targetOrder === draggedOrder);
 
     if (draggedOrder && targetOrder < draggedOrder) {
-      setStyle({ borderTop: "1px solid white" });
+      setStyle({
+        borderTop: "5px solid rgb(110 231 183 / var(--tw-text-opacity, 1))",
+      });
     } else {
-      setStyle({ borderBottom: "1px solid white" });
+      setStyle({
+        borderBottom: "5px solid rgb(110 231 183 / var(--tw-text-opacity, 1))",
+      });
     }
   };
 
@@ -135,22 +141,38 @@ const LyricsDashboard = () => {
         <NoResults message={"Aucun lyrics enregistrés."} />
       )}
 
-      <DndContext onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
-        {lyrics.map((lyric) => (
-          <Droppable
-            key={lyric.id}
-            id={lyric.order}
-            style={style}
-            isSelf={isSelf}
-          >
-            <LyricItem data={lyric} href={"/admin/lyrics"}>
-              <div className="ml-auto">
-                <DraggableHandle id={lyric.id!} />
-              </div>
-            </LyricItem>
-          </Droppable>
-        ))}
-      </DndContext>
+      <ul className="w-full flex flex-col items-center gap-2 mt-4">
+        <DndContext onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+          {lyrics.map((lyric) => (
+            <Droppable
+              key={lyric.id}
+              id={lyric.order}
+              styleOnDrag={style}
+              isSelf={isSelf}
+              className={
+                "w-full relative max-w-md border rounded-md bg-gray-900/50 p-2"
+              }
+            >
+              <li key={lyric.id} className="flex justify-between w-full">
+                <div className="flex items-center gap-2">
+                  <DraggableHandle className="text-gray-500" id={lyric.id!} />
+                  <Link
+                    href={`/admin/lyrics/${lyric.slug}`}
+                    className="text-white"
+                  >
+                    {lyric.songName}
+                  </Link>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <EditLyric data={lyric} setLyrics={setLyrics} />
+                  <DeleteLyric id={lyric.id} setLyrics={setLyrics} />
+                </div>
+              </li>
+            </Droppable>
+          ))}
+        </DndContext>
+      </ul>
     </>
   );
 };

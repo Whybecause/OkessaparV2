@@ -47,9 +47,14 @@ export async function PATCH(
 
     const lyricRef = db.collection("lyrics").doc(lyricId);
 
+    const data = {
+      ...updatedLyric,
+      id: lyricId
+    }
+
     await lyricRef.update(updatedLyric);
     return NextResponse.json(
-      updatedLyric,
+      data,
       { status: 200 }
     );
   } catch (error) {
