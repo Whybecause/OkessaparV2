@@ -58,7 +58,7 @@ const Editor = ({
         toolbar: [
           ["bold", "italic", "strike"],
           ["link"],
-          [{ list: "ordered" }, { list: "bullet" }]
+          [{ list: "ordered" }, { list: "bullet" }],
         ],
       },
     };
@@ -121,7 +121,10 @@ const Editor = ({
           disabled && "opacity-50"
         )}
       >
-        <div ref={containerRef} className="h-full ql-custom" />
+        <div
+          ref={containerRef}
+          className="h-full ql-custom max-h-[70vh] overflow-y-auto"
+        />
 
         <div className="flex px-2 pb-2 z-[5]">
           {/* Send button */}
