@@ -58,10 +58,12 @@ cat firebase-admin-prod.json | jq -c
 - [x] Spotify: get tracks from spotify and choose wich one to display
 - [x] Admin dashboard
 - [x] Form Contact that sends us an email
-
 - [x] admin lyrics: also edit/delete on /admin/lyrics
-- [x] sidebar suit pas la height de la page (check sur page avec lyrics tres long)
+- [x] fix copy paste in text editor
+
 - [] text editor edit lyric if long lyric goes outside screen
+- [] motion div
+
 - [] Youtube API to select and display videos
 - [] optimiser SEO
 - [] fix cron

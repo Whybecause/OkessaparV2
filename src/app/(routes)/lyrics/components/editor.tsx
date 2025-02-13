@@ -58,8 +58,7 @@ const Editor = ({
         toolbar: [
           ["bold", "italic", "strike"],
           ["link"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          ['clean']
+          [{ list: "ordered" }, { list: "bullet" }]
         ],
       },
     };
@@ -79,8 +78,25 @@ const Editor = ({
       setText(quill.getText());
     });
 
+    // Remove formatting after copy pasting
+    quill.clipboard.addMatcher(
+      Node.ELEMENT_NODE,
+      (_node: Node, delta: Delta) => {
+        const cleanedDelta = delta.ops.map((op) => {
+          if (op.insert) {
+            return {
+              insert: op.insert,
+            };
+          }
+          return op;
+        });
+        return new Delta(cleanedDelta);
+      }
+    );
+
     return () => {
       quill.off(Quill.events.TEXT_CHANGE);
+      quill.root.remove();
 
       if (container) {
         container.innerHTML = "";
