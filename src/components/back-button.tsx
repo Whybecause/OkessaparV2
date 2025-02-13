@@ -13,7 +13,6 @@ const BackButton = () => {
     >
       <ArrowLeftIcon
         className=" group-hover:text-black "
-        onClick={handleBack}
       />
     </div>
   );
