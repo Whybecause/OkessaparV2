@@ -16,17 +16,22 @@ export type GetShowProps = {
   updatedAt: Date;
 }
 
+export const AVAILABLE_FILTERS = {
+  upcoming: "upcoming",
+  past: "past",
+  all: "all",
+};
+
 export async function GET(req: Request) {
   try {
-    const url = new URL(req.url);
-    const availableFilters = ["upcoming", "past", "all"];
+    const url = new URL(req.url, 'http://localhost');
     const filter = url.searchParams.get("filter");
 
-    if (!filter || !availableFilters.includes(filter)) {
+    if (!filter || !Object.values(AVAILABLE_FILTERS).includes(filter)) {
       return NextResponse.json({
         error: "Filter is invalid or missing",
         status: 400
-      })
+      });
     }
 
     const showsDoc = await db.collection("shows").get();
@@ -43,11 +48,11 @@ export async function GET(req: Request) {
     const now = new Date();
     let filteredShows = shows;
 
-    if (filter === "upcoming") {
+    if (filter === AVAILABLE_FILTERS.upcoming) {
       filteredShows = shows.filter((show) => new Date(show.date) >= now);
     }
 
-    if (filter === "all" || filter === "past") {
+    if (filter === AVAILABLE_FILTERS.all || filter === AVAILABLE_FILTERS.past) {
       await checkAuth();
     }
 

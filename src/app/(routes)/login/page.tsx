@@ -53,7 +53,7 @@ const Login = () => {
       const idToken = await user.getIdToken();
 
       await axios.post("/api/login", JSON.stringify({ token: idToken }));
-      window.location.reload();
+      // window.location.reload();
       router.push("/admin");
     } catch (error) {
       handleErrorClient(error);

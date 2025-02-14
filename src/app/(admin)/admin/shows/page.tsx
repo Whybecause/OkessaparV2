@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import AsyncData from "@/components/async-data";
 import FilteredShows from "./components/filtered-shows";
 import AddShowForm from "@/app/(admin)/admin/shows/components/add-show-form";
-import { GetShowProps } from "@/app/api/shows/route";
+import { AVAILABLE_FILTERS, GetShowProps } from "@/app/api/shows/route";
 import { cn } from "@/utils/utils";
 import MotionDiv from "@/components/motion-div";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === "upcoming" &&
+            filter === AVAILABLE_FILTERS.upcoming &&
               "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("upcoming")}
@@ -56,7 +56,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === "past" && "text-emerald-300 underline-offset-4 underline"
+            filter === AVAILABLE_FILTERS.past && "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("past")}
         >
@@ -66,7 +66,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === "all" && "text-emerald-300 underline-offset-4 underline"
+            filter === AVAILABLE_FILTERS.all && "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("all")}
         >
