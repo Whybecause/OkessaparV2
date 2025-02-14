@@ -63,10 +63,9 @@ cat firebase-admin-prod.json | jq -c
 - [x] handle modal max width and height
 - [x] motion div
 - [x] Youtube API to select and display videos
-
-- [] remove cron
-- [] admin shows manager
-- [] proper error handle from api to client
+- [x] admin shows manager
+- [x] proper error handle from api to client
+- [x] remove cron
 
 - [] refacto responsive add show form (col for mobile)
 - [] admin dashboard graphs
