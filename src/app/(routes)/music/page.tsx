@@ -5,6 +5,7 @@ import { handleErrorServer } from "@/utils/handleErrorServer";
 import Title from "@/components/title";
 import MotionDiv from "@/components/motion-div";
 import { SelectedYoutubeProps } from "@/app/api/admin/music/youtube/route";
+import InfoCard from "@/components/info-card";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
 
@@ -18,32 +19,36 @@ const MusicPage = async () => {
 
     return (
       <>
-        <Title title={"Musique"}/>
+        <Title title={"Musique"} />
 
         {/* Section Spotify */}
         <MotionDiv className="py-8">
           <h2 className="text-2xl font-bold text-center mb-6 text-white">
             🎵 Nos morceaux sur Spotify
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            {spotifyData.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
-              >
-                <p className="text-lg font-semibold text-white">
-                  {item.release_date.substring(0, 4)}
-                </p>
-                <iframe
-                  src={`https://open.spotify.com/embed/${item.type}/${item.id}`}
-                  width="100%"
-                  height="380"
-                  allow="encrypted-media"
-                  className="rounded-lg"
-                ></iframe>
-              </div>
-            ))}
-          </div>
+          {spotifyData.length ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+              {spotifyData.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
+                >
+                  <p className="text-lg font-semibold text-white">
+                    {item.release_date.substring(0, 4)}
+                  </p>
+                  <iframe
+                    src={`https://open.spotify.com/embed/${item.type}/${item.id}`}
+                    width="100%"
+                    height="380"
+                    allow="encrypted-media"
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <InfoCard message={"Rien pour l'instant"} />
+          )}
         </MotionDiv>
 
         {/* Section YouTube */}
@@ -51,25 +56,29 @@ const MusicPage = async () => {
           <h2 className="text-2xl font-bold text-center mb-6 text-white">
             🎬 Nos vidéos YouTube
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            {youtubeData.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
-              >
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={`https://www.youtube.com/embed/${item.id}?enablejsapi=1`}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="rounded-lg"
-                ></iframe>
-              </div>
-            ))}
-          </div>
+          {youtubeData.length ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+              {youtubeData.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
+                >
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={`https://www.youtube.com/embed/${item.id}?enablejsapi=1`}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <InfoCard message={"Rien pour l'instant"} />
+          )}
         </MotionDiv>
       </>
     );

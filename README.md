@@ -65,9 +65,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] Youtube API to select and display videos
 - [] fetch more videos from youtube
 
-- [] staging website
 - [] optimiser SEO
-- [] fix cron
 - [] Tests
 - [] maj portfolio
 
