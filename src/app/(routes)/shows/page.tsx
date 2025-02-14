@@ -1,11 +1,10 @@
 import axios from "axios";
+import Image from "next/image";
 
 import { GetShowProps } from "@/app/api/shows/route";
 import ShowItem from "./components/show-item";
-import { Calendar } from "lucide-react";
 import Title from "@/components/title";
 import MotionDiv from "@/components/motion-div";
-import Image from "next/image";
 
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
@@ -17,7 +16,7 @@ const ShowsPage = async () => {
 
   return (
     <>
-      <Title title={"Concerts"} icon={<Calendar />} />
+      <Title title={"Concerts"} />
 
       <div className="px-4">
         {data.length === 0 ? (

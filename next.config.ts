@@ -8,7 +8,13 @@ const nextConfig: NextConfig = {
         hostname: 'i.scdn.co',
         port: '',
         search: '',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        port: '',
+        search: '',
+      },
     ]
   },
 };

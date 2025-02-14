@@ -61,7 +61,6 @@ const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
         `/api/lyrics/id/${data.id}`,
         updatedData
       );
-      console.log("RES =", response.data);
 
       setLyrics((prevItems) => {
         const index = prevItems.findIndex(

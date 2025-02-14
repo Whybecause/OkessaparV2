@@ -65,7 +65,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] w-full flex flex-col items-center justify-between flex-grow">
 
-      <Title title={"Contact"} icon={<Mail />} />
+      <Title title={"Contact"} />
 
       <div className="flex flex-col justify-center items-center flex-grow px-4 pb-4">
         <motion.div

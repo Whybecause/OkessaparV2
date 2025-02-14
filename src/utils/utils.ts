@@ -6,12 +6,24 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const formatDate = (date: Date) => {
+export const formatDateShort = (date: Date | string) => {
   const dateObj = new Date(date);
   return dateObj.toLocaleDateString("fr-FR", {
     day: "2-digit",
     month: "short",
+    year: "numeric"
   });
 };
+
+export const formatDate = (date: Date | string) => {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+};
+
+
 
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Mic2 } from "lucide-react";
 
 import LyricsList from "./components/lyrics-list";
 import InfoCard from "@/components/info-card";
@@ -15,7 +14,7 @@ const LyricsPage = async () => {
 
   return (
     <>
-      <Title title={"Lyrics"} icon={<Mic2 />} />
+      <Title title={"Lyrics"}/>
 
       {data?.length === 0 ? (
         <InfoCard message={"Aucun lyrics enregistrés"} />

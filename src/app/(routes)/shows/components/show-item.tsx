@@ -1,6 +1,6 @@
 import { GetShowProps } from "@/app/api/shows/route";
 import { Button } from "@/components/ui/button";
-import { formatDate } from "@/utils/utils";
+import { formatDateShort } from "@/utils/utils";
 import Link from "next/link";
 import React from "react";
 
@@ -15,7 +15,7 @@ const ShowItem = ({
     <>
       <div className="py-8 flex flex-col items-center md:grid md:grid-cols-3">
         <div className="font-bold text-2xl md:text-xl md:w-auto md:justify-self-start">
-          {formatDate(data.date)}
+          {formatDateShort(data.date)}
         </div>
 
         <div className="mt-4 flex space-x-2 md:w-full md:justify-self-center md:mt-0 ">

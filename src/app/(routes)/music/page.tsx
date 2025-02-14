@@ -1,76 +1,75 @@
 import axios from "axios";
-import { Music } from "lucide-react";
 
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
 import { handleErrorServer } from "@/utils/handleErrorServer";
 import Title from "@/components/title";
 import MotionDiv from "@/components/motion-div";
+import { SelectedYoutubeProps } from "@/app/api/admin/music/youtube/route";
 
-// interface YouTubeVideo {
-//   id: {
-//     videoId: string;
-//   };
-//   snippet: {
-//     publishedAt: string;
-//     channelId: string;
-//     title: string;
-//     description: string;
-//     thumbnails: {
-//       default: { url: string; width: number; height: number };
-//       medium: { url: string; width: number; height: number };
-//       high: { url: string; width: number; height: number };
-//     };
-//     channelTitle: string;
-//   };
-// }
-
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
 
 const MusicPage = async () => {
-  // const channelId = "UCjeEtfJO2NhwegNFxcvb7bw";
-
-  // try {
-  //   const response = await axios.get<{ items: YouTubeVideo[] }>(
-  //     `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&order=date&type=video&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`
-  //   );
-
-  //   console.log("RES =", response);
-
-  //   const videos = response.data.items;
-  // } catch (error) {
-  //   console.log("err =", error.response.data);
-  // }
   try {
-    const response = await axios.get(`${URL}/spotify`);
-    const spotifyData: SelectedSpotify[] = response.data;
+    const spotifyFromDb = await axios.get(`${API_URL}/spotify`);
+
+    const youtubeFromDb = await axios.get(`${API_URL}/youtube`);
+    const spotifyData: SelectedSpotify[] = spotifyFromDb.data;
+    const youtubeData: SelectedYoutubeProps[] = youtubeFromDb.data;
 
     return (
       <>
-        <Title title={"Musique"} icon={<Music />} />
+        <Title title={"Musique"}/>
 
-        <MotionDiv className="py-8 flex flex-col items-center justify-center gap-4">
-          {spotifyData.map((item) => (
-            <div key={item.id}>
-              <p className="text-xl font-semibold text-center mb-2">
-                {item.release_date.substring(0, 4)}
-              </p>
-              {item.type === "album" ? (
+        {/* Section Spotify */}
+        <MotionDiv className="py-8">
+          <h2 className="text-2xl font-bold text-center mb-6 text-white">
+            🎵 Nos morceaux sur Spotify
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            {spotifyData.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
+              >
+                <p className="text-lg font-semibold text-white">
+                  {item.release_date.substring(0, 4)}
+                </p>
                 <iframe
-                  src={`https://open.spotify.com/embed/album/${item.id}`}
-                  width="300"
+                  src={`https://open.spotify.com/embed/${item.type}/${item.id}`}
+                  width="100%"
                   height="380"
                   allow="encrypted-media"
+                  className="rounded-lg"
                 ></iframe>
-              ) : (
+              </div>
+            ))}
+          </div>
+        </MotionDiv>
+
+        {/* Section YouTube */}
+        <MotionDiv className="py-8">
+          <h2 className="text-2xl font-bold text-center mb-6 text-white">
+            🎬 Nos vidéos YouTube
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            {youtubeData.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
+              >
                 <iframe
-                  src={`https://open.spotify.com/embed/track/${item.id}`}
-                  width="300"
-                  height="380"
-                  allow="encrypted-media"
+                  width="100%"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${item.id}?enablejsapi=1`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="rounded-lg"
                 ></iframe>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </MotionDiv>
       </>
     );

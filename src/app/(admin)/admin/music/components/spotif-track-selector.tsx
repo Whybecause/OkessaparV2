@@ -85,12 +85,12 @@ const SpotifyTrackSelector = ({
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="border-t border-gray-500">
-          <div className="md:py-4 md:flex md:flex-wrap md:justify-center md:gap-4">
-            {spotifyData.map((item) => (
+        <div className="border-t border-gray-500 p-4 mb-10 sm:mb-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {spotifyData.map((item) => (
               <div
                 key={item.album.id}
-                className="p-4 md:px-4 md:py-0 border-b md:border-b-0 md:border-r border-gray-500"
+                className="p-4 bg-gray-900/50 rounded-lg shadow-lg flex flex-col items-center space-y-3 hover:scale-105 transition"
               >
                 <div className="flex items-center space-x-4">
                   <Image
