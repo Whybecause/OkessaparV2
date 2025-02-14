@@ -18,7 +18,6 @@ const AsyncData = <T,>({
   noResultMessage,
   children,
 } : AsyncDataProps<T>) => {
-  console.log('ASYNC DATA ', data);
   if (isLoading) {
     return <Spinner />;
   } else if (error) {

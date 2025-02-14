@@ -66,8 +66,9 @@ cat firebase-admin-prod.json | jq -c
 - [x] admin shows manager
 - [x] proper error handle from api to client
 - [x] remove cron
+- [x] refacto responsive add show form (col for mobile)
+- [x] enhance ui admin shows
 
-- [] refacto responsive add show form (col for mobile)
 - [] admin dashboard graphs
 
 - [] fetch more videos from youtube

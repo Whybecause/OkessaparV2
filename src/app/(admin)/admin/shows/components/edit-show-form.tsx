@@ -6,23 +6,23 @@ import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
-import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import toast from "react-hot-toast";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 interface EditShowFormProps {
   id: string;
   initialData: GetShowProps;
   setShows: React.Dispatch<React.SetStateAction<GetShowProps[]>>;
+  setOpenMenu: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const EditShowForm: React.FC<EditShowFormProps> = ({
   id,
   initialData,
   setShows,
+  setOpenMenu,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,19 +65,28 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
     } finally {
       setIsLoading(false);
       setIsOpen(false);
+      setOpenMenu(null);
     }
   };
 
   return (
     <>
-      <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="flex w-full h-8 justify-start items-center gap-2"
+      >
         <Pencil />
-      </Button>
+        Edit
+      </button>
+
       <Modal
         title="Modifier un concert"
         description=""
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={() => {
+          setIsOpen(false);
+          setOpenMenu(null);
+        }}
       >
         <ShowForm form={form} onSubmit={handleEdit} isLoading={isLoading} />
       </Modal>

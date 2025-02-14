@@ -5,18 +5,20 @@ import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { useConfirm } from "@/hooks/use-confirm";
-import { Button } from "@/components/ui/button";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 interface DeleteShowFormProps {
   id: string;
   setShows: React.Dispatch<React.SetStateAction<GetShowProps[]>>;
-
+  setOpenMenu: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const DeleteShowForm: React.FC<DeleteShowFormProps> = ({ id, setShows }) => {
+const DeleteShowForm: React.FC<DeleteShowFormProps> = ({
+  id,
+  setShows,
+  setOpenMenu,
+}) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [ConfirmDialog, confirm] = useConfirm(
     "Supprimer ce concert?",
@@ -39,20 +41,21 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({ id, setShows }) => {
       handleErrorClient(error);
     } finally {
       setIsDeleting(false);
+      setOpenMenu(null);
     }
   };
 
   return (
     <div>
       <ConfirmDialog />
-      <Button
-        variant="destructive"
-        size="icon"
+      <button
         onClick={handleDelete}
+        className="flex w-full h-8 justify-start items-center gap-2"
         disabled={isDeleting}
       >
         <Trash />
-      </Button>
+        Delete
+      </button>
     </div>
   );
 };
