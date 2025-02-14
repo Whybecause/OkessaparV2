@@ -8,7 +8,8 @@ import axios from "axios";
 import { Pencil } from "lucide-react";
 
 import Editor from "@/app/(routes)/lyrics/components/editor";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import { LyricProps } from "@/app/api/lyrics/route";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";

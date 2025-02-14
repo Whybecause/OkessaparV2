@@ -1,21 +1,31 @@
 import axios from "axios";
 
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
-import { handleErrorServer } from "@/utils/handleErrorServer";
+import { handleErrorServer } from "@/utils/error-front";
 import Title from "@/components/title";
 import MotionDiv from "@/components/motion-div";
 import { SelectedYoutubeProps } from "@/app/api/admin/music/youtube/route";
 import InfoCard from "@/components/info-card";
+import Error from "@/components/ui/error";
 
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/music`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const MusicPage = async () => {
   try {
-    const spotifyFromDb = await axios.get(`${API_URL}/spotify`);
+    const spotifyFromDb = await axios.get(`${API_URL}/music/spotify`);
+    const youtubeFromDb = await axios.get(`${API_URL}/music/youtube`);
 
-    const youtubeFromDb = await axios.get(`${API_URL}/youtube`);
+    if (spotifyFromDb.data.error) {
+      return <Error error={spotifyFromDb.data.error} />;
+    }
+
+    if (youtubeFromDb.data.error) {
+      return <Error error={youtubeFromDb.data.error} />;
+    }
+
     const spotifyData: SelectedSpotify[] = spotifyFromDb.data;
     const youtubeData: SelectedYoutubeProps[] = youtubeFromDb.data;
+
 
     return (
       <>

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+
 import { db } from "@/firebase/db";
 import { Timestamp } from "firebase-admin/firestore";
-import { checkAuth } from "@/utils/check-auth-server";
+import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
 
 export type GetShowProps = {
@@ -15,10 +16,21 @@ export type GetShowProps = {
   updatedAt: Date;
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const shows = await db.collection("shows").get();
-    const data = shows.docs.map((doc) => {
+    const url = new URL(req.url);
+    const availableFilters = ["upcoming", "past", "all"];
+    const filter = url.searchParams.get("filter");
+
+    if (!filter || !availableFilters.includes(filter)) {
+      return NextResponse.json({
+        error: "Filter is invalid or missing",
+        status: 400
+      })
+    }
+
+    const showsDoc = await db.collection("shows").get();
+    const shows = showsDoc.docs.map((doc) => {
       const { date, ...rest } = doc.data();
       return {
         id: doc.id,
@@ -26,17 +38,22 @@ export async function GET() {
         ...rest,
       }
     });
+    shows.sort((a, b) => (a.date && b.date ? a.date - b.date : 0));
 
-    data.sort((a, b) => (a.date && b.date ? a.date - b.date : 0));
+    const now = new Date();
+    let filteredShows = shows;
 
-    return NextResponse.json(data);
+    if (filter === "upcoming") {
+      filteredShows = shows.filter((show) => new Date(show.date) >= now);
+    }
+
+    if (filter === "all" || filter === "past") {
+      await checkAuth();
+    }
+
+    return NextResponse.json(filteredShows, { status: 200 });
   } catch (error) {
-    console.error('Failed to get shows:', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer("Failed to get shows", error, 500);
   }
 }
 

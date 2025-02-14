@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 
 import { app } from "@/firebase/db-client";
 import { useUser } from "@/hooks/use-user";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -36,7 +37,7 @@ const Login = () => {
   useEffect(() => {
     if (!user) return;
 
-    router.push("/");
+    router.push("/admin");
   }, [user, router]);
 
   const handleLogin = async (data: LoginFormValues) => {

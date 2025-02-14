@@ -8,7 +8,8 @@ import { useConfirm } from "@/hooks/use-confirm";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import { LyricProps } from "@/app/api/lyrics/route";
 
 const DeleteLyric = ({

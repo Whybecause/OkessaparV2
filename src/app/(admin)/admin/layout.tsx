@@ -17,7 +17,7 @@ async function AdminLayout({
       <AppSidebar />
 
       <div className="max-w-screen-2xl mx-auto flex flex-col w-full px-4">
-        <SidebarTrigger className="mt-2" />
+        <SidebarTrigger className="mt-2 absolute" />
         {children}
       </div>
     </SidebarProvider>

@@ -20,7 +20,7 @@ import {
   SidebarMenuSubItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front";
 
 const NAV_ROUTES = [
   { href: "/admin/music", label: "Musique", icon: <Music /> },

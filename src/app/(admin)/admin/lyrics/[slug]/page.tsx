@@ -2,59 +2,33 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios, { AxiosError } from "axios";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 import BackButton from "@/components/back-button";
 import EditLyric from "../components/edit-lyric";
 import DeleteLyrics from "../components/delete-lyric";
-import Spinner from "@/components/ui/spinner";
-import Error from "@/components/ui/error";
 import { LyricProps } from "@/app/api/lyrics/route";
+import AsyncData from "@/components/async-data";
+import { useData } from "@/hooks/use-data";
 
 const LyricDashboard = () => {
   const { slug } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [lyrics, setLyrics] = useState<LyricProps[]>([]);
 
+  const { data, isLoading, error } = useData(`/api/lyrics/${slug}`);
   useEffect(() => {
-    const getLyric = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`/api/lyrics/${slug}`);
-        setLyrics([response.data]);
-      } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-          setError(error?.response?.data?.error);
-        } else {
-          setError("Failed to get lyric");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getLyric();
-  }, [slug]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return (
-      <div className="p-8">
-        <div className="flex">
-          <BackButton />
-        </div>
-        <Error error={error} />
-      </div>
-    );
-  }
+    if (data) {
+      setLyrics(data as LyricProps[]);
+    }
+  }, [data]);
 
   return (
-    <>
+    <AsyncData
+      data={lyrics}
+      isLoading={isLoading}
+      error={error}
+      noResultMessage="No lyric found or wrong slug"
+    >
       <div className="p-8">
         <div className="flex flex-col sm:flex-row items-center relative sm:gap-4">
           <div className="flex-shrink-0">
@@ -72,16 +46,18 @@ const LyricDashboard = () => {
         </div>
       </div>
 
-      <div
-        className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto "
-        dangerouslySetInnerHTML={{
-          __html: new QuillDeltaToHtmlConverter(
-            JSON.parse(lyrics[0]?.content).ops,
-            {}
-          ).convert(),
-        }}
-      />
-    </>
+      {lyrics[0]?.content && (
+        <div
+          className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto "
+          dangerouslySetInnerHTML={{
+            __html: new QuillDeltaToHtmlConverter(
+              JSON.parse(lyrics[0]?.content).ops,
+              {}
+            ).convert(),
+          }}
+        />
+      )}
+    </AsyncData>
   );
 };
 

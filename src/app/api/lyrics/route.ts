@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { db } from "@/firebase/db";
-import { checkAuth } from "@/utils/check-auth-server";
+import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
 
 export type LyricProps = {
@@ -27,7 +27,6 @@ export async function GET() {
     });
 
     const sortedData = data.sort((a, b) => a.order - b.order);
-
     return NextResponse.json(sortedData);
   } catch (error) {
     return errorServer('Failed to get song names:', error, 500);

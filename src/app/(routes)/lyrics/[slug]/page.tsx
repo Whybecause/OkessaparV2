@@ -2,7 +2,7 @@ import axios from "axios";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 import Error from "@/components/ui/error";
-import { handleErrorServer } from "@/utils/handleErrorServer";
+import { handleErrorServer } from "@/utils/error-front";
 import HeaderBack from "@/components/header-back";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;

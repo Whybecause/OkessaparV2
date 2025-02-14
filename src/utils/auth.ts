@@ -1,5 +1,4 @@
 import { cookies } from "next/headers";
-
 import { auth } from "@/firebase/db";
 
 let cachedSession: true | null = null;
@@ -26,4 +25,13 @@ export const getSessionCookie = async () => {
     cachedSession = null;
     return cachedSession;
   }
+}
+
+// Protect api routes
+export const checkAuth = async () => {
+  const isAuth = await getSessionCookie();
+  if (!isAuth) {
+    throw new Error("Unauthorized");
+  }
+  return;
 }

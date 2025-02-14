@@ -1,7 +1,7 @@
 import { auth } from "@/firebase/db";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getSessionCookie } from "@/utils/get-session-cookie";
+import { getSessionCookie } from "@/utils/auth";
 
 // Login user
 export async function POST(

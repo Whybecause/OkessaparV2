@@ -4,7 +4,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 import { formatDate } from "@/utils/utils";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import Spinner from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";

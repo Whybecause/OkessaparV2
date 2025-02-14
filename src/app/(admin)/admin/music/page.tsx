@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import { SpotifyAlbumWithTracks } from "@/app/api/admin/music/spotify/route";
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import SpotifyTrackSelector from "./components/spotif-track-selector";
 import {
   Select,

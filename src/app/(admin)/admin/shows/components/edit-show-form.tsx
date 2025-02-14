@@ -9,7 +9,8 @@ import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import toast from "react-hot-toast";
-import { handleErrorClient } from "@/utils/handleErrorClient";
+import { handleErrorClient } from "@/utils/error-front"
+;
 import { GetShowProps } from "@/app/api/shows/route";
 
 interface EditShowFormProps {
