@@ -20,14 +20,14 @@ export const formSchema = z.object({
   country: z.string().min(1, "Le pays est requis"),
   city: z.string().min(1, "La ville est requise"),
   date: z
-  .date()
-  .nullable()
-  .refine(
-    (val) => {
-      if (val === null) return false;
-      return !isNaN(val.getTime());
-    },
-    {
+    .date()
+    .nullable()
+    .refine(
+      (val) => {
+        if (val === null) return false;
+        return !isNaN(val.getTime());
+      },
+      {
         message: "La date est requise",
       }
     ),
@@ -43,21 +43,20 @@ interface ShowFormProps {
   isLoading: boolean;
 }
 
-const ShowForm: React.FC<ShowFormProps> = ({
-  form,
-  onSubmit,
-  isLoading,
-}) => {
+const ShowForm: React.FC<ShowFormProps> = ({ form, onSubmit, isLoading }) => {
   return (
     <Form {...form}>
       <form className="space-y-8 w-full" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="md:grid md:grid-cols-2 md:gap-8 flex gap-4 flex-col">
           <FormField
             control={form.control}
             name="venue"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Salle</FormLabel>
+                <FormLabel>
+                  Salle
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="text-black"
@@ -75,7 +74,10 @@ const ShowForm: React.FC<ShowFormProps> = ({
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ville</FormLabel>
+                <FormLabel>
+                  Ville
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="text-black"
@@ -93,7 +95,10 @@ const ShowForm: React.FC<ShowFormProps> = ({
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Pays</FormLabel>
+                <FormLabel>
+                  Pays
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="text-black"
@@ -129,7 +134,10 @@ const ShowForm: React.FC<ShowFormProps> = ({
             name="date"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex pt-2">Date</FormLabel>
+                <FormLabel className="flex pt-2">
+                  Date
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <ReactDatePicker
                     selected={field.value}
