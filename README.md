@@ -69,8 +69,6 @@ cat firebase-admin-prod.json | jq -c
 - [x] enhance ui admin shows
 - [] staging
 - [] admin dashboard graphs
-- [] fetch more videos from youtube
 - [] optimiser SEO
-- [] Tests: jest.config.api.ts et jest.config.api.client + Github Action
 - [] maj portfolio
 

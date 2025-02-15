@@ -38,7 +38,7 @@ export async function GET() {
     await checkAuth();
 
     const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet,id&channelId=${OKESSAPAR_YOUTUBE_ID}&order=date&type=video&key=${process.env.YOUTUBE_API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet,id&channelId=${OKESSAPAR_YOUTUBE_ID}&order=date&type=video&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`
     );
 
     const youtubeResponse = await response.json();
