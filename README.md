@@ -68,9 +68,8 @@ cat firebase-admin-prod.json | jq -c
 - [x] remove cron
 - [x] refacto responsive add show form (col for mobile)
 - [x] enhance ui admin shows
-
+- [] staging
 - [] admin dashboard graphs
-- [] replace datepicker with shadcn
 - [] fetch more videos from youtube
 - [] optimiser SEO
 - [] Tests: jest.config.api.ts et jest.config.api.client + Github Action

@@ -67,6 +67,8 @@ h3 {
 
 .react-datepicker-wrapper {
   width: 100%;
+  background-color: #f32121;
+
 }
 
 .ql-editor {
@@ -74,4 +76,54 @@ h3 {
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   font-size: 16px;
+}
+
+/* Modifier l'arrière-plan et les bordures */
+.react-datepicker {
+  color: #cad0dc!important;
+  background-color: #020812!important;
+  border: 1px solid #4b5563!important; /* Gris */
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(222, 197, 197, 0.2)!important;
+}
+
+/* Modifier le header (mois/année) */
+.react-datepicker__header {
+  background-color: #020812!important;
+  border-bottom: 1px solid #b7bcc2!important;
+  color: white!important;
+}
+
+/* Modifier les jours de la semaine */
+.react-datepicker__day-name {
+  color: #9ca3af!important;
+  font-weight: bold;
+}
+
+/* Modifier les jours */
+.react-datepicker__day {
+  color: rgb(255, 255, 255)!important;
+  transition: background 0.2s;
+}
+.react-datepicker__current-month {
+  color: rgb(255, 255, 255)!important;
+  transition: background 0.2s;
+}
+
+/* Jour sélectionné */
+.react-datepicker__day--selected {
+  background-color: #fafcfd !important; /* Bleu */
+  color: black !important;
+  border-radius: 6px;
+}
+
+/* Jour survolé */
+.react-datepicker__day:hover {
+  background-color: #575757 !important;
+  color: white;
+}
+
+/* Flèches de navigation */
+.react-datepicker__navigation {
+  top: 12px;
 }
