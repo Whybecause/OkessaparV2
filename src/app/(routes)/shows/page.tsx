@@ -11,7 +11,7 @@ import { handleErrorServer } from "@/utils/error-front";
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
 
-const URL = `${process.env.VERCEL_URL}/shows?filter=upcoming`;
+const URL = `${process.env.API_URL}/shows?filter=upcoming`;
 
 const ShowsPage = async () => {
   try {

@@ -5,7 +5,7 @@ import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/utils/error-front";
 import HeaderBack from "@/components/header-back";
 
-const URL = `${process.env.VERCEL_URL}/lyrics`;
+const URL = `${process.env.API_URL}/lyrics`;
 
 type tParams = Promise<{ slug: string }>;
 

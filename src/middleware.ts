@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import axios from "axios";
 
-const API_URL = `${process.env.VERCEL_URL}`;
+const API_URL = `${process.env.API_URL}`;
 
 export async function middleware(req: Request) {
   const cookieStore = await cookies();
