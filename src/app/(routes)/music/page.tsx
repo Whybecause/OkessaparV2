@@ -37,14 +37,14 @@ const MusicPage = async () => {
             🎵 Nos morceaux sur Spotify
           </h2>
           {spotifyData.length ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-2 mx-auto">
               {spotifyData.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition"
+                  className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition gap-2"
                 >
                   <p className="text-lg font-semibold text-white">
-                    {item.release_date.substring(0, 4)}
+                    {item.release_date.substring(0, 4)} - {item.album_name} ({item.album_type.charAt(0).toUpperCase() + item.album_type.slice(1)})
                   </p>
                   <iframe
                     src={`https://open.spotify.com/embed/${item.type}/${item.id}`}

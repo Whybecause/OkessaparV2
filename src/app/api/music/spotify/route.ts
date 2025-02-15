@@ -6,8 +6,10 @@ import { db } from "@/firebase/db";
 export type SelectedSpotify = {
   id: string;
   name: string;
-  type: string;
+  type: string; // Used for iframe url "album" or "track"
   release_date: string;
+  album_type: string // Used to know if its a "single" or "album"
+  album_name: string; // can be the same as name if its an album that is saved
 };
 
 // GET spotify trackIds and albumIds from db

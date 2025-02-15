@@ -107,6 +107,8 @@ export async function GET() {
       return { album, tracks };
     }));
 
+    data.sort((a, b) => new Date(b.album.release_date).getTime() - new Date(a.album.release_date).getTime());
+
     return NextResponse.json(
       data,
       { status: 200 }
@@ -123,6 +125,8 @@ const schema = z.array(
     name: z.string().min(1, "name is required"),
     release_date: z.string().min(1, "release_date is required"),
     type: z.string().min(1, "type is required"),
+    album_type: z.string().min(1, "album_type is required"),
+    album_name: z.string().min(1, "album_name is required"),
   })
 );
 

@@ -8,8 +8,7 @@ import {
   SpotifyAlbumWithTracks,
   SpotifyTrack,
 } from "@/app/api/admin/music/spotify/route";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import Spinner from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -41,6 +40,8 @@ const SpotifyTrackSelector = ({
               type: track.type,
               name: track.name,
               release_date: album.release_date,
+              album_type: album.album_type,
+              album_name: album.name,
             },
           ];
     });
@@ -63,6 +64,8 @@ const SpotifyTrackSelector = ({
               type: album.type,
               name: album.name,
               release_date: album.release_date,
+              album_type: album.album_type,
+              album_name: album.name,
             },
           ];
     });
@@ -88,7 +91,7 @@ const SpotifyTrackSelector = ({
       ) : (
         <div className="border-t border-gray-500 p-4 mb-10 sm:mb-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {spotifyData.map((item) => (
+            {spotifyData.map((item) => (
               <div
                 key={item.album.id}
                 className="p-4 bg-gray-900/50 rounded-lg shadow-lg flex flex-col items-center space-y-3 hover:scale-105 transition"
@@ -108,22 +111,26 @@ const SpotifyTrackSelector = ({
                 </div>
 
                 <ul className="mt-4 space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div
-                      onClick={() => handleAlbumSelect(item.album, item.tracks)}
-                      className="cursor-pointer inline-flex items-center  gap-2 whitespace-nowrap rounded-md  transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 p-4 bg-slate-900 text-slate-50 hover:bg-slate-900/90"
-                    >
-                      <Switch
-                        className="data-[state=checked]:bg-emerald-500 data-[state=unchecked]:bg-gray-500"
-                        checked={selectedSpotify.some(
-                          (c) => c.id === item.album.id
-                        )}
-                      />
-                      <span className="text-lg font-semibold">
-                        Album complet
-                      </span>
+                  {item.album.album_type !== "single" && (
+                    <div className="flex items-center space-x-2">
+                      <div
+                        onClick={() =>
+                          handleAlbumSelect(item.album, item.tracks)
+                        }
+                        className="cursor-pointer inline-flex items-center  gap-2 whitespace-nowrap rounded-md  transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 p-4 bg-slate-900 text-slate-50 hover:bg-slate-900/90"
+                      >
+                        <Switch
+                          className="data-[state=checked]:bg-emerald-500 data-[state=unchecked]:bg-gray-500"
+                          checked={selectedSpotify.some(
+                            (c) => c.id === item.album.id
+                          )}
+                        />
+                        <span className="text-lg font-semibold">
+                          Album complet
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {item.tracks.map((track) => (
                     <li key={track.id} className="flex items-center space-x-2">
@@ -151,7 +158,7 @@ const SpotifyTrackSelector = ({
               onClick={handleSubmit}
               disabled={isUpdating}
             >
-              Save changes
+              Sauvegarder
             </Button>
           </div>
         </div>

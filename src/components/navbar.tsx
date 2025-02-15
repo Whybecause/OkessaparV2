@@ -79,7 +79,7 @@ const Navbar = () => {
         ))}
 
         {/* Admin */}
-        {user && (
+        {!!user && (
           <Link
             href={"/admin"}
             className={cn(

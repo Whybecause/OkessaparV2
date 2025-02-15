@@ -2,15 +2,13 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import * as z from "zod";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { app } from "@/firebase/db-client";
-import { useUser } from "@/hooks/use-user";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,6 +18,8 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { CircleUserRound } from "lucide-react";
+import { Modal } from "./ui/modal";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email est requis"),
@@ -28,17 +28,12 @@ const formSchema = z.object({
 
 type LoginFormValues = z.infer<typeof formSchema>;
 
-const Login = () => {
+const LoginForm = () => {
   const router = useRouter();
-  const { user } = useUser();
   const auth = getAuth(app);
+
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!user) return;
-
-    router.push("/admin");
-  }, [user, router]);
 
   const handleLogin = async (data: LoginFormValues) => {
     try {
@@ -72,14 +67,19 @@ const Login = () => {
 
   return (
     <>
-      <h1 className="mt-4 text-center">Login</h1>
+      <button onClick={() => setIsOpen(true)}>
+        <CircleUserRound />
+      </button>
 
-      <div className="grid place-items-center min-h-[50vh]">
+      <Modal
+        title="Login"
+        description=""
+        isOpen={isOpen}
+        className="max-w-[400px]"
+        onClose={() => setIsOpen(false)}
+      >
         <Form {...form}>
-          <form
-            className="max-w-lg w-full"
-            onSubmit={form.handleSubmit(handleLogin)}
-          >
+          <form className="w-full" onSubmit={form.handleSubmit(handleLogin)}>
             <FormField
               control={form.control}
               name="email"
@@ -110,9 +110,9 @@ const Login = () => {
             </Button>
           </form>
         </Form>
-      </div>
+      </Modal>
     </>
   );
 };
 
-export default Login;
+export default LoginForm;
