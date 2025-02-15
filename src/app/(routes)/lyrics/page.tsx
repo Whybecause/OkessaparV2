@@ -9,7 +9,7 @@ import Error from "@/components/ui/error";
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/lyrics`;
+const URL = `${process.env.VERCEL_URL}/lyrics`;
 
 const LyricsPage = async () => {
   try {

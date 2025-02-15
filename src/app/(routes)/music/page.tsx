@@ -8,7 +8,7 @@ import { SelectedYoutubeProps } from "@/app/api/admin/music/youtube/route";
 import InfoCard from "@/components/info-card";
 import Error from "@/components/ui/error";
 
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
+const API_URL = `${process.env.VERCEL_URL}`;
 
 const MusicPage = async () => {
   try {
