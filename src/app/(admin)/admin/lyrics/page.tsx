@@ -153,7 +153,7 @@ const LyricsDashboard = () => {
                       />
                       <Link
                         href={`/admin/lyrics/${lyric.slug}`}
-                        className="text-white"
+                        className="text-white truncate w-[200px]"
                       >
                         {lyric.songName}
                       </Link>

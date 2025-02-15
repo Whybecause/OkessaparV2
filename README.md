@@ -68,7 +68,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] remove cron
 - [x] refacto responsive add show form (col for mobile)
 - [x] enhance ui admin shows
-- [] fix iphone
+
 - [] admin dashboard graphs
 - [] replace datepicker with shadcn
 - [] fetch more videos from youtube

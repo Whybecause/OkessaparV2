@@ -123,7 +123,7 @@ const Editor = ({
       >
         <div
           ref={containerRef}
-          className="h-full ql-custom max-h-[70vh] overflow-y-auto"
+          className="h-full ql-custom max-h-[40vh] lg:max-h-[40vh] overflow-y-auto"
         />
 
         <div className="flex px-2 pb-2 z-[5]">

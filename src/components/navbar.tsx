@@ -48,7 +48,7 @@ const Navbar = () => {
   const { user } = useUser();
 
   return (
-    <div className="z-50 h-16 items-center border-b border-gray-500 justify-center flex w-full">
+    <div className="h-16 items-center border-b border-gray-500 justify-center flex w-full">
       <nav className="md:flex w-full items-center justify-between px-4 hidden">
         {/* Logo */}
         <Link
@@ -139,7 +139,7 @@ const Navbar = () => {
         {isOpen && (
           <motion.div
             ref={menuRef}
-            className="absolute top-16 left-0 w-full bg-black text-white py-4 border-b border-gray-500 flex flex-col items-center space-y-4 md:hidden shadow-lg"
+            className="absolute z-50 top-16 left-0 w-full bg-black text-white py-4 border-b border-gray-500 flex flex-col items-center space-y-4 md:hidden shadow-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }} // Animation de fermeture fluide

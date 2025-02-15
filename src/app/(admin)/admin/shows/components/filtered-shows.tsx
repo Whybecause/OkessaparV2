@@ -1,5 +1,6 @@
-import { AVAILABLE_FILTERS, GetShowProps } from "@/app/api/shows/route";
+import { GetShowProps } from "@/app/api/shows/route";
 import ShowsList from "./shows-list";
+import { SHOWS_FILTER } from "@/constant/api-params";
 
 const FilteredShows = ({
   data,
@@ -10,7 +11,7 @@ const FilteredShows = ({
   filter: string;
   setShows: React.Dispatch<React.SetStateAction<GetShowProps[]>>;
 }) => {
-  if (filter === AVAILABLE_FILTERS.upcoming) {
+  if (filter === SHOWS_FILTER.upcoming) {
     return (
       <ShowsList
         data={data.filter((show) => new Date(show.date) >= new Date())}
@@ -20,7 +21,7 @@ const FilteredShows = ({
       />
     );
   }
-  if (filter === AVAILABLE_FILTERS.past) {
+  if (filter === SHOWS_FILTER.past) {
     return (
       <ShowsList
         data={data.filter((show) => new Date(show.date) < new Date())}
@@ -30,7 +31,7 @@ const FilteredShows = ({
       />
     );
   }
-  if (filter === AVAILABLE_FILTERS.all) {
+  if (filter === SHOWS_FILTER.all) {
     return (
       <ShowsList
         data={data}

@@ -46,13 +46,15 @@ export const useConfirm = (
         </DialogHeader>
 
         <DialogFooter className="pt-2">
+          <div className="flex flex-col md:flex-row gap-2">
+
           <Button
             onClick={(e) => {
               e.stopPropagation();
               handleCancel();
             }}
             variant="outline"
-          >
+            >
             Cancel
           </Button>
           <Button
@@ -60,9 +62,10 @@ export const useConfirm = (
               e.stopPropagation();
               handleConfirm();
             }}
-          >
+            >
             Confirm
           </Button>
+            </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Pencil } from "lucide-react";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Modal } from "@/components/ui/modal";
@@ -16,6 +15,8 @@ interface EditShowFormProps {
   initialData: GetShowProps;
   setShows: React.Dispatch<React.SetStateAction<GetShowProps[]>>;
   setOpenMenu: React.Dispatch<React.SetStateAction<string | null>>;
+  openEditId: string | null;
+  setOpenEditId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const EditShowForm: React.FC<EditShowFormProps> = ({
@@ -23,8 +24,9 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
   initialData,
   setShows,
   setOpenMenu,
+  openEditId,
+  setOpenEditId
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ShowsFormValue>({
@@ -64,33 +66,23 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
       handleErrorClient(error);
     } finally {
       setIsLoading(false);
-      setIsOpen(false);
+      setOpenEditId(null);
       setOpenMenu(null);
     }
   };
 
   return (
-    <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex w-full h-8 justify-start items-center gap-2"
-      >
-        <Pencil />
-        Edit
-      </button>
-
       <Modal
         title="Modifier un concert"
         description=""
-        isOpen={isOpen}
+        isOpen={openEditId !== null}
         onClose={() => {
-          setIsOpen(false);
+          setOpenEditId(null);
           setOpenMenu(null);
         }}
       >
         <ShowForm form={form} onSubmit={handleEdit} isLoading={isLoading} />
       </Modal>
-    </>
   );
 };
 

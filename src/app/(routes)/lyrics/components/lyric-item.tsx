@@ -10,8 +10,8 @@ type LyricItemProps = {
 };
 const LyricItem: React.FC<LyricItemProps> = ({ data, href, children }) => {
   return (
-    <li className="border-b border-emerald-300 hover:border-emerald-500 transition text-white/80 hover:text-white">
-      <Link href={`${href}/${data.slug}`} className="text-2xl">
+    <li className="max-w-[300px] flex justify-center border-b border-emerald-300 hover:border-emerald-500 transition text-white/80 hover:text-white">
+      <Link href={`${href}/${data.slug}`} className="text-2xl truncate ">
         {data.songName}
       </Link>
       {children}

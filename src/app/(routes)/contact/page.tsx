@@ -64,7 +64,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] w-full flex flex-col items-center justify-between flex-grow">
+    <div className="min-h-[calc(100dvh-64px)] w-full flex flex-col items-center justify-between flex-grow">
 
       <Title title={"Contact"} />
 

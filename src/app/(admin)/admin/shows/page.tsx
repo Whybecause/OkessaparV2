@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import AsyncData from "@/components/async-data";
 import FilteredShows from "./components/filtered-shows";
 import AddShowForm from "@/app/(admin)/admin/shows/components/add-show-form";
-import { AVAILABLE_FILTERS, GetShowProps } from "@/app/api/shows/route";
+import { GetShowProps } from "@/app/api/shows/route";
 import { cn } from "@/utils/utils";
 import MotionDiv from "@/components/motion-div";
 import { Button } from "@/components/ui/button";
 import { useData } from "@/hooks/use-data";
+import { SHOWS_FILTER } from "@/constant/api-params";
 
 const ShowsDashboard = () => {
   const [shows, setShows] = useState<GetShowProps[]>([]);
@@ -25,6 +26,7 @@ const ShowsDashboard = () => {
   const onFilterSelect = (value: string) => {
     setFilter(value);
   };
+
 
   return (
     <>
@@ -45,7 +47,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === AVAILABLE_FILTERS.upcoming &&
+            filter === SHOWS_FILTER.upcoming &&
               "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("upcoming")}
@@ -56,7 +58,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === AVAILABLE_FILTERS.past && "text-emerald-300 underline-offset-4 underline"
+            filter === SHOWS_FILTER.past && "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("past")}
         >
@@ -66,7 +68,7 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === AVAILABLE_FILTERS.all && "text-emerald-300 underline-offset-4 underline"
+            filter === SHOWS_FILTER.all && "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("all")}
         >

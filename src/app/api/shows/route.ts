@@ -4,6 +4,7 @@ import { db } from "@/firebase/db";
 import { Timestamp } from "firebase-admin/firestore";
 import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
+import { SHOWS_FILTER } from "@/constant/api-params";
 
 export type GetShowProps = {
   id: string;
@@ -16,18 +17,12 @@ export type GetShowProps = {
   updatedAt: Date;
 }
 
-export const AVAILABLE_FILTERS = {
-  upcoming: "upcoming",
-  past: "past",
-  all: "all",
-};
-
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url, 'http://localhost');
     const filter = url.searchParams.get("filter");
 
-    if (!filter || !Object.values(AVAILABLE_FILTERS).includes(filter)) {
+    if (!filter || !Object.values(SHOWS_FILTER).includes(filter)) {
       return NextResponse.json({
         error: "Filter is invalid or missing",
         status: 400
@@ -48,11 +43,11 @@ export async function GET(req: Request) {
     const now = new Date();
     let filteredShows = shows;
 
-    if (filter === AVAILABLE_FILTERS.upcoming) {
+    if (filter === SHOWS_FILTER.upcoming) {
       filteredShows = shows.filter((show) => new Date(show.date) >= now);
     }
 
-    if (filter === AVAILABLE_FILTERS.all || filter === AVAILABLE_FILTERS.past) {
+    if (filter === SHOWS_FILTER.all || filter === SHOWS_FILTER.past) {
       await checkAuth();
     }
 
