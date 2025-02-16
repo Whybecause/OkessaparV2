@@ -34,7 +34,7 @@ import {
 const NAV_ROUTES = [
   { href: "/admin/music", label: "Musique", icon: <Music /> },
   { href: "/admin/shows", label: "Concerts", icon: <Calendar /> },
-  { href: "/admin/lyrics", label: "Lyrics", icon: <MicVocal /> },
+  { href: "/admin/lyrics", label: "Lyrics", icon: <MicVocal /> }
 ];
 
 export const MySidebarTrigger = () => {

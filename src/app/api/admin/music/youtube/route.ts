@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
-import { db } from "@/firebase/db";
+import { db } from "@/lib/firebase/db";
 
 export interface YouTubeVideoProps {
   id: {
@@ -50,7 +50,7 @@ export async function GET() {
     );
 
   } catch (error) {
-    return errorServer('Failed to get tracks from spotify', error, 500);
+    return errorServer('Failed to get tracks from youtube', error, 500);
   }
 }
 

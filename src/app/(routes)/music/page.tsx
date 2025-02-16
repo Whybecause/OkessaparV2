@@ -8,6 +8,8 @@ import { SelectedYoutubeProps } from "@/app/api/admin/music/youtube/route";
 import InfoCard from "@/components/info-card";
 import Error from "@/components/ui/error";
 
+export const revalidate = 60;
+
 const API_URL = `${process.env.API_URL}`;
 
 const MusicPage = async () => {
@@ -26,7 +28,6 @@ const MusicPage = async () => {
     const spotifyData: SelectedSpotify[] = spotifyFromDb.data;
     const youtubeData: SelectedYoutubeProps[] = youtubeFromDb.data;
 
-
     return (
       <>
         <Title title={"Musique"} />
@@ -44,7 +45,10 @@ const MusicPage = async () => {
                   className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition gap-2"
                 >
                   <p className="text-lg font-semibold text-white">
-                    {item.release_date.substring(0, 4)} - {item.album_name} ({item.album_type.charAt(0).toUpperCase() + item.album_type.slice(1)})
+                    {item.release_date.substring(0, 4)} - {item.album_name} (
+                    {item.album_type.charAt(0).toUpperCase() +
+                      item.album_type.slice(1)}
+                    )
                   </p>
                   <iframe
                     src={`https://open.spotify.com/embed/${item.type}/${item.id}`}
@@ -93,7 +97,7 @@ const MusicPage = async () => {
       </>
     );
   } catch (error) {
-    handleErrorServer(error, "Failed to get music");
+    handleErrorServer(error, "SSR: Failed to get music");
   }
 };
 

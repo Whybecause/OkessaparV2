@@ -56,12 +56,9 @@ const ShowsPage = async () => {
   } catch (error: unknown) {
     return handleErrorServer(
       error,
-      "Error lors de la récupération des concerts"
+      "SSR: Failed to get shows"
     );
   }
 };
 
 export default ShowsPage;
-{
-  /* <InfoCard message={"Pas de concerts pour l'instant, ça bosse..."} /> */
-}

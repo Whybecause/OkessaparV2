@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { app } from "@/firebase/db-client";
+import { app } from "@/lib/firebase/db-client";
 import { handleErrorClient } from "@/utils/error-front";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

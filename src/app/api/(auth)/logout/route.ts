@@ -1,8 +1,21 @@
+import { getRedisClient } from "@/lib/redis/redis";
+import { errorServer } from "@/utils/error-server";
+import { getSessionCookie } from "@/utils/get-session-cookie";
+import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 
 // Logout
 export async function POST() {
   try {
+    const sessionCookie = await getSessionCookie();
+    if (!sessionCookie) {
+      return NextResponse.json({ message: "No session found" });
+    }
+
+    const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
+    const redis = getRedisClient();
+    await redis.del(sessionKey);
+
     const response = NextResponse.json({ message: "Déconnexion réussie" });
 
     // Supprime le cookie en réglant max-age à 0 et path `/`
@@ -15,10 +28,6 @@ export async function POST() {
 
     return response;
   } catch (error) {
-    console.error('Error login out user:', error);
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer("Logout error:", error, 500);
   }
 }

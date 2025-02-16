@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 
 import { SpotifyAlbumWithTracks } from "@/app/api/admin/music/spotify/route";
 import { SelectedSpotify } from "@/app/api/music/spotify/route";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import SpotifyTrackSelector from "./components/spotif-track-selector";
 import {
   Select,
@@ -22,16 +21,17 @@ import {
 import YoutubeTrackSelector from "./components/youtube-track-selector";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+const QUERY_PLATFORM_VALUES = {
+  spotify: "spotify",
+  youtube: "youtube",
+};
+
 const MusicDashboard = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const queryPlatform = searchParams.get("platform") || "";
-
-  const validPlatforms = ["spotify", "youtube"];
-  const [selectedPlatform, setSelectedPlatform] = useState(
-    validPlatforms.includes(queryPlatform) ? queryPlatform : "spotify"
-  );
+  const queryPlatform =
+    searchParams.get("platform") || "";
 
   const [isLoading, setIsLoading] = useState(true);
   const [spotifyData, setSpotifyData] = useState<SpotifyAlbumWithTracks[]>([]);
@@ -45,13 +45,17 @@ const MusicDashboard = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const [spotifyResponse, savedTracksResponse, youtubeResponse, savedVideosResponse] =
-          await Promise.all([
-            axios.get("/api/admin/music/spotify"),
-            axios.get("/api/music/spotify"),
-            axios.get("/api/admin/music/youtube"),
-            axios.get("/api/music/youtube"),
-          ]);
+        const [
+          spotifyResponse,
+          savedTracksResponse,
+          youtubeResponse,
+          savedVideosResponse,
+        ] = await Promise.all([
+          axios.get("/api/admin/music/spotify"),
+          axios.get("/api/music/spotify"),
+          axios.get("/api/admin/music/youtube"),
+          axios.get("/api/music/youtube"),
+        ]);
 
         setSpotifyData(spotifyResponse.data);
         setSelectedSpotify(savedTracksResponse.data);
@@ -68,24 +72,20 @@ const MusicDashboard = () => {
   }, []);
 
   useEffect(() => {
-    // If nothing or wrong param, default to spotify in URL
-    if (!queryPlatform || !validPlatforms.includes(queryPlatform)) {
-      const newSearchParams = new URLSearchParams({ platform: "spotify" });
-      router.replace(`${pathname}?${newSearchParams.toString()}`);
+    if (!Object.values(QUERY_PLATFORM_VALUES).includes(queryPlatform)) {
+      router.replace(`${pathname}?platform=spotify`);
     }
-  }, [router, pathname, queryPlatform]); //eslint-disable-line
+  }, [router, pathname, queryPlatform]);
 
   const onPlatformSelect = (value: string) => {
-    const newSearchParams = new URLSearchParams({ platform: value });
-    router.replace(`${pathname}?${newSearchParams.toString()}`);
-    setSelectedPlatform(value);
+    router.replace(`${pathname}?platform=${value}`);
   };
 
   return (
     <>
       <div className="border-b pt-6 pb-8">
         <h1 className="text-center">
-          {selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1)}{" "}
+          {queryPlatform.charAt(0).toUpperCase() + queryPlatform.slice(1)}{" "}
           Manager
         </h1>
       </div>
@@ -93,12 +93,7 @@ const MusicDashboard = () => {
       <div className="my-6 flex space-x-4 text-black items-center justify-center">
         <label className="text-white font-semibold">Select platform</label>
 
-        <Select
-          onValueChange={(value) =>
-            onPlatformSelect(value as "spotify" | "youtube")
-          }
-          value={selectedPlatform}
-        >
+        <Select onValueChange={onPlatformSelect} value={queryPlatform}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
@@ -113,7 +108,7 @@ const MusicDashboard = () => {
         </Select>
       </div>
 
-      {selectedPlatform === "spotify" ? (
+      {queryPlatform === QUERY_PLATFORM_VALUES.spotify ? (
         <MotionDiv>
           <SpotifyTrackSelector
             spotifyData={spotifyData}

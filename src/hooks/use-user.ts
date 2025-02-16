@@ -3,17 +3,17 @@ import axios from "axios";
 
 // Check if user auth (for client side components)
 export const useUser = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("/api/login");
-        setUser(response.data || null);
+        const response = await axios.get("/api/is-valid-session");
+        setUser(response.data || false);
       } catch (error) {
         console.error(error);
-        setUser(null);
+        setUser(false);
       }
       setLoading(false);
     };

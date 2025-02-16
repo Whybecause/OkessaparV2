@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { errorServer } from "@/utils/error-server";
-import { db } from "@/firebase/db";
+import { db } from "@/lib/firebase/db";
 
 export type SelectedSpotify = {
   id: string;

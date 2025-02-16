@@ -1,4 +1,4 @@
-import { db } from "@/firebase/db";
+import { db } from "@/lib/firebase/db";
 import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
 import { NextResponse } from "next/server";

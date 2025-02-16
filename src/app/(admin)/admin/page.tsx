@@ -1,5 +1,3 @@
-"use client";
-
 import MotionDiv from "@/components/motion-div";
 
 const AdminPage = () => {

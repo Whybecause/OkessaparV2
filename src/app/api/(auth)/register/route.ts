@@ -1,4 +1,4 @@
-import { auth } from "@/firebase/db";
+import { auth } from "@/lib/firebase/db";
 import { NextResponse } from "next/server";
 
 type FirebaseAuthError = {

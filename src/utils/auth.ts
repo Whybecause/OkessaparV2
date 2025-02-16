@@ -1,36 +1,45 @@
-import { cookies } from "next/headers";
-import { auth } from "@/firebase/db";
+import { createHash } from "crypto";
 
-let cachedSession: true | null = null;
+import { auth } from "@/lib/firebase/db";
+import { getRedisClient } from "@/lib/redis/redis";
+import { getSessionCookie } from "./get-session-cookie";
 
-// Check if user auth (for server side components)
-// (useUser hook for client side component)
-export const getSessionCookie = async () => {
-  if (cachedSession) return cachedSession; // Utilise la version en cache
 
-  const cookieStore = await cookies();
-
-  const sessionCookie = cookieStore.get("session")?.value;
-
+export const isValidSessionCookie = async (
+  sessionCookie: string | undefined,
+): Promise<boolean> => {
   if (!sessionCookie) {
-    return null;
+    return false;
+  }
+
+  const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
+  const redis = getRedisClient();
+
+  // Free plan so dont use in dev
+  if (process.env.NODE_ENV === "production") {
+    const hasCachedSession = await redis.get(sessionKey);
+    if (hasCachedSession) {
+      return true;
+    }
   }
 
   try {
     await auth.verifySessionCookie(sessionCookie, true);
-    cachedSession = true;
-    return cachedSession;
+    if (process.env.NODE_ENV === "production") {
+      await redis.set(sessionKey, "true", { ex: 60 * 60 * 24 * 5 });
+    }
+    return true;
   } catch (error) {
-    console.error(error);
-    cachedSession = null;
-    return cachedSession;
+    console.error("Session not valid", error);
+    return false;
   }
 }
 
 // Protect api routes
 export const checkAuth = async () => {
-  const isAuth = await getSessionCookie();
-  if (!isAuth) {
+  const sessionCookie = await getSessionCookie();
+  const isValidSession = await isValidSessionCookie(sessionCookie);
+  if (!isValidSession) {
     throw new Error("Unauthorized");
   }
   return;

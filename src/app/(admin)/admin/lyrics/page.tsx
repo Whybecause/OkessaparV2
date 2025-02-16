@@ -125,7 +125,6 @@ const LyricsDashboard = () => {
           <AddLyrics setLyrics={setLyrics} />
         </div>
       </div>
-
       <AsyncData
         data={lyrics}
         isLoading={isLoading}
@@ -135,41 +134,44 @@ const LyricsDashboard = () => {
         <MotionDiv>
           <ul className="w-full flex flex-col items-center gap-2 mt-4">
             <DndContext onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
-              {lyrics.map((lyric) => (
-                <Droppable
-                  key={lyric.id}
-                  id={lyric.order}
-                  styleOnDrag={style}
-                  isSelf={isSelf}
-                  className={
-                    "w-full relative max-w-md border rounded-md bg-gray-900/50 p-2"
-                  }
-                >
-                  <li key={lyric.id} className="flex justify-between w-full">
-                    <div className="flex items-center gap-2">
-                      <DraggableHandle
-                        className="text-gray-500"
-                        id={lyric.id!}
-                      />
-                      <Link
-                        href={`/admin/lyrics/${lyric.slug}`}
-                        className="text-white truncate w-[200px]"
-                      >
-                        {lyric.songName}
-                      </Link>
-                    </div>
+              {lyrics.length > 0 &&
+                lyrics.map((lyric) => (
+                  <Droppable
+                    key={lyric.id}
+                    id={lyric.order}
+                    styleOnDrag={style}
+                    isSelf={isSelf}
+                    className={
+                      "w-full relative max-w-md border rounded-md bg-gray-900/50 p-2"
+                    }
+                  >
+                    <li key={lyric.id} className="flex justify-between w-full">
+                      <div className="flex items-center gap-2">
+                        <DraggableHandle
+                          className="text-gray-500"
+                          id={lyric.id!}
+                        />
+                        <Link
+                          href={`/admin/lyrics/${lyric.slug}`}
+                          className="text-white truncate w-[200px]"
+                        >
+                          {lyric.songName}
+                        </Link>
+                      </div>
 
-                    <div className="flex items-center gap-2">
-                      <EditLyric data={lyric} setLyrics={setLyrics} />
-                      <DeleteLyric
-                        id={lyric.id}
-                        songName={lyric.songName}
-                        setLyrics={setLyrics}
-                      />
-                    </div>
-                  </li>
-                </Droppable>
-              ))}
+                      <div className="flex items-center gap-2">
+                        {lyric && (
+                          <EditLyric data={lyric} setLyrics={setLyrics} />
+                        )}
+                        <DeleteLyric
+                          id={lyric.id}
+                          songName={lyric.songName}
+                          setLyrics={setLyrics}
+                        />
+                      </div>
+                    </li>
+                  </Droppable>
+                ))}
             </DndContext>
           </ul>
         </MotionDiv>

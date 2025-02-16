@@ -13,6 +13,10 @@ bun dev
 - firebase admin for server
 - firebase client for front
 
+
+### DB: @upstash/redis - added in vercel project from vercel marketplace (KV Storage)
+- Used for user session cache
+
 ### Cron
 With vercel.json + func in api/cron
 
@@ -67,8 +71,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] remove cron
 - [x] refacto responsive add show form (col for mobile)
 - [x] enhance ui admin shows
-- [] staging
+- [x] KV Storage upstash/redis pour stocker isValidSessionCache
 - [] admin dashboard graphs
-- [] optimiser SEO
+- [] optimiser SEO: aria-label sur les bouton et link
 - [] maj portfolio
-

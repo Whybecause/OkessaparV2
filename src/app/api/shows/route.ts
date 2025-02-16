@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { db } from "@/firebase/db";
+import { db } from "@/lib/firebase/db";
 import { Timestamp } from "firebase-admin/firestore";
 import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(filteredShows, { status: 200 });
   } catch (error) {
-    return errorServer("Failed to get shows", error, 500);
+    return errorServer("API: Failed to get shows", error, 500);
   }
 }
 
