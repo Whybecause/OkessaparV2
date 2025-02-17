@@ -8,8 +8,7 @@ import Quill from "quill";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import Editor from "@/app/(routes)/lyrics/components/editor";
@@ -61,7 +60,11 @@ const AddLyrics = ({
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} variant="outline">
+      <Button
+        onClick={() => setIsOpen(true)}
+        variant="outline"
+        aria-label="Ajouter des paroles"
+      >
         <Plus />
         Ajouter des lyrics
       </Button>

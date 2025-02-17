@@ -4,6 +4,12 @@ import { redirect } from "next/navigation";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar, { MySidebarTrigger } from "./components/app-sidebar";
 import { isValidSessionCookie } from "@/utils/auth";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  robots: "noindex, nofollow",
+};
 
 async function AdminLayout({
   children,

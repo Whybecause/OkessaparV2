@@ -153,6 +153,7 @@ const LyricsDashboard = () => {
                         />
                         <Link
                           href={`/admin/lyrics/${lyric.slug}`}
+                          aria-label="Accéder aux paroles"
                           className="text-white truncate w-[200px]"
                         >
                           {lyric.songName}

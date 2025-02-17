@@ -21,6 +21,7 @@ const DraggableHandle = ({
       {...attributes}
       className={`cursor-grab ${className}`}
       onClick={(e) => e.preventDefault()} // Évite de trigger un clic accidentel
+      aria-label="Déplacer"
     >
       <GripVertical />
     </Button>

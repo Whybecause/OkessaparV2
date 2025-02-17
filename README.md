@@ -78,8 +78,7 @@ cat firebase-admin-prod.json | jq -c
 - [x] scroll haut de page après login
 - [x] admin shows: mettre plus de width sur les shows
 - [x] admin music: afficher message d'erreur sur get plutôt que toast
-
-
 - [x] admin dashboard graphs
-- [] optimiser SEO: aria-label sur les bouton et link
+- [x] no index admin pages
+- [x] optimiser: aria-label sur les bouton et link
 - [] maj portfolio

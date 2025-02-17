@@ -131,11 +131,12 @@ const MusicDashboard = () => {
             </SelectContent>
           </Select>
         </div>
-        {queryPlatform === QUERY_PLATFORM_VALUES.youtube && youtubeData.length > 0 && (
-          <div className="md:absolute md:top-1/2 md:left-0 md:-translate-y-1/2 text-gray-300 items-center justify-start w-full md:w-auto pl-2">
-            {youtubeData.length} vidéos
-          </div>
-        )}
+        {queryPlatform === QUERY_PLATFORM_VALUES.youtube &&
+          youtubeData.length > 0 && (
+            <div className="md:absolute md:top-1/2 md:left-0 md:-translate-y-1/2 text-gray-300 items-center justify-start w-full md:w-auto pl-2">
+              {youtubeData.length} vidéos
+            </div>
+          )}
       </div>
 
       {queryPlatform === QUERY_PLATFORM_VALUES.spotify ? (

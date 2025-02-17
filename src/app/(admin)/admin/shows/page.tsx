@@ -56,6 +56,7 @@ const ShowsDashboard = () => {
               "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect(SHOWS_FILTER.upcoming)}
+          aria-label="Récupérer les prochains concerts"
         >
           Upcoming
         </Button>
@@ -67,6 +68,7 @@ const ShowsDashboard = () => {
               "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect(SHOWS_FILTER.past)}
+          aria-label="Récupérer les concerts passés"
         >
           Past
         </Button>
@@ -78,6 +80,7 @@ const ShowsDashboard = () => {
               "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect(SHOWS_FILTER.all)}
+          aria-label="Récupérer tous les concerts"
         >
           All
         </Button>

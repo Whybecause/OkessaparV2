@@ -27,8 +27,8 @@ const ShowItem = ({
 
         <div className="mt-4 md:mt-0 md:w-auto md:justify-self-end md:flex">
           {data.ticketLink && (
-            <Link href={data.ticketLink} target="_blank" rel="noreferrer">
-              <Button className="w-full" variant="outline">
+            <Link href={data.ticketLink} target="_blank" rel="noreferrer" aria-label="Acheter des billets">
+              <Button className="w-full" variant="outline" aria-label="Acheter des billets">
                 Billets
               </Button>
             </Link>

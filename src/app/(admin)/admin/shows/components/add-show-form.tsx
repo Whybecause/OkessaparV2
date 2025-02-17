@@ -57,7 +57,7 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} variant="outline">
+      <Button onClick={() => setIsOpen(true)} variant="outline" aria-label="Ajouter un concert">
         <Plus />
         Ajouter un concert
       </Button>

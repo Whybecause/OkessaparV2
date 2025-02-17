@@ -19,7 +19,8 @@ export const useConfirm = (
   } | null>(null);
 
   const confirm = () =>
-    new Promise((resolve, reject) => { //eslint-disable-line
+    //eslint-disable-next-line
+    new Promise((resolve, _reject) => {
       setPromise({ resolve });
     });
 
@@ -47,25 +48,26 @@ export const useConfirm = (
 
         <DialogFooter className="pt-2">
           <div className="flex flex-col md:flex-row gap-2">
-
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleCancel();
-            }}
-            variant="outline"
+            <Button
+              aria-label="Annuler"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCancel();
+              }}
+              variant="outline"
             >
-            Cancel
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleConfirm();
-            }}
+              Cancel
+            </Button>
+            <Button
+              aria-label="Confirmer"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleConfirm();
+              }}
             >
-            Confirm
-          </Button>
-            </div>
+              Confirm
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -99,7 +99,7 @@ const EditLyric = ({ data, setLyrics }: EditLyricsProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} variant="secondary" size="icon">
+      <Button onClick={() => setIsOpen(true)} variant="secondary" size="icon" aria-label="Modifier">
         <Pencil />
       </Button>
 

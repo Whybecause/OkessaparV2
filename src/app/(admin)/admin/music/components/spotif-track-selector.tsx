@@ -164,6 +164,7 @@ const SpotifyTrackSelector = ({
           className="w-60"
           onClick={handleSubmit}
           disabled={isUpdating}
+          aria-label="Sauvegarder"
         >
           Sauvegarder
         </Button>

@@ -67,7 +67,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
+      <button aria-label="Ouvrer le formulaire de login" onClick={() => setIsOpen(true)}>
         <CircleUserRound />
       </button>
 
@@ -79,7 +79,7 @@ const LoginForm = () => {
         onClose={() => setIsOpen(false)}
       >
         <Form {...form}>
-          <form className="w-full" onSubmit={form.handleSubmit(handleLogin)}>
+          <form className="w-full gap-4 flex flex-col" onSubmit={form.handleSubmit(handleLogin)}>
             <FormField
               control={form.control}
               name="email"

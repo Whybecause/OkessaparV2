@@ -64,6 +64,7 @@ const DeleteLyric = ({
         disabled={isDeleting}
         variant="destructive"
         size="icon"
+        aria-label="Supprimer"
       >
         <Trash />
       </Button>

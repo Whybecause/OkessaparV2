@@ -53,6 +53,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           href="/"
+          aria-label="Logo"
           className=" bg-[rgb(28,28,28)] rounded-full w-[50px] h-[50px] flex items-center justify-center"
         >
           <Image
@@ -68,6 +69,7 @@ const Navbar = () => {
         {NAV_ROUTES.map((route) => (
           <Link
             href={route.href}
+            aria-label={route.label}
             key={route.href}
             className={cn(
               "text-md font-semibold transition-colors hover:text-emerald-300",
@@ -82,6 +84,7 @@ const Navbar = () => {
         {!!user && (
           <Link
             href={"/admin"}
+            aria-label="Admin"
             className={cn(
               "text-md font-semibold transition-colors hover:text-emerald-300",
               pathname.includes("admin")
@@ -147,6 +150,7 @@ const Navbar = () => {
           >
             <Link
               href="/"
+              aria-label="Home"
               onClick={() => setIsOpen(false)}
               className=" bg-[rgb(28,28,28)] rounded-full w-[50px] h-[50px] flex items-center justify-center"
             >
@@ -161,6 +165,7 @@ const Navbar = () => {
             {NAV_ROUTES.map((route) => (
               <Link
                 href={route.href}
+                aria-label={route.label}
                 key={route.href}
                 className={cn(
                   "text-lg font-semibold transition-colors hover:text-emerald-300",
@@ -174,6 +179,7 @@ const Navbar = () => {
             {user && (
               <Link
                 href={"/admin"}
+                aria-label="Admin"
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   "text-md font-semibold transition-colors hover:text-emerald-300",

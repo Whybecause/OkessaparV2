@@ -7,7 +7,7 @@ import MotionDiv from "@/components/motion-div";
 export default function Home() {
   return (
     <MotionDiv className="flex items-center flex-col justify-center min-h-[calc(100dvh-64px)]">
-      <Image src="/logoname.jpg" alt="logo" width={500} height={500} />
+      <Image src="/logo-full.webp" alt="logo" width={500} height={500} priority layout="intrinsic" />
       <div className="flex gap-x-4">
         <SocialLinks />
       </div>

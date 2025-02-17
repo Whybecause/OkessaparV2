@@ -129,6 +129,7 @@ const Editor = ({
         <div className="flex px-2 pb-2 z-[5]">
           {/* Send button */}
           <Button
+            aria-label="Enregistrer"
             disabled={disabled || isEmpty}
             className={cn(
               "ml-auto mt-2",

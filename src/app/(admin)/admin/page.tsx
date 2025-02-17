@@ -1,10 +1,10 @@
 import MotionDiv from "@/components/motion-div";
 import axios from "axios";
 import { cookies } from "next/headers";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Music } from "lucide-react";
 import Link from "next/link";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SHOWS_FILTER } from "@/constant/api-params";
 import Error from "@/components/ui/error";
 import { GetShowProps } from "@/app/api/shows/route";
@@ -49,7 +49,7 @@ const LinkCard = ({
   content: number;
 }) => {
   return (
-    <Link href={href}>
+    <Link href={href} aria-label={title}>
       <Card className="bg-gray-900/50 text-gray-200">
         <CardHeader>
           <CardTitle>{title}</CardTitle>
@@ -65,6 +65,8 @@ const LinkCard = ({
 const AdminPage = async () => {
   try {
     const cookieStore = await cookies();
+    if (!cookieStore.get("session")?.value) return;
+
     const cookieHeader = cookieStore.toString();
     const response = await axios.get(`${API_URL}/shows?filter=all`, {
       headers: {

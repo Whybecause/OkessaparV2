@@ -52,6 +52,7 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({
         onClick={handleDelete}
         className="flex w-full h-8 justify-start items-center gap-2"
         disabled={isDeleting}
+        aria-label="Supprimer"
       >
         <Trash />
         Delete

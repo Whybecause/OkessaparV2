@@ -71,8 +71,8 @@ const ShowsList = ({
               </div>
               {show.ticketLink.length > 0 && (
                 <div>
-                  <Link href={show.ticketLink} aria-label="Acheter des places">
-                    <Button>Billets</Button>
+                  <Link href={show.ticketLink} aria-label="Acheter des billets">
+                    <Button aria-label="Acheter des billets">Billets</Button>
                   </Link>
                 </div>
               )}
@@ -85,6 +85,7 @@ const ShowsList = ({
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
+                      aria-label="Ouvrir le menu d'édition"
                       className={cn(
                         "hover:bg-gray-900 border-gray-600 border-2 hover:text-slate-100 transition-all",
                         openMenu === show.id ? "border-gray-400 border-2" : ""
@@ -101,6 +102,7 @@ const ShowsList = ({
                         className="cursor-pointer"
                       >
                         <button
+                          aria-label="Modifier"
                           onClick={() => setOpenEditId(show.id)}
                           className="flex w-full h-8 justify-start items-center gap-2"
                         >

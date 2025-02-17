@@ -103,7 +103,7 @@ const AppSidebar = () => {
                       isActive={pathname === item.href}
                       onClick={() => isMobile && setOpenMobile(false)}
                     >
-                      <Link href={item.href}>
+                      <Link href={item.href} aria-label={item.label}>
                         {item.icon}
                         <span className="text-md">{item.label}</span>
                       </Link>
@@ -113,7 +113,7 @@ const AppSidebar = () => {
                 <SidebarSeparator />
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <Link href={"/"}>
+                    <Link href={"/"} aria-label="Home">
                       <Home />
                       <span>Retour au site</span>
                     </Link>

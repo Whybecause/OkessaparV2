@@ -222,7 +222,7 @@ const ShowForm: React.FC<ShowFormProps> = ({
               </FormItem>
             )}
           />
-          <Button disabled={isLoading} type="submit" className="w-full">
+          <Button disabled={isLoading} type="submit" className="w-full" aria-label="Ajouter">
             Ajouter
           </Button>
         </form>

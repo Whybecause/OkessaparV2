@@ -16,8 +16,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -65,7 +64,6 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-[calc(100dvh-64px)] w-full flex flex-col items-center justify-between flex-grow">
-
       <Title title={"Contact"} />
 
       <div className="flex flex-col justify-center items-center flex-grow px-4 pb-4">
@@ -161,6 +159,7 @@ const ContactPage = () => {
 
                 <Button
                   variant="primary"
+                  aria-label="Envoyer"
                   disabled={isLoading}
                   type="submit"
                   className="w-full mt-4"
