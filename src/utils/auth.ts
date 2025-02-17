@@ -15,25 +15,22 @@ export const isValidSessionCookie = async (
   const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
   const redis = getRedisClient();
 
-  console.log('IS VALID SESSION COOKIE CALL');
-
-  // Free plan so dont use in dev
-  if (process.env.NODE_ENV === "production") {
-    const hasCachedSession = await redis.get(sessionKey);
-    if (hasCachedSession) {
-      console.log('CAAAAAAAAACHE');
-      return true;
-    }
-  }
-
   try {
+    // Free plan so dont use in dev
+    if (process.env.NODE_ENV === "production") {
+      const hasCachedSession = await redis.get(sessionKey);
+      if (hasCachedSession) {
+        return true;
+      }
+    }
+
     await auth.verifySessionCookie(sessionCookie, true);
     if (process.env.NODE_ENV === "production") {
       await redis.set(sessionKey, "true", { ex: 60 * 60 * 24 * 5 });
     }
     return true;
   } catch (error) {
-    console.error("Session not valid", error);
+    console.error("Session verification failed", error);
     return false;
   }
 }

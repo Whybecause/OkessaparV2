@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 // import axios from "axios";
 
 // import { getSessionCookie } from "./utils/get-session-cookie";
@@ -7,7 +8,6 @@ import { NextResponse } from "next/server";
 
 export async function middleware() {
   return NextResponse.next();
-
   // try {
   //   const sessionCookie = await getSessionCookie();
 
@@ -20,7 +20,7 @@ export async function middleware() {
   //     return NextResponse.redirect(new URL("/", req.url));
   //   }
 
-  //   return NextResponse.next();
+    // return NextResponse.next();
   // } catch (error) {
   //   console.error('Middleware error', error);
   //   return NextResponse.redirect(new URL("/", req.url));
