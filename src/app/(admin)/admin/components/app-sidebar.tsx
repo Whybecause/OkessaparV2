@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 
 import { handleErrorClient } from "@/utils/error-front";
@@ -44,6 +44,7 @@ export const MySidebarTrigger = () => {
 };
 const AppSidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const { open, openMobile, toggleSidebar, isMobile, setOpenMobile } =
     useSidebar();
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +53,7 @@ const AppSidebar = () => {
     try {
       setIsLoading(true);
       await axios.post("/api/logout");
-      window.location.reload();
+      router.refresh();
     } catch (error) {
       handleErrorClient(error);
     } finally {

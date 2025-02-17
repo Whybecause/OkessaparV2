@@ -48,8 +48,8 @@ const LoginForm = () => {
       const idToken = await user.getIdToken();
 
       await axios.post("/api/login", JSON.stringify({ token: idToken }));
-      window.location.reload();
       router.push("/admin");
+      router.refresh();
     } catch (error) {
       handleErrorClient(error);
     } finally {

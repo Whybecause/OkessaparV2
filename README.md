@@ -74,11 +74,11 @@ cat firebase-admin-prod.json | jq -c
 - [x] enhance ui admin shows
 - [x] KV Storage upstash/redis pour avoir un cache de session user
 - [x] auto suggest venues name to fill the form while taping name in form input (ticketmaster api)
-
 - [x] admin: only fetch spotify or youtube
-- [] scroll haut de page après login
-- [] admin shows: mettre plus de width sur les shows
-- [] admin music: afficher message d'erreur sur get plutôt que toast
+
+- [x] scroll haut de page après login
+- [x] admin shows: mettre plus de width sur les shows
+- [x] admin music: afficher message d'erreur sur get plutôt que toast
 
 
 - [] admin dashboard graphs

@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const ShowsList = ({
   data,
@@ -55,10 +56,10 @@ const ShowsList = ({
           setOpenEditId={setOpenEditId}
         />
       )}
-      <div className="max-w-4xl w-full mx-auto py-4 gap-y-6 md:gap-y-4 flex flex-col">
+      <div className="max-w-full md:max-w-4xl w-full mx-auto py-4 gap-4 flex flex-col">
         {data.map((show) => (
           <React.Fragment key={show.id}>
-            <div className="flex flex-col items-center sm:grid sm:grid-cols-4 gap-1 md:gap-0">
+            <div className="flex flex-col items-center sm:grid sm:grid-cols-[1fr_1fr_auto_auto] gap-4">
               <div className="font-semibolbold text-lg">
                 {formatDate(show.date)}
               </div>
@@ -68,7 +69,13 @@ const ShowsList = ({
                   {show.city}, {show.country}
                 </p>
               </div>
-              <div>{show.ticketLink}</div>
+              {show.ticketLink.length > 0 && (
+                <div>
+                  <Link href={show.ticketLink} aria-label="Acheter des places">
+                    <Button>Billets</Button>
+                  </Link>
+                </div>
+              )}
 
               <div>
                 <DropdownMenu
