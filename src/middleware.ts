@@ -1,28 +1,30 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
+// import axios from "axios";
 
-import { getSessionCookie } from "./utils/get-session-cookie";
+// import { getSessionCookie } from "./utils/get-session-cookie";
 
-const API_URL = `${process.env.API_URL}`;
+// const API_URL = `${process.env.API_URL}`;
 
-export async function middleware(req: Request) {
-  try {
-    const sessionCookie = await getSessionCookie();
+export async function middleware() {
+  return NextResponse.next();
 
-    if (!sessionCookie) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+  // try {
+  //   const sessionCookie = await getSessionCookie();
 
-    const { data: isValidSession} = await axios.post(`${API_URL}/is-valid-session`, { sessionCookie });
-    if (!isValidSession) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+  //   if (!sessionCookie) {
+  //     return NextResponse.redirect(new URL("/", req.url));
+  //   }
 
-    return NextResponse.next();
-  } catch (error) {
-    console.error('Middleware error', error);
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+  //   const { data: isValidSession} = await axios.post(`${API_URL}/is-valid-session`, { sessionCookie });
+  //   if (!isValidSession) {
+  //     return NextResponse.redirect(new URL("/", req.url));
+  //   }
+
+  //   return NextResponse.next();
+  // } catch (error) {
+  //   console.error('Middleware error', error);
+  //   return NextResponse.redirect(new URL("/", req.url));
+  // }
 }
 
 export const config = {

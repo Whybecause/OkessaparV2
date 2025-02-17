@@ -15,10 +15,13 @@ export const isValidSessionCookie = async (
   const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
   const redis = getRedisClient();
 
+  console.log('IS VALID SESSION COOKIE CALL');
+
   // Free plan so dont use in dev
   if (process.env.NODE_ENV === "production") {
     const hasCachedSession = await redis.get(sessionKey);
     if (hasCachedSession) {
+      console.log('CAAAAAAAAACHE');
       return true;
     }
   }
