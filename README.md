@@ -27,6 +27,7 @@ With vercel.json + func in api/cron
 ### 3rd party API
 - Spotifiy
 - Youtube
+- Discovery API: to find venue names
 
 
 # Deploy
@@ -71,7 +72,15 @@ cat firebase-admin-prod.json | jq -c
 - [x] remove cron
 - [x] refacto responsive add show form (col for mobile)
 - [x] enhance ui admin shows
-- [x] KV Storage upstash/redis pour stocker isValidSessionCache
+- [x] KV Storage upstash/redis pour avoir un cache de session user
+- [x] auto suggest venues name to fill the form while taping name in form input (ticketmaster api)
+
+- [] admin: only fetch spotify or youtube
+- [] scroll haut de page après login
+- [] admin shows: mettre plus de width sur les shows
+- [] admin music: afficher message d'erreur sur get plutôt que toast
+
+
 - [] admin dashboard graphs
 - [] optimiser SEO: aria-label sur les bouton et link
 - [] maj portfolio

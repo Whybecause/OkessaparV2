@@ -42,7 +42,11 @@ export async function GET() {
     );
 
     const youtubeResponse = await response.json();
-    const data = youtubeResponse.items;
+    if (youtubeResponse.error) {
+      return NextResponse.json({ error: youtubeResponse?.error?.message || "Erreur lors du fetch de youtube API" }, { status: youtubeResponse?.error?.code || 500 })
+    }
+
+    const data = youtubeResponse.items || [];
 
     return NextResponse.json(
       data,
@@ -50,7 +54,7 @@ export async function GET() {
     );
 
   } catch (error) {
-    return errorServer('Failed to get tracks from youtube', error, 500);
+    return errorServer('Failed to get videos from youtube', error, 500);
   }
 }
 

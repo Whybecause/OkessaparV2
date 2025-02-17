@@ -15,6 +15,7 @@ interface ModalProps {
   onClose: () => void;
   children?: React.ReactNode;
   className?: string;
+  disableEscape?: boolean;
 }
 export const Modal: React.FC<ModalProps> = ({
   title,
@@ -22,7 +23,8 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
-  className = "sm:max-w-[90%] md:max-w-[600px]"
+  className = "sm:max-w-[90%] md:max-w-[600px]",
+  disableEscape = false,
 }) => {
   const onChange = (open: boolean) => {
     if (!open) {
@@ -32,7 +34,10 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogContent className={`text-black ${className}`}>
+      <DialogContent
+        onEscapeKeyDown={(e) => disableEscape && e.preventDefault()}
+        className={`text-black ${className}`}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

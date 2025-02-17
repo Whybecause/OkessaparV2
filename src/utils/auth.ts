@@ -1,9 +1,14 @@
+import { cookies } from "next/headers";
 import { createHash } from "crypto";
 
 import { auth } from "@/lib/firebase/db";
 import { getRedisClient } from "@/lib/redis/redis";
-import { getSessionCookie } from "./get-session-cookie";
 
+export const getSessionCookie = async (): Promise<string | undefined> => {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("session")?.value;
+  return sessionCookie;
+}
 
 export const isValidSessionCookie = async (
   sessionCookie: string | undefined,

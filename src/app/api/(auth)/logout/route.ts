@@ -1,6 +1,6 @@
 import { getRedisClient } from "@/lib/redis/redis";
+import { getSessionCookie } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
-import { getSessionCookie } from "@/utils/get-session-cookie";
 import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 

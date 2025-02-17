@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
-import { Modal } from "@/components/ui/modal";
-import toast from "react-hot-toast";
 import { handleErrorClient } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
@@ -25,7 +24,7 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
   setShows,
   setOpenMenu,
   openEditId,
-  setOpenEditId
+  setOpenEditId,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -72,17 +71,18 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
   };
 
   return (
-      <Modal
-        title="Modifier un concert"
-        description=""
-        isOpen={openEditId !== null}
-        onClose={() => {
-          setOpenEditId(null);
-          setOpenMenu(null);
-        }}
-      >
-        <ShowForm form={form} onSubmit={handleEdit} isLoading={isLoading} />
-      </Modal>
+    <ShowForm
+      modalTitle={"Modifier un concert"}
+      modalDescription={""}
+      isOpen={openEditId !== null}
+      onClose={() => {
+        setOpenEditId(null);
+        setOpenMenu(null);
+      }}
+      form={form}
+      onSubmit={handleEdit}
+      isLoading={isLoading}
+    />
   );
 };
 

@@ -1,14 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { isValidSessionCookie } from "@/utils/auth";
-import { getSessionCookie } from "@/utils/get-session-cookie";
-
-// Used in middleware to protect pages
-export async function POST(req: Request) {
-  const { sessionCookie } = await req.json();
-  const isValidSession = await isValidSessionCookie(sessionCookie);
-  return NextResponse.json(isValidSession);
-}
+import { getSessionCookie, isValidSessionCookie } from "@/utils/auth";
 
 // Used in client to know if user is auth or not
 export async function GET() {

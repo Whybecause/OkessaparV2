@@ -58,7 +58,8 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === SHOWS_FILTER.past && "text-emerald-300 underline-offset-4 underline"
+            filter === SHOWS_FILTER.past &&
+              "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("past")}
         >
@@ -68,7 +69,8 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === SHOWS_FILTER.all && "text-emerald-300 underline-offset-4 underline"
+            filter === SHOWS_FILTER.all &&
+              "text-emerald-300 underline-offset-4 underline"
           )}
           onClick={() => onFilterSelect("all")}
         >

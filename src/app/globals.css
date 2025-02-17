@@ -65,17 +65,15 @@ h3 {
   }
 }
 
-.react-datepicker-wrapper {
-  width: 100%;
-  background-color: #f32121;
-
-}
-
 .ql-editor {
   white-space: normal !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   font-size: 16px;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }
 
 /* Modifier l'arrière-plan et les bordures */

@@ -8,10 +8,8 @@ import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
-import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { handleErrorClient } from "@/utils/error-front"
-;
+import { handleErrorClient } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 const initialData = {
@@ -64,14 +62,15 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
         Ajouter un concert
       </Button>
 
-      <Modal
-        title="Ajouter un concert"
-        description=""
+      <ShowForm
+        modalTitle={"Ajouter un concert"}
+        modalDescription={""}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-      >
-        <ShowForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
-      </Modal>
+        form={form}
+        onSubmit={onSubmit}
+        isLoading={isLoading}
+      />
     </>
   );
 };
