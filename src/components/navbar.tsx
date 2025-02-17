@@ -122,7 +122,7 @@ const Navbar = () => {
             className="w-full h-1 bg-white rounded "
             animate={{
               rotate: isOpen ? 45 : 0,
-              y: isOpen ? 6 : 0, // Déplacement vers le bas
+              y: isOpen ? 8 : 0, // Déplacement vers le bas
             }}
             transition={{ duration: 0.3 }}
           />
