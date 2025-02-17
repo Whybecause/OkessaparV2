@@ -9,6 +9,7 @@ import { handleErrorClient } from "@/utils/error-front";
 import { cn } from "@/utils/utils";
 import {
   Calendar,
+  ChartPie,
   Home,
   LogOut,
   MicVocal,
@@ -32,6 +33,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const NAV_ROUTES = [
+  { href: "/admin", label: "Dashboard", icon: <ChartPie  /> },
   { href: "/admin/music", label: "Musique", icon: <Music /> },
   { href: "/admin/shows", label: "Concerts", icon: <Calendar /> },
   { href: "/admin/lyrics", label: "Lyrics", icon: <MicVocal /> }
@@ -89,7 +91,7 @@ const AppSidebar = () => {
 
           <SidebarGroup>
             <SidebarGroupLabel className="text-gray-400">
-              Admin Dashboard
+              Admin
             </SidebarGroupLabel>
 
             <SidebarGroupContent>

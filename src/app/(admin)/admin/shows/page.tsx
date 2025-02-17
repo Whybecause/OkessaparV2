@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import AsyncData from "@/components/async-data";
 import FilteredShows from "./components/filtered-shows";
@@ -13,8 +14,12 @@ import { useData } from "@/hooks/use-data";
 import { SHOWS_FILTER } from "@/constant/api-params";
 
 const ShowsDashboard = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [shows, setShows] = useState<GetShowProps[]>([]);
-  const [filter, setFilter] = useState<string>("upcoming");
+  const filterParam = searchParams.get("filter") || SHOWS_FILTER.upcoming;
 
   const { data, isLoading, error } = useData("/api/shows?filter=all");
   useEffect(() => {
@@ -24,9 +29,9 @@ const ShowsDashboard = () => {
   }, [data]);
 
   const onFilterSelect = (value: string) => {
-    setFilter(value);
+    // setFilter(value);
+    router.replace(`${pathname}?filter=${value}`);
   };
-
 
   return (
     <>
@@ -47,10 +52,10 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === SHOWS_FILTER.upcoming &&
+            filterParam === SHOWS_FILTER.upcoming &&
               "text-emerald-300 underline-offset-4 underline"
           )}
-          onClick={() => onFilterSelect("upcoming")}
+          onClick={() => onFilterSelect(SHOWS_FILTER.upcoming)}
         >
           Upcoming
         </Button>
@@ -58,10 +63,10 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === SHOWS_FILTER.past &&
+            filterParam === SHOWS_FILTER.past &&
               "text-emerald-300 underline-offset-4 underline"
           )}
-          onClick={() => onFilterSelect("past")}
+          onClick={() => onFilterSelect(SHOWS_FILTER.past)}
         >
           Past
         </Button>
@@ -69,10 +74,10 @@ const ShowsDashboard = () => {
           variant="link"
           className={cn(
             "",
-            filter === SHOWS_FILTER.all &&
+            filterParam === SHOWS_FILTER.all &&
               "text-emerald-300 underline-offset-4 underline"
           )}
-          onClick={() => onFilterSelect("all")}
+          onClick={() => onFilterSelect(SHOWS_FILTER.all)}
         >
           All
         </Button>
@@ -86,7 +91,7 @@ const ShowsDashboard = () => {
         noResultMessage="Aucun concert enregistré"
       >
         <MotionDiv>
-          <FilteredShows data={shows} filter={filter} setShows={setShows} />
+          <FilteredShows data={shows} filter={filterParam} setShows={setShows} />
         </MotionDiv>
       </AsyncData>
     </>

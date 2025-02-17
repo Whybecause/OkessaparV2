@@ -15,7 +15,7 @@ const FilteredShows = ({
     return (
       <ShowsList
         data={data.filter((show) => new Date(show.date) >= new Date())}
-        title={"Prochains Concerts"}
+        title={"Concerts à venir"}
         noResultMessage={"Pas de concerts pour l'instant, ça bosse..."}
         setShows={setShows}
       />
@@ -25,7 +25,7 @@ const FilteredShows = ({
     return (
       <ShowsList
         data={data.filter((show) => new Date(show.date) < new Date())}
-        title={"Concerts effectués"}
+        title={"Concerts passés"}
         noResultMessage={"Aucun concerts passés"}
         setShows={setShows}
       />

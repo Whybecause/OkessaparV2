@@ -47,7 +47,6 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const keyword = searchParams.get("keyword");
 
-    console.log(keyword);
     const response = await axios.get(`${DISCOVERY_API_URL}/venues.json`, {
       params: {
         apikey: DISCOVERY_API_KEY,

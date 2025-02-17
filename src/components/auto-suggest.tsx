@@ -87,7 +87,6 @@ const AutoSuggest = ({
     if (!inputQuery) {
       setCachedData([]);
       setHasSelected(false);
-      console.log("NO 2");
       setNoResults(false);
     }
   }, [inputQuery]); //eslint-disable-line

@@ -49,6 +49,10 @@ export async function GET(req: Request) {
 
     if (filter === SHOWS_FILTER.all || filter === SHOWS_FILTER.past) {
       await checkAuth();
+
+      if (filter === SHOWS_FILTER.past) {
+        filteredShows = shows.filter((show) => new Date(show.date) < now);
+      }
     }
 
     return NextResponse.json(filteredShows, { status: 200 });
