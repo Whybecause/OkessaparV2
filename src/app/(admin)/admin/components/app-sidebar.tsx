@@ -5,7 +5,7 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { cn } from "@/utils/utils";
 import {
   Calendar,
@@ -57,7 +57,7 @@ const AppSidebar = () => {
       await axios.post("/api/logout");
       router.refresh();
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }

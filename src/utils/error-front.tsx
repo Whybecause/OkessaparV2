@@ -1,41 +1,42 @@
-import axios from 'axios';
-import { AxiosError } from 'axios';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import Error from "@/components/ui/error";
 
+export const getError = (error: unknown): string => {
+  let errorMessage;
 
-// Error handler for client component
-export const handleErrorClient = (error: unknown) => {
-  if (error instanceof AxiosError) {
+  if (axios.isAxiosError(error)) {
     if (error.response) {
       // Erreur HTTP spécifique (ex: 400, 404, 500)
-      const errorMessage = error.response.data?.error || "Une erreur est survenue.";
-      toast.error(errorMessage);
+      errorMessage = error.response.data?.error || "Une erreur est survenue.";
     } else if (error.request) {
       // Problème de réseau (pas de réponse du serveur)
-      toast.error("Problème de connexion. Veuillez vérifier votre réseau.");
+      errorMessage = "Problème de connexion. Veuillez vérifier votre réseau.";
     } else {
       // Erreur de la requête elle-même
-      toast.error("Une erreur est survenue dans la requête.");
+      errorMessage = "Une erreur est survenue dans la requête.";
     }
-  }
-  else if (typeof error === "string") {
-    toast.error(error);
-  }
-  else {
+  } else if (typeof error === "string") {
+    errorMessage = error;
+  } else {
     // Erreurs non liées à axios
-    toast.error("Une erreur inconnue est survenue.");
+    errorMessage = "Une erreur inconnue est survenue.";
   }
+
+  return errorMessage;
+};
+
+// Error handler for client component
+export const toastError = (error: unknown) => {
+  const errorMessage = getError(error);
+  toast.error(errorMessage);
 };
 
 // Error handler for front server components
 export const handleErrorServer = (error: unknown, message: string) => {
-  if (axios.isAxiosError(error)) {
-    console.error(message, error?.response?.data?.error);
-    return <Error error={error?.response?.data?.error} />;
-  } else {
-    console.error("Unexpected error:", error);
-    return <Error error={"Une erreur inattendue est survenue"} />;
-  }
+  const errorMessage = getError(error);
+  console.error(`${message} : ${errorMessage}`);
+  return <Error error={errorMessage} />
+
 };

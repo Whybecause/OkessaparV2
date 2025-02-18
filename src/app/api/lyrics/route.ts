@@ -16,7 +16,6 @@ export type LyricProps = {
 export async function GET() {
   try {
     const lyrics = await db.collection("lyrics").get();
-
     const data: LyricProps[] = lyrics.docs.map((doc) => {
       const docData = doc.data() as Omit<LyricProps, "id">;
 

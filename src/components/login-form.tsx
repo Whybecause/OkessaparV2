@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { app } from "@/lib/firebase/db-client";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -51,7 +51,7 @@ const LoginForm = () => {
       router.push("/admin");
       router.refresh();
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }

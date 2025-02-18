@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 interface EditShowFormProps {
@@ -62,7 +62,7 @@ const EditShowForm: React.FC<EditShowFormProps> = ({
       });
       toast.success("Concert modifié");
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
       setOpenEditId(null);

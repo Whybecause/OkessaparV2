@@ -7,7 +7,7 @@ import { DndContext, DragOverEvent } from "@dnd-kit/core";
 
 import Droppable from "./components/droppable";
 import DraggableHandle from "./components/draggable-handle";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { LyricProps } from "@/app/api/lyrics/route";
 import AddLyrics from "./components/add-lyrics";
 import Link from "next/link";
@@ -41,7 +41,7 @@ const LyricsDashboard = () => {
           toast.success("Placement modifié");
           setDragged(false);
         } catch (error) {
-          handleErrorClient(error);
+          toastError(error);
         }
       };
 

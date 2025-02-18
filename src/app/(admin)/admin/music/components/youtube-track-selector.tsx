@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 import { formatDate } from "@/utils/utils";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import Spinner from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -59,7 +59,7 @@ const YoutubeTrackSelector = ({
       await axios.patch("/api/admin/music/youtube", selectedYoutube);
       toast.success("Changements sauvegardés");
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsUpdating(false);
     }

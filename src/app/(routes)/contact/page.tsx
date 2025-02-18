@@ -16,7 +16,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -56,7 +56,7 @@ const ContactPage = () => {
       );
       toast.success("Message envoyé");
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }

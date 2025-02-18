@@ -4,7 +4,7 @@ import { z } from "zod";
 import { checkAuth } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
 import { db } from "@/lib/firebase/db";
-
+import { applyCors } from "@/utils/cors";
 
 export interface SpotifyTrack {
   artists: { id: string; name: string }[];
@@ -63,9 +63,13 @@ const getAccessToken = async () => {
     body: "grant_type=client_credentials",
   });
   const data = await res.json();
+
+  if (data.error) {
+    throw new Error(`Failed to get token from Spotify: ${data.error}`);
+  }
   const token = data.access_token;
 
-  return token;
+  return token || "";
 }
 
 const getAlbums = async (token: string): Promise<SpotifyAlbum[]> => {
@@ -77,7 +81,12 @@ const getAlbums = async (token: string): Promise<SpotifyAlbum[]> => {
   );
 
   const albumsData = await albumRes.json();
-  return albumsData.items;
+
+  if (albumsData.error) {
+    throw new Error(`Failed to get albums from spotify: ${albumsData.error.message}`);
+  }
+
+  return albumsData.items || [];
 }
 
 const getTracksByAlbum = async (token: string, albumId: string): Promise<SpotifyTrack[]> => {
@@ -89,12 +98,20 @@ const getTracksByAlbum = async (token: string, albumId: string): Promise<Spotify
   );
 
   const tracksData = await trackRes.json();
-  return tracksData.items;
+  if (tracksData.error) {
+    throw new Error(`Failed to get tracks from spotify: ${tracksData.error.message}`);
+  }
+  return tracksData.items || [];
 }
 
 // Get tracks from spotify
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const res = applyCors(req, NextResponse.next());
+    if (res.status === 403) {
+      return res;
+    }
+
     await checkAuth();
 
     const token = await getAccessToken();
@@ -109,13 +126,13 @@ export async function GET() {
 
     data.sort((a, b) => new Date(b.album.release_date).getTime() - new Date(a.album.release_date).getTime());
 
-    return NextResponse.json(
+    return applyCors(req, NextResponse.json(
       data,
       { status: 200 }
-    );
+    ));
 
   } catch (error) {
-    return errorServer('ADMIN CHECK AUTH Failed to get tracks from spotify', error, 500);
+    return applyCors(req, errorServer('Failed to get data from spotify', error, 500));
   }
 }
 
@@ -151,7 +168,7 @@ export async function PATCH(
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.issues.map((issue) => issue.message )},
+        { error: error.issues.map((issue) => issue.message) },
         { status: 400 }
       )
     }

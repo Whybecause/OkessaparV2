@@ -19,6 +19,7 @@ import {
 } from "@/app/api/admin/music/youtube/route";
 import YoutubeTrackSelector from "./components/youtube-track-selector";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { getError } from "@/utils/error-front";
 
 const QUERY_PLATFORM_VALUES = {
   spotify: "spotify",
@@ -56,7 +57,8 @@ const MusicDashboard = () => {
         setSelectedSpotify(savedTracksResponse.data);
       } catch (error) {
         console.error("Failed to get data from spotify or db", error);
-        setSpotifyError("Failed to get data from spotify or db");
+        const errorMessage = getError(error);
+        setSpotifyError(errorMessage);
       } finally {
         setIsSpotifyLoading(false);
       }
@@ -73,8 +75,9 @@ const MusicDashboard = () => {
         setYoutubeData(youtubeResponse.data);
         setSelectedYoutube(savedVideosResponse.data);
       } catch (error) {
-        console.error("Failed to get data from spotify or db", error);
-        setYoutubeError("Failed to get data from youtube or db");
+        console.error("Failed to get data from youtube or db", error);
+        const errorMessage = getError(error);
+        setYoutubeError(errorMessage);
       } finally {
         setIsYoutubeLoading(false);
       }

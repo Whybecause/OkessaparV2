@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 import ShowForm, { formSchema, ShowsFormValue } from "./show-form";
 import { Button } from "@/components/ui/button";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 const initialData = {
@@ -49,7 +49,7 @@ const AddShowForm: React.FC<AddShowFormProps> = ({ setShows }) => {
       toast.success("Date ajoutée");
       form.reset(initialData);
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }

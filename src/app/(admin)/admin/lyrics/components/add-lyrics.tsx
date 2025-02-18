@@ -8,7 +8,7 @@ import Quill from "quill";
 
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import Editor from "@/app/(routes)/lyrics/components/editor";
@@ -52,7 +52,7 @@ const AddLyrics = ({
       setEditorKey((prevKey) => prevKey + 1);
       setIsOpen(false);
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }

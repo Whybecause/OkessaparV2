@@ -8,7 +8,7 @@ import { useConfirm } from "@/hooks/use-confirm";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-import { handleErrorClient } from "@/utils/error-front"
+import { toastError } from "@/utils/error-front"
 ;
 import { LyricProps } from "@/app/api/lyrics/route";
 
@@ -50,7 +50,7 @@ const DeleteLyric = ({
         setLyrics((prevItems) => prevItems.filter((item) => item.id !== id));
       }
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsDeleting(false);
     }

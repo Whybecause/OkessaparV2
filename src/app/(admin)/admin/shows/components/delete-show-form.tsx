@@ -5,7 +5,7 @@ import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { useConfirm } from "@/hooks/use-confirm";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import { GetShowProps } from "@/app/api/shows/route";
 
 interface DeleteShowFormProps {
@@ -38,7 +38,7 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({
       setShows((prevItems) => prevItems.filter((item) => item.id !== id));
       toast.success("Concert supprimé");
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsDeleting(false);
       setOpenMenu(null);

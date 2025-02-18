@@ -8,7 +8,7 @@ import {
   SpotifyAlbumWithTracks,
   SpotifyTrack,
 } from "@/app/api/admin/music/spotify/route";
-import { handleErrorClient } from "@/utils/error-front";
+import { toastError } from "@/utils/error-front";
 import Spinner from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -82,7 +82,7 @@ const SpotifyTrackSelector = ({
       await axios.patch("/api/admin/music/spotify", selectedSpotify);
       toast.success("Changements sauvegardés");
     } catch (error) {
-      handleErrorClient(error);
+      toastError(error);
     } finally {
       setIsUpdating(false);
     }
