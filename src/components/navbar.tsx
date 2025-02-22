@@ -39,7 +39,6 @@ const Navbar = () => {
   }, [isOpen]);
 
   const NAV_ROUTES = [
-    // { href: "/", label: "Home" },
     { href: "/music", label: "Musique" },
     { href: "/shows", label: "Concerts" },
     { href: "/lyrics", label: "Lyrics" },
@@ -48,19 +47,27 @@ const Navbar = () => {
   const { user } = useUser();
 
   return (
-    <div className="h-16 items-center border-b border-gray-500 justify-center flex w-full">
+    <motion.div
+      className="sticky top-0 z-50 h-12 items-center border-b border-gray-500 justify-center flex w-full bg-[rgba(0,0,0,0.7)] backdrop-blur-md"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <nav className="md:flex w-full items-center justify-between px-4 hidden">
         {/* Logo */}
         <Link
           href="/"
           aria-label="Logo"
-          className=" bg-[rgb(28,28,28)] rounded-full w-[50px] h-[50px] flex items-center justify-center"
+          className="flex items-center h-full transition-transform duration-300 hover:scale-110 hover:rotate-6 cursor-pointer"
         >
           <Image
-            src={"/logo.png"}
+            src={"/logo_sans_fond.png"}
             alt="Logo"
-            width={30}
-            height={30}
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="h-12 w-auto"
+            priority
           />
         </Link>
 
@@ -70,12 +77,15 @@ const Navbar = () => {
             href={route.href}
             aria-label={route.label}
             key={route.href}
-            className={cn(
-              "text-md font-semibold transition-colors hover:text-emerald-300",
-              pathname === route.href ? "text-emerald-300" : "text-neutral-100"
-            )}
+            className="relative text-md font-semibold group text-gray-200 uppercase tracking-wide"
           >
             {route.label}
+            <span
+              className={cn(
+                "absolute left-0 bottom-[-4px] w-0 h-[2px] bg-emerald-300 transition-all duration-300 group-hover:w-full",
+                pathname === route.href ? "w-full" : ""
+              )}
+            ></span>
           </Link>
         ))}
 
@@ -141,7 +151,7 @@ const Navbar = () => {
         {isOpen && (
           <motion.div
             ref={menuRef}
-            className="absolute z-50 top-16 left-0 w-full bg-black text-white py-4 border-b border-gray-500 flex flex-col items-center space-y-4 md:hidden shadow-lg"
+            className="absolute z-50 top-12 left-0 w-full text-white py-4 border-b bg-black border-gray-500 flex flex-col items-center space-y-4 md:hidden shadow-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }} // Animation de fermeture fluide
@@ -151,14 +161,15 @@ const Navbar = () => {
               href="/"
               aria-label="Home"
               onClick={() => setIsOpen(false)}
-              className=" bg-[rgb(28,28,28)] rounded-full w-[50px] h-[50px] flex items-center justify-center"
+              className="flex items-center justify-center"
             >
               <Image
-                src={"/logo.png"}
+                src={"/logo_sans_fond.png"}
                 alt="Logo"
-                width={30}
-                height={30}
-                className=""
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="h-12 w-auto"
               />
             </Link>
             {NAV_ROUTES.map((route) => (
@@ -193,7 +204,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
 

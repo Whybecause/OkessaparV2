@@ -39,7 +39,7 @@ const MusicPage = async () => {
       <MotionDiv>
           <Title title={"Musique"} />
 
-          <p className="text-center px-4 text-gray-300">
+          <p className="text-center px-4 my-8 text-gray-300">
             Avec Okessapar, chaque mot réchauffe l’âme, chaque note secoue le
             cœur.
             <br />

@@ -81,6 +81,19 @@ cat firebase-admin-prod.json | jq -c
 - [x] admin dashboard graphs
 - [x] no index admin pages
 - [x] optimiser: aria-label sur les bouton et link
-- [] enhance LP and fonts
+- [x] enhance LP and fonts
+- [x] enhance nav
 - [] maj portfolio
+
+Features ideas
+/lyrics
+  -> aperçu des histoires derrière chaque morceau (inspiration, histoire etc.)
+
+/shows
+  -> carte interactive des concerts: marqueurs là où le groupe à joué ou va jouer
+  -> live countdown pour le prochain show
+
+/gallery
+  -> rétrospective concerts: photos/vidéos
+
 
