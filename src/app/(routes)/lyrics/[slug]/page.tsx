@@ -7,12 +7,14 @@ import HeaderBack from "@/components/header-back";
 
 const API_URL = `${process.env.API_URL}`;
 
+type tParams = Promise<{ slug: string }>;
+
 export const generateMetadata = async ({
   params,
 }: {
-  params: { slug: string };
+  params: tParams;
 }) => {
-  const { slug } = params;
+  const { slug } = await params;
 
   try {
     const {
@@ -30,7 +32,6 @@ export const generateMetadata = async ({
   }
 };
 
-type tParams = Promise<{ slug: string }>;
 
 const LyricPage = async ({ params }: { params: tParams }) => {
   const { slug } = await params;
