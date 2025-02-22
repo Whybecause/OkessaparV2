@@ -1,39 +1,49 @@
 import { db } from "@/lib/firebase/db";
-import { NextResponse } from "next/server";
+import { errorServer } from "@/utils/error-server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 // Get lyrics for a song
 export async function GET(
-  req: Request,
+  req: NextRequest,
   context: { params: Promise<{ slug: string }> }
 ) {
-  try {
-    const { slug } = await context.params;
+  const { slug } = await context.params;
+  const filter = new URL(req.url, 'http://localhost:3000').searchParams.get('filter');
 
+  if (!slug) {
+    return NextResponse.json({
+      error: "Slug manquant",
+    }, { status: 400 })
+  }
+
+  try {
     // Si on entre manuellement le slug dans l'url, format it to remove spaces and add "-"
     const formattedSlug = slug.trim().toLowerCase().replace(/\s+/g, "-");
 
-    const lyricsSnapshot = await db.collection("lyrics")
-    .where("slug", "==", formattedSlug)
-    .limit(1)
-    .get();
+    const lyricRef = await db.collection("lyrics")
+      .where("slug", "==", formattedSlug as string)
+      .limit(1)
+      .get()
 
-    if (lyricsSnapshot.empty) {
-      return NextResponse.json({ error: "Cette chanson n'existe pas" }, { status: 404 });
+    if (lyricRef.empty) {
+      return NextResponse.json({
+        error: "Lyrics non trouvés",
+      }, { status: 404 })
     }
 
-    const doc = lyricsSnapshot.docs[0];
+    const doc = lyricRef.docs[0];
+    const lyricData = doc.data();
+
+    if (filter === 'songName') {
+      return NextResponse.json({ songName: lyricData.songName });
+    }
 
     return NextResponse.json({
       id: doc.id,
       ...doc.data()
     });
   } catch (error) {
-    console.error('API: Failed to get lyrics for slug:', error);
-
-    return NextResponse.json(
-      { error },
-      { status: 500 }
-    );
+    return errorServer('API: Failed to get lyrics for slug:', error, 500)
   }
 }

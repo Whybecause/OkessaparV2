@@ -11,6 +11,13 @@ import { handleErrorServer } from "@/utils/error-front";
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
 
+export const metadata  = () => {
+  return {
+    title: "Concerts | Okessapar",
+    description: "Découvrez les prochaines dates de concert d'Okessapar"
+  }
+}
+
 const URL = `${process.env.API_URL}/shows?filter=upcoming`;
 
 const ShowsPage = async () => {

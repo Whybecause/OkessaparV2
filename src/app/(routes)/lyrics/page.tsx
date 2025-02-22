@@ -9,6 +9,13 @@ import Error from "@/components/ui/error";
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
 
+export const metadata  = () => {
+  return {
+    title: "Lyrics | Okessapar",
+    description: "Redécouvrez les paroles des morceaux d'Okessapar"
+  }
+}
+
 const URL = `${process.env.API_URL}/lyrics`;
 
 const LyricsPage = async () => {

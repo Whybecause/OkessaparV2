@@ -5,7 +5,30 @@ import Error from "@/components/ui/error";
 import { handleErrorServer } from "@/utils/error-front";
 import HeaderBack from "@/components/header-back";
 
-const URL = `${process.env.API_URL}/lyrics`;
+const API_URL = `${process.env.API_URL}`;
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  const { slug } = params;
+
+  try {
+    const {
+      data: { songName },
+    } = await axios.get(`${API_URL}/lyrics/${slug}?filter=songName`);
+    return {
+      title: `${songName} | Okessapar`,
+      description: `Les paroles du morceau ${songName}`,
+    };
+  } catch (error: unknown) { //eslint-disable-line
+    return {
+      title: "Chanson introuvable | Okessapar",
+      description: "Désolé, les paroles de ce morceau ne sont pas disponibles.",
+    };
+  }
+};
 
 type tParams = Promise<{ slug: string }>;
 
@@ -13,7 +36,7 @@ const LyricPage = async ({ params }: { params: tParams }) => {
   const { slug } = await params;
 
   try {
-    const { data: lyric } = await axios.get(`${URL}/${slug}`);
+    const { data: lyric } = await axios.get(`${API_URL}/lyrics/${slug}`);
 
     if (lyric.error) {
       return <Error error={lyric.error} />;

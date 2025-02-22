@@ -10,6 +10,13 @@ import Error from "@/components/ui/error";
 
 export const revalidate = 60;
 
+export const metadata  = () => {
+  return {
+    title: "Musique | Okessapar",
+    description: "Découvrez les musiques et vidéos d'Okessapar"
+  }
+}
+
 const API_URL = `${process.env.API_URL}`;
 
 const MusicPage = async () => {
