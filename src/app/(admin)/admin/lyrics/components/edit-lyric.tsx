@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import React, { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Quill from "quill";
@@ -13,7 +14,8 @@ import { LyricProps } from "@/app/api/lyrics/route";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Modal } from "@/components/ui/modal";
+
+const Modal = dynamic(() => import('@/components/ui/modal'));
 
 type EditLyricsValues = {
   songName: string;

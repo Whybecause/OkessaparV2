@@ -1,4 +1,6 @@
 "use client";
+
+import dynamic from 'next/dynamic';
 import React, { useState } from "react";
 import * as z from "zod";
 import ReactDatePicker from "react-datepicker";
@@ -16,7 +18,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Modal } from "@/components/ui/modal";
+const Modal = dynamic(() => import('@/components/ui/modal'));
+
 import { DISCOVERY_VENUE_PROPS } from "@/app/api/admin/music/venues/route";
 
 const DatePickerButton = ({

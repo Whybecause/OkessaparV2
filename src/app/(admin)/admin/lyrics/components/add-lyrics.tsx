@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import "quill/dist/quill.snow.css";
@@ -7,12 +8,13 @@ import { Plus } from "lucide-react";
 import Quill from "quill";
 
 import { Button } from "@/components/ui/button";
-import { Modal } from "@/components/ui/modal";
 import { toastError } from "@/utils/error-front";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import Editor from "@/app/(routes)/lyrics/components/editor";
 import { LyricProps } from "@/app/api/lyrics/route";
+
+const Modal = dynamic(() => import('@/components/ui/modal'));
 
 type CreateLyricsValues = {
   songName: string;

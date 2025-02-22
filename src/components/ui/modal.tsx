@@ -17,7 +17,7 @@ interface ModalProps {
   className?: string;
   disableEscape?: boolean;
 }
-export const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   title,
   description,
   isOpen,
@@ -48,3 +48,5 @@ export const Modal: React.FC<ModalProps> = ({
     </Dialog>
   );
 };
+
+export default Modal;

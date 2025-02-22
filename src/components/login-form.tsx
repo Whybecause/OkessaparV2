@@ -1,4 +1,5 @@
 "use client";
+import dynamic from 'next/dynamic';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import * as z from "zod";
 import axios from "axios";
@@ -19,7 +20,8 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { CircleUserRound } from "lucide-react";
-import { Modal } from "./ui/modal";
+
+const Modal = dynamic(() => import('@/components/ui/modal'));
 
 const formSchema = z.object({
   email: z.string().min(1, "Email est requis"),
