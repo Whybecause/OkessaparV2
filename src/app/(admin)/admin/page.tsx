@@ -1,5 +1,4 @@
 import MotionDiv from "@/components/motion-div";
-import axios from "axios";
 import { cookies } from "next/headers";
 import { Music } from "lucide-react";
 import Link from "next/link";
@@ -28,6 +27,7 @@ const sortShowsByDate = (shows: GetShowProps[]) => {
       } else {
         acc.past.push(show);
       }
+
 
       return acc;
     },
@@ -68,13 +68,14 @@ const AdminPage = async () => {
     if (!cookieStore.get("session")?.value) return;
 
     const cookieHeader = cookieStore.toString();
-    const response = await axios.get(`${API_URL}/shows?filter=all`, {
+    const response = await fetch(`${API_URL}/shows?filter=all`, {
       headers: {
         Cookie: cookieHeader,
       },
-      withCredentials: true,
+      credentials: "include",
+      cache: "no-store"
     });
-    const shows: GetShowProps[] = response.data;
+    const shows: GetShowProps[] = await response.json();
     const sortedShows = sortShowsByDate(shows);
 
     return (
