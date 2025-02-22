@@ -9,6 +9,17 @@
   }
 }
 
+@layer base {
+  p {
+    @apply text-gray-300;
+  }
+}
+
+:root {
+  --font-lora: 'Lora', sans-serif;
+  --font-poppins: 'Poppins', monospace;
+}
+
 html,
 body,
 :root {
@@ -24,6 +35,11 @@ html, body {
 
 body {
   -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-poppins);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-lora);
 }
 
 h1 {

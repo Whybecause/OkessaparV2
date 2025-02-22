@@ -1,5 +1,6 @@
 import Title from "@/components/title";
 import ContactForm from "./components/contact-form";
+import MotionDiv from "@/components/motion-div";
 
 export const metadata = () => {
   return {
@@ -10,11 +11,11 @@ export const metadata = () => {
 
 const ContactPage = async () => {
   return (
-    <div className="min-h-[calc(100dvh-64px)] w-full flex flex-col items-center justify-between flex-grow">
+    <MotionDiv className="min-h-[calc(100dvh-64px)] w-full flex flex-col items-center justify-between flex-grow">
       <Title title={"Contact"} />
 
       <ContactForm />
-    </div>
+    </MotionDiv>
   );
 };
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Lora } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import type { Viewport } from "next";
@@ -9,15 +9,19 @@ import "./globals.css";
 
 import { ToasterProvider } from "@/providers/toast-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lora  = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
+  display: "swap" // Permet chargement rapide
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poppins = Poppins({
+  weight: "400",
+  variable: "--font-poppins",
   subsets: ["latin"],
+  display: "swap" // Permet chargement rapide
 });
+
 
 export const metadata: Metadata = {
   title: "Okessapar // Site Officiel",
@@ -40,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lora.variable} ${poppins.variable} antialiased`}
       >
         <Script
           id="json-ld-global"

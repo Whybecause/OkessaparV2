@@ -61,7 +61,6 @@ const Navbar = () => {
             alt="Logo"
             width={30}
             height={30}
-            className=""
           />
         </Link>
 

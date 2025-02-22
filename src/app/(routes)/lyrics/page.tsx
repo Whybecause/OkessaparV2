@@ -5,6 +5,7 @@ import InfoCard from "@/components/info-card";
 import Title from "@/components/title";
 import { handleErrorServer } from "@/utils/error-front";
 import Error from "@/components/ui/error";
+import MotionDiv from "@/components/motion-div";
 
 // Static with revalidation (ISR) -> 60sec
 export const revalidate = 60;
@@ -27,7 +28,7 @@ const LyricsPage = async () => {
     }
 
     return (
-      <>
+      <MotionDiv>
         <Title title={"Lyrics"} />
 
         {data?.length === 0 ? (
@@ -35,7 +36,7 @@ const LyricsPage = async () => {
         ) : (
           <LyricsList data={data} />
         )}
-      </>
+      </MotionDiv>
     );
   } catch (error) {
     return handleErrorServer(error, "Failed to get lyrics");

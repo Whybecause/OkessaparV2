@@ -21,7 +21,7 @@ const SocialLinks = () => {
           aria-label={link.label}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:scale-110 transition"
+          className="hover:scale-110 transition text-emerald-100"
         >
           {link.icon}
         </Link>

@@ -29,14 +29,14 @@ const ShowsPage = async () => {
     }
 
     return (
-      <>
+      <MotionDiv>
         <Title title={"Concerts"} />
 
         <div className="px-4">
           {data.length === 0 ? (
-            <MotionDiv className="flex justify-center items-center w-full relative">
+            <div className="flex justify-center items-center w-full relative">
               <Image
-                src={"/submarine.webp"}
+                src={"/images/submarine.webp"}
                 alt="Submarine"
                 layout="intrinsic"
                 width={700}
@@ -49,7 +49,7 @@ const ShowsPage = async () => {
                   <p>Pas de concerts pour l&apos;instant, ça bosse...</p>
                 </div>
               </MotionDiv>
-            </MotionDiv>
+            </div>
           ) : (
             <MotionDiv>
               {data.map((show: GetShowProps) => (
@@ -58,7 +58,7 @@ const ShowsPage = async () => {
             </MotionDiv>
           )}
         </div>
-      </>
+      </MotionDiv>
     );
   } catch (error: unknown) {
     return handleErrorServer(

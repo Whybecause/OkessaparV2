@@ -46,7 +46,6 @@ const LyricPage = async ({ params }: { params: tParams }) => {
     return (
       <>
         <HeaderBack title={lyric.songName} />
-
         <div
           className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto"
           dangerouslySetInnerHTML={{

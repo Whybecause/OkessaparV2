@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
 import { Mail, User } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -63,12 +62,7 @@ const ContactForm = () => {
 
   return (
     <div className="flex flex-col justify-center items-center flex-grow px-4 pb-4">
-      <motion.div
-        className="w-full max-w-4xl bg-gray-900/50 backdrop-blur-lg p-4 sm:p-8 rounded-2xl shadow-lg flex flex-col md:flex-row"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className="w-full max-w-4xl bg-gray-900/50 backdrop-blur-lg p-4 sm:p-8 rounded-2xl shadow-lg flex flex-col md:flex-row">
         {/* Colonne Gauche - Infos */}
         <div className="md:w-1/2 p-6 flex flex-col">
           <h2 className="text-3xl font-bold text-white">
@@ -165,7 +159,7 @@ const ContactForm = () => {
             </form>
           </Form>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

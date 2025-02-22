@@ -17,7 +17,8 @@ const MotionDiv = ({
       className={className}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration, ease: "easeInOut"}}
     >
       {children}
     </motion.div>

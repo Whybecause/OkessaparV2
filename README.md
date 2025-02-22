@@ -81,4 +81,6 @@ cat firebase-admin-prod.json | jq -c
 - [x] admin dashboard graphs
 - [x] no index admin pages
 - [x] optimiser: aria-label sur les bouton et link
+- [] enhance LP and fonts
 - [] maj portfolio
+

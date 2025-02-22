@@ -10,7 +10,8 @@ const LyricsList = ({ data }: { data: LyricProps[] }) => {
       className="flex justify-center items-center flex-col mt-4 w-full gap-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
     >
       {data.map((lyric) => (
         <LyricItem key={lyric.id} data={lyric} href={"/lyrics"} />
