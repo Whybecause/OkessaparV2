@@ -110,6 +110,7 @@ const ShowsList = ({
                           Edit
                         </button>
                       </DropdownMenuItem>
+
                       <DropdownMenuItem
                         onSelect={(e) => e.preventDefault()}
                         className="text-red-500 cursor-pointer"

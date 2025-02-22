@@ -24,7 +24,7 @@ const HomePage = () => {
       },
     }),
   };
-  const title = "Un voyage musical qui réveillera vos sens";
+  const title = "Un voyage musical qui réveille les sens";
 
   const parentVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -65,7 +65,7 @@ const HomePage = () => {
 
   return (
     <motion.div
-      className="relative z-10 px-4 pb-4 md:px-0 flex items-center flex-col justify-center min-h-[calc(100dvh-64px)] bg-black text-white"
+      className="relative z-10 px-4 pb-4 md:px-0 flex items-center flex-col justify-center min-h-[calc(100dvh-48px)] bg-black text-white"
       variants={parentVariants}
       initial="hidden"
       animate="visible"
@@ -150,8 +150,8 @@ const HomePage = () => {
 
       {/* CTA BUTTON */}
       <motion.div variants={fadeIn}>
-        <Link href="/music" aria-label="Musique">
-          <Button variant="primary">Découvrir Okessapar</Button>
+        <Link href="/music" aria-label="Aller à Musique">
+          <Button>Découvrir Okessapar</Button>
         </Link>
       </motion.div>
 

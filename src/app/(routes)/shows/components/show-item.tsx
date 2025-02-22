@@ -14,12 +14,12 @@ const ShowItem = ({
   return (
     <>
       <div className="py-8 flex flex-col items-center md:grid md:grid-cols-3">
-        <div className="font-bold text-2xl md:text-xl md:w-auto md:justify-self-start">
+        <div className="font-semibold text-gray-200 text-2xl md:text-xl md:w-auto md:justify-self-start">
           {formatDateShort(data.date)}
         </div>
 
         <div className="mt-4 flex space-x-2 md:w-full md:justify-self-center md:mt-0 ">
-          <p className="text-xl font-semibold">{data.venue}</p>
+          <p className="text-xl font-semibold text-gray-200">{data.venue}</p>
           <p className="text-xl text-gray-300">
             {data.city}, {data.country}
           </p>

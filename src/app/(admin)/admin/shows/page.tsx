@@ -29,7 +29,6 @@ const ShowsDashboard = () => {
   }, [data]);
 
   const onFilterSelect = (value: string) => {
-    // setFilter(value);
     router.replace(`${pathname}?filter=${value}`);
   };
 

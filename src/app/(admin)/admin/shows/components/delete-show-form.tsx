@@ -46,7 +46,7 @@ const DeleteShowForm: React.FC<DeleteShowFormProps> = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       <ConfirmDialog />
       <button
         onClick={handleDelete}

@@ -29,7 +29,7 @@ const ShowsPage = async () => {
     }
 
     return (
-      <MotionDiv>
+      <MotionDiv className="min-h-[calc(100dvh-48px)] flex flex-col">
         <div className="relative flex">
           <Image
             src={"/images/show.jpg"}
@@ -42,32 +42,22 @@ const ShowsPage = async () => {
           <Title title={"Concerts"} />
         </div>
 
-        <div className="px-4">
-          {data.length === 0 ? (
-            <div className="flex justify-center items-center w-full relative">
-              <Image
-                src={"/images/submarine.webp"}
-                alt="Submarine"
-                layout="intrinsic"
-                width={700}
-                height={500}
-                priority
-                className="max-w-full sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%] object-contain rounded-xl"
-              />
-              <MotionDiv duration={0.9} className="absolute top-1/2 left-1/2">
-                <div className="bg-gradient-to-b w-full max-w-[400px] text-center bg-opacity-80 p-3 md:p-4 from-transparent to-gray-900/50  transform -translate-x-1/2 -translate-y-1/2 bg-gray-900/80 text-white rounded-lg shadow-md">
-                  <p>Pas de concerts pour l&apos;instant, ça bosse...</p>
-                </div>
-              </MotionDiv>
+        {data.length === 0 ? (
+          <div className="flex flex-grow justify-center items-center ">
+            <div className="bg-gradient-to-b w-full max-w-[400px] text-center p-3 md:p-6  bg-gray-900/80 text-gray-300 rounded-lg">
+              <p>Pas de concerts pour l&apos;instant, ça bosse...</p>
             </div>
-          ) : (
+          </div>
+        ) : (
+          <div className="px-4">
             <>
+              <h2 className="text-gray-100 my-8">Prochain concerts</h2>
               {data.map((show: GetShowProps) => (
                 <ShowItem key={show.id} data={show} />
               ))}
             </>
-          )}
-        </div>
+          </div>
+        )}
       </MotionDiv>
     );
   } catch (error: unknown) {

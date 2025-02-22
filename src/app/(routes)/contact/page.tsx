@@ -11,7 +11,7 @@ export const metadata = () => {
 
 const ContactPage = async () => {
   return (
-    <MotionDiv className="min-h-[calc(100dvh-64px)] w-full flex flex-col items-center justify-between flex-grow">
+    <MotionDiv className="min-h-[calc(100dvh-48px)] w-full flex flex-col items-center justify-between flex-grow">
       <Title title={"Contact"} />
 
       <ContactForm />
