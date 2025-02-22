@@ -9,12 +9,6 @@
   }
 }
 
-@layer base {
-  p {
-    @apply text-gray-300;
-  }
-}
-
 :root {
   --font-lora: 'Lora', sans-serif;
   --font-poppins: 'Poppins', monospace;

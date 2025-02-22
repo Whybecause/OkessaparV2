@@ -39,7 +39,7 @@ const MusicPage = async () => {
       <MotionDiv>
           <Title title={"Musique"} />
 
-          <p className="text-center px-4">
+          <p className="text-center px-4 text-gray-300">
             Avec Okessapar, chaque mot réchauffe l’âme, chaque note secoue le
             cœur.
             <br />
@@ -49,7 +49,7 @@ const MusicPage = async () => {
 
           {/* Section Spotify */}
           <div className="py-8">
-            <h2 className="text-2xl font-bold text-center mb-6 text-white">
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-100">
               🎵 Nos morceaux sur Spotify
             </h2>
             {spotifyData.length ? (
@@ -59,7 +59,7 @@ const MusicPage = async () => {
                     key={item.id}
                     className="flex flex-col items-center bg-gray-900/50 p-4 rounded-lg shadow-lg hover:scale-105 transition gap-2"
                   >
-                    <p className="text-lg font-semibold text-white">
+                    <p className="text-lg font-semibold text-gray-200">
                       {item.release_date.substring(0, 4)} - {item.album_name} (
                       {item.album_type.charAt(0).toUpperCase() +
                         item.album_type.slice(1)}
@@ -82,7 +82,7 @@ const MusicPage = async () => {
 
           {/* Section YouTube */}
           <div className="py-8">
-            <h2 className="text-2xl font-bold text-center mb-6 text-white">
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-100">
               🎬 Nos vidéos YouTube
             </h2>
             {youtubeData.length ? (

@@ -51,11 +51,11 @@ const ShowsPage = async () => {
               </MotionDiv>
             </div>
           ) : (
-            <MotionDiv>
+            <>
               {data.map((show: GetShowProps) => (
                 <ShowItem key={show.id} data={show} />
               ))}
-            </MotionDiv>
+            </>
           )}
         </div>
       </MotionDiv>

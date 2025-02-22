@@ -47,7 +47,7 @@ const LyricPage = async ({ params }: { params: tParams }) => {
       <>
         <HeaderBack title={lyric.songName} />
         <div
-          className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto"
+          className="p-4 text-md max-w-3xl break-all flex justify-center items-center mx-auto text-gray-300"
           dangerouslySetInnerHTML={{
             __html: new QuillDeltaToHtmlConverter(
               JSON.parse(lyric.content).ops,

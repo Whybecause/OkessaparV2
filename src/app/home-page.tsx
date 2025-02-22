@@ -98,7 +98,7 @@ const HomePage = () => {
 
       {/* TITLE */}
       <motion.h2
-        className="text-2xl font-semibold my-8 text-center"
+        className="text-2xl font-semibold my-16 text-center"
         variants={{
           hidden: { opacity: 0, y: 20 },
           visible: {
@@ -129,7 +129,7 @@ const HomePage = () => {
 
       {/* DESCRIPTION TEXT */}
       <motion.div
-        className="max-w-2xl text-center leading-loose mb-8"
+        className="max-w-2xl text-center leading-loose mb-16 text-gray-300"
         variants={fadeIn}
       >
         <p>

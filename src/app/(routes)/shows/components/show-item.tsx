@@ -20,7 +20,7 @@ const ShowItem = ({
 
         <div className="mt-4 flex space-x-2 md:w-full md:justify-self-center md:mt-0 ">
           <p className="text-xl font-semibold">{data.venue}</p>
-          <p className="text-xl">
+          <p className="text-xl text-gray-300">
             {data.city}, {data.country}
           </p>
         </div>
