@@ -175,7 +175,7 @@ const HomePage = () => {
                     />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>{photo.label}</TooltipContent>
+                <TooltipContent className="bg-black text-white">{photo.label}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </motion.div>
