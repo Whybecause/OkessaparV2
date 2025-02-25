@@ -11,6 +11,7 @@ const ShowItem = ({
   data: GetShowProps;
   children?: React.ReactNode;
 }) => {
+  console.log('DATE =', data.date);
   return (
     <>
       <div className="py-8 flex flex-col items-center md:grid md:grid-cols-3">

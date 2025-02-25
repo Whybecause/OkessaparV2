@@ -40,6 +40,8 @@ const ShowsList = ({
     return <InfoCard message={noResultMessage} />;
   }
 
+  console.log('DATA ADMIN =', data);
+
   return (
     <>
       <div className="flex items-center justify-center gap-2 py-4">
