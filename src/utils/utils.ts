@@ -11,7 +11,8 @@ export const formatDateShort = (date: Date | string) => {
   return dateObj.toLocaleDateString("fr-FR", {
     day: "2-digit",
     month: "short",
-    year: "numeric"
+    year: "numeric",
+    timeZone: "Europe/Paris"
   });
 };
 
@@ -20,7 +21,8 @@ export const formatDate = (date: Date | string) => {
   return dateObj.toLocaleDateString("fr-FR", {
     day: "2-digit",
     month: "short",
-    year: "numeric"
+    year: "numeric",
+    timeZone: "Europe/Paris"
   });
 };
 
