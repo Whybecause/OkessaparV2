@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
 import { getProSessionCookie } from "@/utils/auth";
 
 export async function GET(
-  _req: Request,
-  { params }: { params: { filename: string } }
+  _req: NextRequest,
+  context: { params: Promise<{ filename: string }> }
 ) {
   const proSession = await getProSessionCookie();
 
@@ -14,8 +14,10 @@ export async function GET(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { filename } = await context.params;
+
   // Sécurise le chemin pour éviter les traversals
-  const fileName = path.basename(params.filename);
+  const fileName = path.basename(filename);
   const filePath = path.join(process.cwd(), "private-files", fileName);
 
   if (!fs.existsSync(filePath)) {
