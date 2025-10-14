@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -43,6 +43,7 @@ const Navbar = () => {
     { href: "/shows", label: "Concerts" },
     { href: "/lyrics", label: "Lyrics" },
     { href: "/contact", label: "Contact" },
+    { href: "/pro", label: "Pro" },
   ];
   const { user } = useUser();
 
@@ -60,14 +61,10 @@ const Navbar = () => {
           aria-label="Logo"
           className="flex items-center h-full transition-transform duration-300 hover:scale-110 hover:rotate-6 cursor-pointer"
         >
-          <Image
+          <img
             src={"/logo_sans_fond.png"}
             alt="Logo"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-12 w-auto"
-            priority
+            className="object-contain h-12 w-12"
           />
         </Link>
 
@@ -77,7 +74,7 @@ const Navbar = () => {
             href={route.href}
             aria-label={route.label}
             key={route.href}
-            className="relative text-md font-semibold group text-gray-200 uppercase tracking-wide"
+            className="relative text-md group text-gray-400 hover:text-gray-300 tracking-wide"
           >
             {route.label}
             <span

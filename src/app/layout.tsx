@@ -8,6 +8,7 @@ import type { Viewport } from "next";
 import "./globals.css";
 
 import { ToasterProvider } from "@/providers/toast-provider";
+import ScrollToTop from "@/hooks/scrollToTop";
 
 const lora  = Lora({
   variable: "--font-lora",
@@ -88,6 +89,7 @@ export default function RootLayout({
         />
         <ToasterProvider />
         <div>
+          <ScrollToTop />
           {children}
           <SpeedInsights />
           <Analytics />

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -85,8 +85,9 @@ const HomePage = () => {
         <Image
           src="/logo-full.webp"
           alt="Logo"
+          className="object-contain"
           width={500}
-          height={500}
+          height={250}
           priority
         />
       </motion.div>
@@ -169,8 +170,8 @@ const HomePage = () => {
                     <Image
                       src={photo.src}
                       alt={photo.label}
-                      objectFit="cover"
-                      fill
+                      className="object-cover"
+                      layout="fill"
                       priority
                     />
                   </div>

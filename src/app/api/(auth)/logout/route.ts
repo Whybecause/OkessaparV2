@@ -1,8 +1,8 @@
-import { getRedisClient } from "@/lib/redis/redis";
+import { NextResponse } from "next/server";
 import { getSessionCookie } from "@/utils/auth";
 import { errorServer } from "@/utils/error-server";
-import { createHash } from "crypto";
-import { NextResponse } from "next/server";
+// import { getRedisClient } from "@/lib/redis/redis";
+// import { createHash } from "crypto";
 
 // Logout
 export async function POST() {
@@ -12,9 +12,9 @@ export async function POST() {
       return NextResponse.json({ message: "No session found" });
     }
 
-    const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
-    const redis = getRedisClient();
-    await redis.del(sessionKey);
+    // const sessionKey = createHash("sha256").update(sessionCookie).digest("hex");
+    // const redis = getRedisClient();
+    // await redis.del(sessionKey);
 
     const response = NextResponse.json({ message: "Déconnexion réussie" });
 

@@ -13,7 +13,6 @@ export async function POST(
     const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 jours en ms
 
     const sessionCookie = await auth.createSessionCookie(token.toString(), { expiresIn })
-
     const cookieStore = await cookies();
     cookieStore.set({
       name: "session",

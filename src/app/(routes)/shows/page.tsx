@@ -1,5 +1,5 @@
 import axios from "axios";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 import { GetShowProps } from "@/app/api/shows/route";
 import ShowItem from "./components/show-item";
