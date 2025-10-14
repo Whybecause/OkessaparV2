@@ -18,7 +18,8 @@ export default function ProLogin() {
     try {
       await axios.post("/api/pro-login", JSON.stringify({ password }));
       router.refresh();
-    } catch (_err) {
+    } catch (err) {
+      console.error('Err', err);
       setError("Mot de passe incorrect");
     } finally {
       setLoading(false);
