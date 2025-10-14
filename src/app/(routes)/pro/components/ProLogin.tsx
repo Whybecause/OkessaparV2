@@ -16,10 +16,7 @@ export default function ProLogin() {
 
     setLoading(true);
     try {
-      await axios.post(
-        "/api/pro-login",
-        JSON.stringify({ password })
-      );
+      await axios.post("/api/pro-login", JSON.stringify({ password }));
       router.refresh();
     } catch (err) {
       setError("Mot de passe incorrect");
@@ -30,9 +27,14 @@ export default function ProLogin() {
 
   return (
     <div>
-      <main className="p-8 flex flex-col items-center">
-        <h1 className="text-xl font-semibold mb-4">Entrer le mot de passe</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-64">
+      <main className="p-8 flex flex-col items-center max-w-lg w-full bg-gray-900/20 rounded-xl mx-auto">
+        <h2 className="text-lg text-gray-300 font-semibold mb-4">
+          Entrer le mot de passe
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2 max-w-sm w-full"
+        >
           <Input
             type="password"
             placeholder="Mot de passe"
@@ -41,7 +43,9 @@ export default function ProLogin() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button disabled={loading} type="submit">Valider</Button>
+          <Button disabled={loading} type="submit">
+            Valider
+          </Button>
           {error && <p className="text-red-500">{error}</p>}
         </form>
       </main>
